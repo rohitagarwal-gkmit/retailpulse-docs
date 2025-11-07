@@ -1,1 +1,8 @@
-site_name: My Docs
+site_name: RetailPulse Docs
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Functional Documentation:
+    - Functional Docs: functional/functional_docs.md
+    - Use Cases: functional/use_cases.md
