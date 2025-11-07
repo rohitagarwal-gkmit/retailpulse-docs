@@ -16,13 +16,13 @@
 * Operator uploads `.csv` or `.pdf`
 * Stored in S3 bucket
 * Tracking table logs file details: `filename`, `upload_time`, `uploaded_by`, `isProcessed`
-* ETL job (PySpark) extracts and standardizes data
+* ETL job (Pandas) extracts and standardizes data
 * Data loaded to `sales` and `products` tables
 
 ### 2. Supplier Bills Upload
 
 * Operator uploads supplier bill (CSV or PDF)
-* Extracted using PySpark or PDF parser
+* Extracted using PDF parser
 * Updates `inventory` table (add stock, update cost price)
 * Option for Admin to review uploads in dashboard
 

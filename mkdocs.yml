@@ -6,3 +6,5 @@ nav:
   - Functional Documentation:
     - Functional Docs: functional/functional_docs.md
     - Use Cases: functional/use_cases.md
+plugins:
+  - to-pdf

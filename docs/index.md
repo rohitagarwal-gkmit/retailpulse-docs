@@ -29,8 +29,7 @@ A powered web dashboard that automates daily retail analytics for a single store
 | Component                  | Role              | Description                                                  |
 | -------------------------- | ----------------- | ------------------------------------------------------------ |
 | **Frontend**               | Web + PWA         | Operator uploads POS & supplier files, Admin views analytics |
-| **Backend**                | API + ETL Trigger | Handles file upload, triggers PySpark ETL, serves analytics  |
+| **Backend**                | API + ETL         | Handles file upload, triggers Pandas ETL, serves analytics  |
 | **Database**               | Structured Store  | Sales, Products, Suppliers, Inventory                        |
-| **Processing**             | ETL Jobs          | Parse, transform, and enrich uploaded data                   |
 | **Storage**                | Data Warehouse    | Stores uploaded files & tracking table                       |
 | **Tracking Table**         | Tracking File     | Records file name, upload time, status (Processed/Failed)    |
