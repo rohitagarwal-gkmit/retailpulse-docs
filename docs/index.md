@@ -1,17 +1,35 @@
-# Welcome to MkDocs
+# **RetailPulse**
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+A lightweight, data-driven Inventory dashboard for a single store with real-world data formats.
 
-## Commands
+---
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+## Problem Statement
 
-## Project layout
+A small retail store, needs a simple way to analyze its sales and inventory. The store generates daily sales reports as PDFs or CSVs from its POS machine and receives supplier invoices in various formats.
 
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+Currently, there is no centralized system to:
+
+1. Track daily profit margins.
+2. Identify fast-moving vs. slow-moving products.
+3. Manage inventory levels.
+
+The goal is to build a web application that allows a store operator to upload these files and provides an admin dashboard to view key business insights.
+
+---
+
+## The Solution – RetailPulse
+
+A powered web dashboard that automates daily retail analytics for a single store, by processing POS sales files (PDF/CSV) and supplier bills, then storing them in a data warehouse, with S3 tracking for file lineage.
+
+---
+
+## Core Concept
+
+| Component                  | Role              | Description                                                  |
+| -------------------------- | ----------------- | ------------------------------------------------------------ |
+| **Frontend**               | Web + PWA         | Operator uploads POS & supplier files, Admin views analytics |
+| **Backend**                | API + ETL         | Handles file upload, triggers Pandas ETL, serves analytics  |
+| **Database**               | Structured Store  | Sales, Products, Suppliers, Inventory                        |
+| **Storage**                | Data Warehouse    | Stores uploaded files & tracking table                       |
+| **Tracking Table**         | Tracking File     | Records file name, upload time, status (Processed/Failed)    |
