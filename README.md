@@ -13,25 +13,6 @@ This repository contains the complete documentation for **RetailPulse**, a syste
 - **Inventory Management** - Real-time stock tracking with expiry dates and batch management
 - **Analytics & Reporting** - Business insights and performance dashboards
 
-
-## Documentation Structure
-
-```
-docs/
-├── index.md                    # Home page & overview
-├── functional_docs.md          # User roles & system modules
-├── use_cases.md               # User workflows & scenarios
-├── schema_design.md           # Database design & ERD
-├── edge_cases.md              # Error handling & edge cases
-├── future_enhancements.md     # Planned features
-└── technical/
-    ├── architecture.md        # System architecture
-    ├── data_flow.md          # Data flow diagrams
-    ├── auth.md               # Authentication & security
-    ├── tech_stack.md         # Technology stack
-    └── api_design.md         # API specifications
-```
-
 ## What's Included
 
 ### Functional Documentation
