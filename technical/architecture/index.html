@@ -411,15 +411,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#high-level-architecture-diagram" class="md-nav__link">
-    <span class="md-ellipsis">
-      High-Level Architecture Diagram
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#aws-specific-architecture-diagram" class="md-nav__link">
     <span class="md-ellipsis">
       AWS-Specific Architecture Diagram
@@ -547,15 +538,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#high-level-architecture-diagram" class="md-nav__link">
-    <span class="md-ellipsis">
-      High-Level Architecture Diagram
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#aws-specific-architecture-diagram" class="md-nav__link">
     <span class="md-ellipsis">
       AWS-Specific Architecture Diagram
@@ -589,58 +571,9 @@
 <li><strong>Database</strong>: A PostgreSQL database that stores all the data.</li>
 </ol>
 <hr />
-<h2 id="high-level-architecture-diagram">High-Level Architecture Diagram</h2>
-<p>This diagram shows how the parts of the system connect.</p>
-<pre class="mermaid"><code>graph TB
-    subgraph Client["Client Layer"]
-        Browser[Web Browser]
-    end
-
-    subgraph CDN["Static Hosting"]
-        React[React App]
-    end
-
-    subgraph Application["Application Layer"]
-        LB[Load Balancer]
-        API1[Backend App 1]
-        API2[Backend App 2]
-    end
-
-    subgraph Data["Data Layer"]
-        DB[(PostgreSQL Database)]
-        S3[S3 File Storage]
-    end
-
-    Browser --&gt; React
-    React --&gt;|HTTPS| LB
-    LB --&gt; API1
-    LB --&gt; API2
-    API1 --&gt; DB
-    API2 --&gt; DB
-    API1 --&gt; S3
-    API2 --&gt; S3</code></pre>
-<hr />
 <h2 id="aws-specific-architecture-diagram">AWS-Specific Architecture Diagram</h2>
 <p>This diagram shows a simplified view of the system hosted on AWS, with the frontend on Vercel.</p>
-<pre class="mermaid"><code>graph TB
-    subgraph Internet["Internet"]
-        Users[Users]
-    end
-
-    Frontend[(Vercel Frontend)]
-
-    subgraph AWS["AWS Cloud"]
-        subgraph VPC["VPC"]
-            subgraph PrivateSubnet["Private Subnet"]
-                Backend[Containerized Backend]
-                DB[(PostgreSQL Database)]
-            end
-        end
-    end
-
-    Users --&gt;|HTTPS| Frontend
-    Frontend --&gt;|HTTPS| Backend
-    Backend --&gt; DB</code></pre>
+<p><img alt="RetailPulse AWS Architecture" src="../../assets/Architecture.png" /></p>
 
 
 
