@@ -1,11 +1,11 @@
 # RetailPulse Documentation
 
-> Comprehensive documentation for RetailPulse - A web-based system for billing, inventory, and reporting for medical wholesalers.
+Comprehensive documentation for RetailPulse - A web-based system for billing, inventory, and reporting for medical wholesalers.
 
 [![Documentation](https://img.shields.io/badge/docs-mkdocs-blue)](https://www.mkdocs.org/)
 [![Material Theme](https://img.shields.io/badge/theme-material-blue)](https://squidfunk.github.io/mkdocs-material/)
 
-## 📖 About
+## About
 
 This repository contains the complete documentation for **RetailPulse**, a system designed to streamline operations for medical wholesalers by automating:
 
@@ -14,7 +14,7 @@ This repository contains the complete documentation for **RetailPulse**, a syste
 - **Analytics & Reporting** - Business insights and performance dashboards
 
 
-## 📚 Documentation Structure
+## Documentation Structure
 
 ```
 docs/
@@ -32,7 +32,7 @@ docs/
     └── api_design.md         # API specifications
 ```
 
-## 🎯 What's Included
+## What's Included
 
 ### Functional Documentation
 - User roles and permissions
@@ -56,14 +56,14 @@ docs/
 - Edge cases and error handling
 - Future enhancement roadmap
 
-## 🛠️ Built With
+## Built With
 
 - [MkDocs](https://www.mkdocs.org/) - Documentation generator
 - [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) - Material Design theme
 - [mkdocs-with-pdf](https://github.com/ric-evans/mkdocs-with-pdf) - PDF export plugin
 - [PyMdown Extensions](https://facelessuser.github.io/pymdown-extensions/) - Markdown extensions (including Mermaid diagrams)
 
-## 📄 PDF Export
+## PDF Export
 
 A PDF version of the complete documentation is automatically generated during the build process and can be found at:
 ```
