@@ -11,7 +11,7 @@ nav:
       - Tech Stack: technical/tech_stack.md
       - Data Flow: technical/data_flow.md
       - Authentication: technical/auth.md
-      - Schema Design: technicalschema_design.md
+      - Schema Design: technical/schema_design.md
       - Architecture: technical/architecture.md
       - API Design: technical/api_design.md
   - Edge Cases & Error Handling: edge_cases.md
