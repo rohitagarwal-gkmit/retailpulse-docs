@@ -1,35 +1,47 @@
-# **RetailPulse**
+# RetailPulse
 
-A lightweight, data-driven Inventory dashboard for a single store with real-world data formats.
+A simple, web-based system for billing, inventory, and reports for medical wholesalers.
 
 ---
 
-## Problem Statement
+## The Problem
 
-A small retail store, needs a simple way to analyze its sales and inventory. The store generates daily sales reports as PDFs or CSVs from its POS machine and receives supplier invoices in various formats.
+Medical wholesalers face three main challenges:
 
-Currently, there is no centralized system to:
+### 1. Manual Bill Generation is Slow
+Managers spend too much time writing bills by hand. This leads to wasted hours, mistakes, and lost paper bills.
 
-1. Track daily profit margins.
-2. Identify fast-moving vs. slow-moving products.
-3. Manage inventory levels.
+### 2. Inventory is Hard to Manage
+It's difficult to track stock levels in real-time. This causes expired medicines to go unnoticed, stockouts, and errors in records.
 
-The goal is to build a web application that allows a store operator to upload these files and provides an admin dashboard to view key business insights.
+### 3. No Business Visibility
+Owners lack clear information on sales, profits, and trends. They spend hours reviewing paper bills and cannot make data-driven decisions.
+
+### Current Workflow (The Hard Way)
+
+Customer arrives → Manager checks stock by hand → Writes bill on paper → Calculates total → Updates inventory book → Files paper bill → Owner reviews bills weekly.
+
+This process is slow, error-prone, and lacks real-time information.
 
 ---
 
 ## The Solution – RetailPulse
 
-A powered web dashboard that automates daily retail analytics for a single store, by processing POS sales files (PDF/CSV) and supplier bills, then storing them in a data warehouse, with S3 tracking for file lineage.
+RetailPulse is a web-based system that automates medical wholesale operations through three parts:
+
+1.  **Bill Generation**: Fast digital billing with automatic PDF creation.
+2.  **Inventory Management**: Real-time stock tracking, including expiry dates and batches.
+3.  **Analytics**: Real-time business insights and performance reports.
+
+### Transformed Workflow
+
+Customer arrives → Manager creates a digital bill (1 min) → System automatically updates inventory → Bill is saved & PDF generated → Owner sees real-time reports.
 
 ---
 
-## Core Concept
+## Who Uses This System?
 
-| Component                  | Role              | Description                                                  |
-| -------------------------- | ----------------- | ------------------------------------------------------------ |
-| **Frontend**               | Web + PWA         | Operator uploads POS & supplier files, Admin views analytics |
-| **Backend**                | API + ETL         | Handles file upload, triggers Pandas ETL, serves analytics  |
-| **Database**               | Structured Store  | Sales, Products, Suppliers, Inventory                        |
-| **Storage**                | Data Warehouse    | Stores uploaded files & tracking table                       |
-| **Tracking Table**         | Tracking File     | Records file name, upload time, status (Processed/Failed)    |
+| Role | Access Level | What they can do |
+|---|---|---|
+| Store Manager | Limited | Create bills, view stock, download PDF bills, search products. |
+| Admin (Owner) | Full | View all bills, manage inventory, access reports, manage users. |

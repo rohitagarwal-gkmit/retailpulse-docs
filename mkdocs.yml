@@ -1,10 +1,27 @@
 site_name: RetailPulse Docs
 theme:
   name: material
+  features:
+    - navigation.expand
 nav:
   - Home: index.md
-  - Functional Documentation:
-    - Functional Docs: functional/functional_docs.md
-    - Use Cases: functional/use_cases.md
+  - Functional Docs: functional_docs.md
+  - Use Cases: use_cases.md
+  - Technical Docs:
+      - Tech Stack: technical/tech_stack.md
+      - Data Flow: technical/data_flow.md
+      - Authentication: technical/auth.md
+      - Schema Design: technicalschema_design.md
+      - Architecture: technical/architecture.md
+      - API Design: technical/api_design.md
+  - Edge Cases & Error Handling: edge_cases.md
+  - Future Enhancements: future_enhancements.md
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
 plugins:
-  - to-pdf
+  - to-pdf:
+      output_path: pdf/document.pdf
