@@ -1,0 +1,1393 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../use_cases/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.23">
+    
+    
+      
+        <title>Functional Docs - RetailPulse Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#functional-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="RetailPulse Docs" class="md-header__button md-logo" aria-label="RetailPulse Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RetailPulse Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Functional Docs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="RetailPulse Docs" class="md-nav__button md-logo" aria-label="RetailPulse Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RetailPulse Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Functional Docs
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Functional Docs
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Roles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-modules-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Modules Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-1-bill-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 1: Bill Generation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module 1: Bill Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-product-search-and-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Product Search and Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-real-time-stock-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Real-time Stock Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-bill-creation-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Bill Creation Form
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-bill-numbering-and-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Bill Numbering and Tracking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-pdf-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5 PDF Generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-automatic-inventory-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6 Automatic Inventory Update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-2-inventory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 2: Inventory Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module 2: Inventory Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-product-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Product Creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-view-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 View Inventory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-update-inventor" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Update Inventor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-delete-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Delete Product
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-3-analytics-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 3: Analytics Dashboard
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module 3: Analytics Dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-sales-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Sales Analytics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-product-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Product Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-inventory-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Inventory Insights
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-time-range-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Time Range Filters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-visual-dashboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Visual Dashboards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-4-authentication-and-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 4: Authentication and Authorization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module 4: Authentication and Authorization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-user-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 User Registration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-user-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 User Login
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-role-based-access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Role-Based Access Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use_cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Use Cases
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Technical Docs
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Technical Docs
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technical/tech_stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tech Stack
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technical/data_flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Data Flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technical/auth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Authentication
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technicalschema_design.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Schema Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technical/architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Architecture
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technical/api_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Design
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../edge_cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Edge Cases & Error Handling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../future_enhancements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Future Enhancements
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#user-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      User Roles
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-modules-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Modules Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-1-bill-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 1: Bill Generation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module 1: Bill Generation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-product-search-and-selection" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 Product Search and Selection
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-real-time-stock-validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.2 Real-time Stock Validation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-bill-creation-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.3 Bill Creation Form
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-bill-numbering-and-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.4 Bill Numbering and Tracking
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-pdf-generation" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.5 PDF Generation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#16-automatic-inventory-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.6 Automatic Inventory Update
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-2-inventory-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 2: Inventory Management
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module 2: Inventory Management">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-product-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.1 Product Creation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-view-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.2 View Inventory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-update-inventor" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.3 Update Inventor
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-delete-product" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.4 Delete Product
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-3-analytics-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 3: Analytics Dashboard
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module 3: Analytics Dashboard">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-sales-analytics" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Sales Analytics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-product-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.2 Product Performance
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-inventory-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.3 Inventory Insights
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-time-range-filters" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.4 Time Range Filters
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#35-visual-dashboards" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.5 Visual Dashboards
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#module-4-authentication-and-authorization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Module 4: Authentication and Authorization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Module 4: Authentication and Authorization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#features_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-user-registration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 User Registration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-user-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 User Login
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-role-based-access-control" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Role-Based Access Control
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="functional-documentation">Functional Documentation</h1>
+<h2 id="user-roles">User Roles</h2>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Access</th>
+<th>What they can do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Admin</td>
+<td>Full</td>
+<td>See reports, profits, stock trends, add/change/delete products, view all bills, manage users</td>
+</tr>
+<tr>
+<td>Store Manager</td>
+<td>Limited</td>
+<td>Create bills, view stock, download PDF bills, search products</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="system-modules-overview">System Modules Overview</h2>
+<p>RetailPulse has three main parts that help medical wholesale businesses.</p>
+<hr />
+<h2 id="module-1-bill-generation">Module 1: Bill Generation</h2>
+<h3 id="purpose">Purpose</h3>
+<p>To help store managers make bills quickly and correctly.</p>
+<h3 id="features">Features</h3>
+<h4 id="11-product-search-and-selection">1.1 Product Search and Selection</h4>
+<ul>
+<li>Search: Find medicines by name, maker, or type.</li>
+<li>Product Details: See stock, price, and expiry when picking a product.</li>
+<li>Multi-Product: Add many products to one bill.</li>
+</ul>
+<h4 id="12-real-time-stock-validation">1.2 Real-time Stock Validation</h4>
+<ul>
+<li>Availability: Check if a product is in stock before adding to a bill.</li>
+<li>Quantity: Make sure the amount asked for is not more than what's available.</li>
+</ul>
+<h4 id="13-bill-creation-form">1.3 Bill Creation Form</h4>
+<ul>
+<li>Customer Info: Add customer name, contact.</li>
+<li>Product List: Shows product name, unit price, quantity, and total price.</li>
+<li>Calculations: Shows subtotal, discount, tax, and grand total.</li>
+</ul>
+<h4 id="14-bill-numbering-and-tracking">1.4 Bill Numbering and Tracking</h4>
+<ul>
+<li>Unique Numbers: Bills get an automatic, unique number.</li>
+<li>Date/Time: Records when the bill was made.</li>
+<li>Created By: Shows which manager made the bill.</li>
+</ul>
+<h4 id="15-pdf-generation">1.5 PDF Generation</h4>
+<p>Bills are made in a professional PDF format with the store logo. Includes store info, item list, and payment summary. You can download the PDF instantly.</p>
+<h4 id="16-automatic-inventory-update">1.6 Automatic Inventory Update</h4>
+<ul>
+<li>Stock Deduction: Stock amounts are automatically reduced.</li>
+<li>Sales Log: Every sale is recorded for reports.</li>
+</ul>
+<hr />
+<h2 id="module-2-inventory-management">Module 2: Inventory Management</h2>
+<h3 id="purpose_1">Purpose</h3>
+<p>To give admins full control over products and stock, with alerts for low or expiring items.</p>
+<h3 id="features_1">Features</h3>
+<h4 id="21-product-creation">2.1 Product Creation</h4>
+<ul>
+<li>Basic Info: Add product name, category, manufacturer, and description.</li>
+<li>Pricing: Set cost price, selling price, and see profit margin.</li>
+</ul>
+<h4 id="22-view-inventory">2.2 View Inventory</h4>
+<ul>
+<li>List View: See all products in a sortable table with key details.</li>
+<li>Search and Filter: Find products by name, maker, category, or stock status.</li>
+</ul>
+<h4 id="23-update-inventor">2.3 Update Inventor</h4>
+<ul>
+<li>Edit Details: Change product prices, reorder levels, or descriptions.</li>
+<li>Stock Adjustments: Manually add or reduce stock, with reasons and a record of who did it.</li>
+</ul>
+<h4 id="24-delete-product">2.4 Delete Product</h4>
+<ul>
+<li>Delete: permanently removed.</li>
+</ul>
+<hr />
+<h2 id="module-3-analytics-dashboard">Module 3: Analytics Dashboard</h2>
+<h3 id="purpose_2">Purpose</h3>
+<p>To give admins real-time business insights for smart decisions.</p>
+<h3 id="features_2">Features</h3>
+<h4 id="31-sales-analytics">3.1 Sales Analytics</h4>
+<ul>
+<li>Revenue: Shows total revenue and trends over time.</li>
+<li>Bills: Shows number of bills, average bill value, and peak hours.</li>
+<li>Profit: Shows total profit, profit margin, and trends.</li>
+</ul>
+<h4 id="32-product-performance">3.2 Product Performance</h4>
+<ul>
+<li>Best Sellers: Lists top products by sales, revenue, and profit.</li>
+<li>Slow Movers: Identifies products with low sales.</li>
+<li>Profitability: Shows products with high profit margins or those losing money.</li>
+</ul>
+<h4 id="33-inventory-insights">3.3 Inventory Insights</h4>
+<ul>
+<li>Stock Summary: Shows total inventory value, unique products, and low/out-of-stock items.</li>
+<li>Categories: Shows stock and sales by category.</li>
+</ul>
+<h4 id="34-time-range-filters">3.4 Time Range Filters</h4>
+<ul>
+<li>Quick Views: See data for today, this week, this month, or this year.</li>
+<li>Custom Dates: Pick your own start and end dates.</li>
+</ul>
+<h4 id="35-visual-dashboards">3.5 Visual Dashboards</h4>
+<ul>
+<li>Charts: Uses line, bar, and pie charts for easy understanding.</li>
+<li>Interactive: Hover for details, click to see more.</li>
+</ul>
+<hr />
+<h2 id="module-4-authentication-and-authorization">Module 4: Authentication and Authorization</h2>
+<h3 id="purpose_3">Purpose</h3>
+<p>To secure the system and ensure users only access what they are allowed to.</p>
+<h3 id="features_3">Features</h3>
+<h4 id="41-user-registration">4.1 User Registration</h4>
+<ul>
+<li>Admin Only: Only admins can create new user accounts.</li>
+<li>User Details: Admins add name, username, password, and role.</li>
+</ul>
+<h4 id="42-user-login">4.2 User Login</h4>
+<ul>
+<li>Methods: Log in with username and password.</li>
+<li>Session: Manages user sessions and automatic logouts.</li>
+</ul>
+<h4 id="43-role-based-access-control">4.3 Role-Based Access Control</h4>
+<ul>
+<li>Manager Role: Can create bills, view stock, and see their own bill history.</li>
+<li>Admin Role: Has all manager permissions plus full control over inventory, analytics, and user management.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.expand"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
