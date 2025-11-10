@@ -72,17 +72,6 @@ erDiagram
 ### 1. users
 Stores user login information.
 
-```sql
-CREATE TABLE users (
-    id            SERIAL PRIMARY KEY,
-    username      VARCHAR(50) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    role          VARCHAR(20) NOT NULL,
-    full_name     VARCHAR(100),
-    is_active     BOOLEAN DEFAULT TRUE
-);
-```
-
 **Fields:**
 
 - `id` - Unique user ID
@@ -96,19 +85,6 @@ CREATE TABLE users (
 
 ### 2. products
 Stores all product information.
-
-```sql
-CREATE TABLE products (
-    id            SERIAL PRIMARY KEY,
-    name          VARCHAR(200) UNIQUE NOT NULL,
-    category      VARCHAR(100),
-    manufacturer  VARCHAR(100),
-    description   TEXT,
-    cost_price    DECIMAL(10,2) NOT NULL,
-    selling_price DECIMAL(10,2) NOT NULL,
-    is_active     BOOLEAN DEFAULT TRUE
-);
-```
 
 **Fields:**
 
@@ -126,14 +102,6 @@ CREATE TABLE products (
 ### 3. inventory
 Tracks stock quantity for each product.
 
-```sql
-CREATE TABLE inventory (
-    id         SERIAL PRIMARY KEY,
-    product_id INTEGER NOT NULL REFERENCES products(id),
-    quantity   INTEGER DEFAULT 0
-);
-```
-
 **Fields:**
 
 - `id` - Unique inventory ID
@@ -144,22 +112,6 @@ CREATE TABLE inventory (
 
 ### 4. bills
 Stores bill information.
-
-```sql
-CREATE TABLE bills (
-    id               SERIAL PRIMARY KEY,
-    bill_number      VARCHAR(50) UNIQUE NOT NULL,
-    bill_date        DATE NOT NULL,
-    customer_name    VARCHAR(100),
-    customer_contact VARCHAR(20),
-    total_amount     DECIMAL(10,2) NOT NULL,
-    discount         DECIMAL(10,2) DEFAULT 0,
-    tax_amount       DECIMAL(10,2) DEFAULT 0,
-    grand_total      DECIMAL(10,2) NOT NULL,
-    created_by       INTEGER NOT NULL REFERENCES users(id),
-    pdf_path         VARCHAR(255)
-);
-```
 
 **Fields:**
 
@@ -179,17 +131,6 @@ CREATE TABLE bills (
 
 ### 5. bill_items
 Stores individual items in each bill.
-
-```sql
-CREATE TABLE bill_items (
-    id          SERIAL PRIMARY KEY,
-    bill_id     INTEGER NOT NULL REFERENCES bills(id),
-    product_id  INTEGER NOT NULL REFERENCES products(id),
-    quantity    INTEGER NOT NULL,
-    unit_price  DECIMAL(10,2) NOT NULL,
-    total_price DECIMAL(10,2) NOT NULL
-);
-```
 
 **Fields:**
 
