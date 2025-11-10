@@ -16,8 +16,6 @@ erDiagram
     PRODUCTS ||--o{ INVENTORY : has
     PRODUCTS ||--o{ BILL_ITEMS : contains
     BILLS ||--|{ BILL_ITEMS : has
-    BILLS ||--o{ TRANSACTIONS : generates
-    PRODUCTS ||--o{ TRANSACTIONS : tracks
     
     USERS {
         int id PK
@@ -26,7 +24,6 @@ erDiagram
         varchar role
         varchar full_name
         boolean is_active
-        timestamp created_at
     }
     
     PRODUCTS {
@@ -38,19 +35,17 @@ erDiagram
         decimal cost_price
         decimal selling_price
         boolean is_active
-        timestamp created_at
-        timestamp updated_at
     }
     
     INVENTORY {
         int id PK
         int product_id FK
         int quantity
-        timestamp last_updated
     }
     
     BILLS {
         int id PK
+        date bill_date
         varchar bill_number UK
         varchar customer_name
         varchar customer_contact
@@ -59,7 +54,6 @@ erDiagram
         decimal tax_amount
         decimal grand_total
         int created_by FK
-        timestamp created_at
         varchar pdf_path
     }
     
@@ -70,20 +64,6 @@ erDiagram
         int quantity
         decimal unit_price
         decimal total_price
-        decimal cost_price
-        decimal profit
-    }
-    
-    TRANSACTIONS {
-        int id PK
-        int bill_id FK
-        int product_id FK
-        int quantity
-        decimal revenue
-        decimal cost
-        decimal profit
-        date transaction_date
-        timestamp created_at
     }
 ```
 
@@ -102,8 +82,7 @@ CREATE TABLE users (
     password_hash   VARCHAR(255) NOT NULL,
     role            VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'manager')),
     full_name       VARCHAR(100),
-    is_active       BOOLEAN DEFAULT TRUE NOT NULL,
-    created_at      TIMESTAMP DEFAULT NOW() NOT NULL
+    is_active       BOOLEAN DEFAULT TRUE NOT NULL
 );
 ```
 
@@ -126,9 +105,7 @@ CREATE TABLE products (
     description     TEXT,
     cost_price      DECIMAL(10,2) NOT NULL,
     selling_price   DECIMAL(10,2) NOT NULL,
-    is_active       BOOLEAN DEFAULT TRUE NOT NULL,
-    created_at      TIMESTAMP DEFAULT NOW() NOT NULL,
-    updated_at      TIMESTAMP DEFAULT NOW() NOT NULL
+    is_active       BOOLEAN DEFAULT TRUE NOT NULL
 );
 ```
 
@@ -146,8 +123,7 @@ This table tracks the stock level for each product.
 CREATE TABLE inventory (
     id              SERIAL PRIMARY KEY,
     product_id      INTEGER NOT NULL REFERENCES products(id) ON DELETE RESTRICT,
-    quantity        INTEGER NOT NULL DEFAULT 0,
-    last_updated    TIMESTAMP DEFAULT NOW() NOT NULL
+    quantity        INTEGER NOT NULL DEFAULT 0
 );
 ```
 
@@ -171,7 +147,7 @@ CREATE TABLE bills (
     tax_amount          DECIMAL(10,2) DEFAULT 0,
     grand_total         DECIMAL(10,2) NOT NULL,
     created_by          INTEGER NOT NULL REFERENCES users(id),
-    created_at          TIMESTAMP DEFAULT NOW() NOT NULL,
+    bill_date           DATE NOT NULL,
     pdf_path            VARCHAR(255)
 );
 ```
@@ -180,6 +156,7 @@ CREATE TABLE bills (
 - `customer_name`: The customer's name (optional).
 - `grand_total`: The final amount the customer pays.
 - `created_by`: The user who made this bill.
+- `pdf_path`: Location where the PDF bill is stored.
 
 ---
 
@@ -194,45 +171,11 @@ CREATE TABLE bill_items (
     product_id      INTEGER NOT NULL REFERENCES products(id),
     quantity        INTEGER NOT NULL,
     unit_price      DECIMAL(10,2) NOT NULL,
-    total_price     DECIMAL(10,2) NOT NULL,
-    cost_price      DECIMAL(10,2),
-    profit          DECIMAL(10,2) GENERATED ALWAYS AS (total_price - (cost_price * quantity)) STORED
+    total_price     DECIMAL(10,2) NOT NULL
 );
 ```
 
 - `bill_id`: Links to the bill this item is part of.
 - `product_id`: Links to the product that was sold.
 - `quantity`: How many units of the product were sold.
-- `profit`: The profit made on this item.
-
----
-
-### 6. transactions
-
-This table is a simplified record of sales, used for quick reports.
-
-```sql
-CREATE TABLE transactions (
-    id                  SERIAL PRIMARY KEY,
-    bill_id             INTEGER NOT NULL REFERENCES bills(id) ON DELETE CASCADE,
-    product_id          INTEGER NOT NULL REFERENCES products(id),
-    quantity            INTEGER NOT NULL,
-    revenue             DECIMAL(10,2) NOT NULL,
-    cost                DECIMAL(10,2) NOT NULL,
-    profit              DECIMAL(10,2) NOT NULL,
-    transaction_date    DATE NOT NULL,
-    created_at          TIMESTAMP DEFAULT NOW() NOT NULL
-);
-```
-
-- `product_id`: Which product was sold.
-- `quantity`: How many units were sold.
-- `revenue`: The money earned from this sale.
-- `profit`: The profit from this sale.
-- `transaction_date`: The date of the sale.
-
----
-
-## Summary
-
-This database design is simple and focuses on the core needs of the application: creating bills, managing stock, and seeing reports.
+- `total_price`: Total price for this line item (quantity × unit_price).
