@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#schema-design" class="md-skip">
+        <a href="#database-schema" class="md-skip">
           Skip to content
         </a>
       
@@ -379,9 +379,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#database-overview" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Database Overview
+      Overview
     </span>
   </a>
   
@@ -397,13 +397,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#table-schemas" class="md-nav__link">
+  <a href="#database-tables" class="md-nav__link">
     <span class="md-ellipsis">
-      Table Schemas
+      Database Tables
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Table Schemas">
+    <nav class="md-nav" aria-label="Database Tables">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -589,9 +589,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#database-overview" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Database Overview
+      Overview
     </span>
   </a>
   
@@ -607,13 +607,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#table-schemas" class="md-nav__link">
+  <a href="#database-tables" class="md-nav__link">
     <span class="md-ellipsis">
-      Table Schemas
+      Database Tables
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Table Schemas">
+    <nav class="md-nav" aria-label="Database Tables">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -682,12 +682,11 @@
 
 
 
-<h1 id="schema-design">Schema Design</h1>
-<h2 id="database-overview">Database Overview</h2>
-<p>We use a PostgreSQL database to store all our data. It's reliable and keeps our information safe.</p>
+<h1 id="database-schema">Database Schema</h1>
+<h2 id="overview">Overview</h2>
+<p>The system uses <strong>PostgreSQL</strong> as the database. It has 5 simple tables to manage users, products, inventory, bills, and bill items.</p>
 <hr />
 <h2 id="entity-relationship-diagram">Entity Relationship Diagram</h2>
-<p>This diagram shows how the different data tables are connected.</p>
 <pre class="mermaid"><code>erDiagram
     USERS ||--o{ BILLS : creates
     PRODUCTS ||--o{ INVENTORY : has
@@ -743,96 +742,69 @@
         decimal total_price
     }</code></pre>
 <hr />
-<h2 id="table-schemas">Table Schemas</h2>
+<h2 id="database-tables">Database Tables</h2>
 <h3 id="1-users">1. users</h3>
-<p>This table holds information for user login.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="n">id</span><span class="w">              </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
-<span class="w">    </span><span class="n">username</span><span class="w">        </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">password_hash</span><span class="w">   </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="k">role</span><span class="w">            </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="k">role</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;manager&#39;</span><span class="p">)),</span>
-<span class="w">    </span><span class="n">full_name</span><span class="w">       </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
-<span class="w">    </span><span class="n">is_active</span><span class="w">       </span><span class="nb">BOOLEAN</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
-<span class="p">);</span>
-</code></pre></div>
+<p>Stores user login information.</p>
+<p><strong>Fields:</strong></p>
 <ul>
-<li><code>username</code>: The name a user types to log in.</li>
-<li><code>password_hash</code>: The user's password, stored safely.</li>
-<li><code>role</code>: What the user is allowed to do (admin or manager).</li>
+<li><code>id</code> - Unique user ID</li>
+<li><code>username</code> - Login username</li>
+<li><code>password_hash</code> - Encrypted password</li>
+<li><code>role</code> - Either 'admin' or 'manager'</li>
+<li><code>full_name</code> - User's full name</li>
+<li><code>is_active</code> - Whether user can login</li>
 </ul>
 <hr />
 <h3 id="2-products">2. products</h3>
-<p>This table lists all the products we sell.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="n">id</span><span class="w">              </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
-<span class="w">    </span><span class="n">name</span><span class="w">            </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">category</span><span class="w">        </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
-<span class="w">    </span><span class="n">manufacturer</span><span class="w">    </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
-<span class="w">    </span><span class="n">description</span><span class="w">     </span><span class="nb">TEXT</span><span class="p">,</span>
-<span class="w">    </span><span class="n">cost_price</span><span class="w">      </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">selling_price</span><span class="w">   </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">is_active</span><span class="w">       </span><span class="nb">BOOLEAN</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
-<span class="p">);</span>
-</code></pre></div>
+<p>Stores all product information.</p>
+<p><strong>Fields:</strong></p>
 <ul>
-<li><code>name</code>: The product's name.</li>
-<li><code>cost_price</code>: How much we pay for the product.</li>
-<li><code>selling_price</code>: How much we sell the product for.</li>
+<li><code>id</code> - Unique product ID</li>
+<li><code>name</code> - Product name</li>
+<li><code>category</code> - Product category (e.g., Tablets, Syrup)</li>
+<li><code>manufacturer</code> - Brand/manufacturer name</li>
+<li><code>description</code> - Product details</li>
+<li><code>cost_price</code> - Purchase price</li>
+<li><code>selling_price</code> - Selling price</li>
+<li><code>is_active</code> - Whether product is available</li>
 </ul>
 <hr />
 <h3 id="3-inventory">3. inventory</h3>
-<p>This table tracks the stock level for each product.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">inventory</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="n">id</span><span class="w">              </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
-<span class="w">    </span><span class="n">product_id</span><span class="w">      </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">products</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">RESTRICT</span><span class="p">,</span>
-<span class="w">    </span><span class="n">quantity</span><span class="w">        </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span>
-<span class="p">);</span>
-</code></pre></div>
+<p>Tracks stock quantity for each product.</p>
+<p><strong>Fields:</strong></p>
 <ul>
-<li><code>product_id</code>: Links to the product.</li>
-<li><code>quantity</code>: How much stock is currently available.</li>
+<li><code>id</code> - Unique inventory ID</li>
+<li><code>product_id</code> - Links to products table</li>
+<li><code>quantity</code> - Current stock level</li>
 </ul>
 <hr />
 <h3 id="4-bills">4. bills</h3>
-<p>This table stores the main details of each customer bill.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">bills</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="n">id</span><span class="w">                  </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
-<span class="w">    </span><span class="n">bill_number</span><span class="w">         </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">UNIQUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">customer_name</span><span class="w">       </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
-<span class="w">    </span><span class="n">customer_contact</span><span class="w">    </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span>
-<span class="w">    </span><span class="n">total_amount</span><span class="w">        </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">discount</span><span class="w">            </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="n">tax_amount</span><span class="w">          </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="n">grand_total</span><span class="w">         </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">created_by</span><span class="w">          </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
-<span class="w">    </span><span class="n">bill_date</span><span class="w">           </span><span class="nb">DATE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">pdf_path</span><span class="w">            </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
-<span class="p">);</span>
-</code></pre></div>
+<p>Stores bill information.</p>
+<p><strong>Fields:</strong></p>
 <ul>
-<li><code>bill_number</code>: A unique number for the bill.</li>
-<li><code>customer_name</code>: The customer's name (optional).</li>
-<li><code>grand_total</code>: The final amount the customer pays.</li>
-<li><code>created_by</code>: The user who made this bill.</li>
-<li><code>pdf_path</code>: Location where the PDF bill is stored.</li>
+<li><code>id</code> - Unique bill ID</li>
+<li><code>bill_number</code> - Unique bill number (e.g., BILL-001)</li>
+<li><code>bill_date</code> - Date of bill</li>
+<li><code>customer_name</code> - Customer name (optional)</li>
+<li><code>customer_contact</code> - Customer phone/email (optional)</li>
+<li><code>total_amount</code> - Sum of all items</li>
+<li><code>discount</code> - Discount amount</li>
+<li><code>tax_amount</code> - Tax/GST amount</li>
+<li><code>grand_total</code> - Final amount to pay</li>
+<li><code>created_by</code> - User who created the bill</li>
+<li><code>pdf_path</code> - Location of PDF file</li>
 </ul>
 <hr />
 <h3 id="5-bill_items">5. bill_items</h3>
-<p>This table lists each product sold within a bill.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">bill_items</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="n">id</span><span class="w">              </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
-<span class="w">    </span><span class="n">bill_id</span><span class="w">         </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">bills</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">,</span>
-<span class="w">    </span><span class="n">product_id</span><span class="w">      </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">products</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
-<span class="w">    </span><span class="n">quantity</span><span class="w">        </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">unit_price</span><span class="w">      </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">total_price</span><span class="w">     </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
-<span class="p">);</span>
-</code></pre></div>
+<p>Stores individual items in each bill.</p>
+<p><strong>Fields:</strong></p>
 <ul>
-<li><code>bill_id</code>: Links to the bill this item is part of.</li>
-<li><code>product_id</code>: Links to the product that was sold.</li>
-<li><code>quantity</code>: How many units of the product were sold.</li>
-<li><code>total_price</code>: Total price for this line item (quantity × unit_price).</li>
+<li><code>id</code> - Unique item ID</li>
+<li><code>bill_id</code> - Links to bills table</li>
+<li><code>product_id</code> - Links to products table</li>
+<li><code>quantity</code> - Number of units sold</li>
+<li><code>unit_price</code> - Price per unit</li>
+<li><code>total_price</code> - quantity × unit_price</li>
 </ul>
 
 
