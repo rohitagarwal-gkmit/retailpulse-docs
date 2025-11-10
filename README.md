@@ -33,7 +33,7 @@ This repository contains the complete documentation for **RetailPulse**, a syste
 - Complete table schemas
 - Relationships and constraints
 
-### Additional Resources
+
 - Edge cases and error handling
 - Future enhancement roadmap
 
