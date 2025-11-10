@@ -35,7 +35,7 @@ RetailPulse is a web-based system that automates medical wholesale operations th
 
 ### Transformed Workflow
 
-Customer arrives → Manager creates a digital bill (1 min) → System automatically updates inventory → Bill is saved & PDF generated → Owner sees real-time reports.
+Customer arrives → Manager creates a digital bill → System automatically updates inventory → Bill is saved & PDF generated → Owner sees real-time reports.
 
 ---
 

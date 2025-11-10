@@ -24,7 +24,7 @@ To help store managers make bills quickly and correctly.
 
 #### 1.1 Product Search and Selection
 - Search: Find medicines by name, maker, or type.
-- Product Details: See stock, price, and expiry when picking a product.
+- Product Details: See stock and price when picking a product.
 - Multi-Product: Add many products to one bill.
 
 #### 1.2 Real-time Stock Validation

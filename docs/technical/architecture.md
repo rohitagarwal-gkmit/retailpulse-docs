@@ -12,6 +12,6 @@ RetailPulse is a standard web application with three layers:
 
 ## AWS-Specific Architecture Diagram
 
-This diagram shows a simplified view of the system hosted on AWS, with the frontend on Vercel.
+This diagram shows a simplified view of the system hosted on AWS.
 
 ![RetailPulse AWS Architecture](../assets/Architecture.png)
