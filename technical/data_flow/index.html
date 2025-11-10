@@ -351,36 +351,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-product-creation-flow" class="md-nav__link">
+  <a href="#3-add-new-product-flow" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Product Creation Flow
+      3. Add New Product Flow
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-inventory-update-flow" class="md-nav__link">
+  <a href="#4-update-product-stock-flow" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Inventory Update Flow
+      4. Update Product Stock Flow
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-analytics-dashboard-data-flow" class="md-nav__link">
+  <a href="#5-view-reports-flow" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Analytics Dashboard Data Flow
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-product-details-update-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Product Details Update Flow
+      5. View Reports Flow
     </span>
   </a>
   
@@ -583,36 +574,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-product-creation-flow" class="md-nav__link">
+  <a href="#3-add-new-product-flow" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Product Creation Flow
+      3. Add New Product Flow
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-inventory-update-flow" class="md-nav__link">
+  <a href="#4-update-product-stock-flow" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Inventory Update Flow
+      4. Update Product Stock Flow
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-analytics-dashboard-data-flow" class="md-nav__link">
+  <a href="#5-view-reports-flow" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Analytics Dashboard Data Flow
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-product-details-update-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Product Details Update Flow
+      5. View Reports Flow
     </span>
   </a>
   
@@ -637,120 +619,88 @@
 <h1 id="data-flow-diagrams">Data Flow Diagrams</h1>
 <h2 id="1-bill-creation-flow">1. Bill Creation Flow</h2>
 <p>This shows the steps for creating a bill.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'38px', 'fontFamily':'Arial'}}}%%
+<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 sequenceDiagram
     actor Manager
-    participant UI as React UI
+    participant UI as Frontend
     participant API as Backend
     participant DB as Database
 
-    Manager-&gt;&gt;UI: 1. Fills out the bill form
-    UI-&gt;&gt;API: 2. Sends bill data
-    API-&gt;&gt;DB: 3. BEGIN TRANSACTION
-    API-&gt;&gt;DB: 4. Save bill details
-    API-&gt;&gt;DB: 5. Update product stock
-    API-&gt;&gt;DB: 6. COMMIT TRANSACTION
-    API--&gt;&gt;UI: 7. Confirms bill was created
-    UI--&gt;&gt;Manager: 8. Shows success message</code></pre>
+    Manager-&gt;&gt;UI: Fills out bill form
+    UI-&gt;&gt;API: Sends bill data
+    API-&gt;&gt;DB: Save bill details
+    API-&gt;&gt;DB: Update product stock
+    API--&gt;&gt;UI: Return success
+    UI--&gt;&gt;Manager: Show success message</code></pre>
+<hr />
 <h2 id="2-user-login-flow">2. User Login Flow</h2>
-<p>This diagram shows how a user logs in and gets a session token.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'38px', 'fontFamily':'Arial'}}}%%
+<p>This shows how a user logs in to the system.</p>
+<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 sequenceDiagram
     actor User
-    participant UI as React UI
+    participant UI as Frontend
     participant API as Backend
     participant DB as Database
 
-    User-&gt;&gt;UI: 1. Enters username and password
-    UI-&gt;&gt;API: 2. Sends credentials
-    API-&gt;&gt;DB: 3. Queries for user with matching credentials
-    DB--&gt;&gt;API: 4. Returns user data (with role)
-    alt Credentials are valid
-        API-&gt;&gt;API: 5. Generates session token (JWT)
-        API--&gt;&gt;UI: 6. Returns token to UI
-        UI-&gt;&gt;User: 7. Stores token and redirects to dashboard
-    else Credentials are invalid
-        API--&gt;&gt;UI: 8. Returns authentication error
-        UI--&gt;&gt;User: 9. Shows error message
+    User-&gt;&gt;UI: Enters username and password
+    UI-&gt;&gt;API: Sends login credentials
+    API-&gt;&gt;DB: Check username and password
+    DB--&gt;&gt;API: Return user data
+    alt Login successful
+        API--&gt;&gt;UI: Return success with user role
+        UI--&gt;&gt;User: Redirect to dashboard
+    else Login failed
+        API--&gt;&gt;UI: Return error
+        UI--&gt;&gt;User: Show error message
     end</code></pre>
-<h2 id="3-product-creation-flow">3. Product Creation Flow</h2>
-<p>This flow describes how an Admin adds a new product to the inventory.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'38px', 'fontFamily':'Arial'}}}%%
+<hr />
+<h2 id="3-add-new-product-flow">3. Add New Product Flow</h2>
+<p>This shows how an Admin adds a new product.</p>
+<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 sequenceDiagram
     actor Admin
-    participant UI as React UI
+    participant UI as Frontend
     participant API as Backend
     participant DB as Database
 
-    Admin-&gt;&gt;UI: 1. Fills out product creation form
-    UI-&gt;&gt;API: 2. Sends new product data
-    API-&gt;&gt;API: 3. Validates product data (e.g., check for required fields)
-    alt Data is valid
-        API-&gt;&gt;DB: 4. Inserts new product into 'Products' table
-        DB--&gt;&gt;API: 5. Confirms insertion
-        API--&gt;&gt;UI: 6. Returns success message
-        UI--&gt;&gt;Admin: 7. Shows "Product Created" notification
-    else Data is invalid
-        API--&gt;&gt;UI: 8. Returns validation error
-        UI--&gt;&gt;Admin: 9. Displays error message on the form
-    end</code></pre>
-<h2 id="4-inventory-update-flow">4. Inventory Update Flow</h2>
-<p>This diagram shows how an Admin manually adjusts the stock for a product.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'38px', 'fontFamily':'Arial'}}}%%
+    Admin-&gt;&gt;UI: Fills product form
+    UI-&gt;&gt;API: Sends product data
+    API-&gt;&gt;DB: Save product
+    DB--&gt;&gt;API: Return success
+    API--&gt;&gt;UI: Return success
+    UI--&gt;&gt;Admin: Show "Product Added" message</code></pre>
+<hr />
+<h2 id="4-update-product-stock-flow">4. Update Product Stock Flow</h2>
+<p>This shows how an Admin updates product stock.</p>
+<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 sequenceDiagram
     actor Admin
-    participant UI as React UI
+    participant UI as Frontend
     participant API as Backend
     participant DB as Database
 
-    Admin-&gt;&gt;UI: 1. Selects product and enters new stock quantity
-    UI-&gt;&gt;API: 2. Sends product ID, new quantity, and reason for change
-    API-&gt;&gt;DB: 3. BEGIN TRANSACTION
-    API-&gt;&gt;DB: 4. Updates stock quantity for the product
-    API-&gt;&gt;DB: 5. Logs the change in an 'InventoryAdjustments' table
-    API-&gt;&gt;DB: 6. COMMIT TRANSACTION
-    API--&gt;&gt;UI: 7. Confirms stock was updated
-    UI--&gt;&gt;Admin: 8. Shows success message</code></pre>
-<h2 id="5-analytics-dashboard-data-flow">5. Analytics Dashboard Data Flow</h2>
-<p>This shows how the analytics dashboard gets its data.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'38px', 'fontFamily':'Arial'}}}%%
+    Admin-&gt;&gt;UI: Enters new stock quantity
+    UI-&gt;&gt;API: Sends product ID and new quantity
+    API-&gt;&gt;DB: Update stock in inventory table
+    DB--&gt;&gt;API: Return success
+    API--&gt;&gt;UI: Return success
+    UI--&gt;&gt;Admin: Show "Stock Updated" message</code></pre>
+<hr />
+<h2 id="5-view-reports-flow">5. View Reports Flow</h2>
+<p>This shows how an Admin views sales and inventory reports.</p>
+<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 sequenceDiagram
     actor Admin
-    participant UI as React UI
+    participant UI as Frontend
     participant API as Backend
     participant DB as Database
 
-    Admin-&gt;&gt;UI: 1. Navigates to Analytics Dashboard
-    UI-&gt;&gt;API: 2. Requests analytics data (with time filters)
-    API-&gt;&gt;DB: 3. Runs aggregation queries (e.g., SUM, COUNT, GROUP BY) on Bills and Products tables
-    DB--&gt;&gt;API: 4. Returns aggregated sales, profit, and inventory data
-    API-&gt;&gt;API: 5. Formats data for charts (e.g., JSON for Chart.js)
-    API--&gt;&gt;UI: 6. Sends formatted data to UI
-    UI-&gt;&gt;UI: 7. Renders charts and key metrics
-    UI--&gt;&gt;Admin: 8. Displays dashboard</code></pre>
-<h2 id="6-product-details-update-flow">6. Product Details Update Flow</h2>
-<p>This diagram shows how an Admin updates the core details of a product, such as its price or description.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'38px', 'fontFamily':'Arial'}}}%%
-sequenceDiagram
-    actor Admin
-    participant UI as React UI
-    participant API as Backend
-    participant DB as Database
-
-    Admin-&gt;&gt;UI: 1. Selects a product and chooses to edit it
-    UI-&gt;&gt;UI: 2. Loads product details into a form
-    Admin-&gt;&gt;UI: 3. Modifies product details (e.g., price, name, category)
-    UI-&gt;&gt;API: 4. Sends updated product data
-    API-&gt;&gt;API: 5. Validates incoming data
-    alt Data is valid
-        API-&gt;&gt;DB: 6. Updates the product's record in the 'Products' table
-        DB--&gt;&gt;API: 7. Confirms the update
-        API--&gt;&gt;UI: 8. Returns success message
-        UI--&gt;&gt;Admin: 9. Shows "Product Updated" notification
-    else Data is invalid
-        API--&gt;&gt;UI: 10. Returns validation error
-        UI--&gt;&gt;Admin: 11. Displays error message on the form
-    end</code></pre>
+    Admin-&gt;&gt;UI: Opens reports page
+    UI-&gt;&gt;API: Request reports data
+    API-&gt;&gt;DB: Query bills and inventory
+    DB--&gt;&gt;API: Return data
+    API--&gt;&gt;UI: Send formatted data
+    UI--&gt;&gt;Admin: Display charts and tables</code></pre>
 
 
 

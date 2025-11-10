@@ -451,26 +451,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#6-transactions" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. transactions
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
-    </span>
-  </a>
   
 </li>
       
@@ -679,26 +661,8 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#6-transactions" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. transactions
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
-    </span>
-  </a>
   
 </li>
       
@@ -729,8 +693,6 @@
     PRODUCTS ||--o{ INVENTORY : has
     PRODUCTS ||--o{ BILL_ITEMS : contains
     BILLS ||--|{ BILL_ITEMS : has
-    BILLS ||--o{ TRANSACTIONS : generates
-    PRODUCTS ||--o{ TRANSACTIONS : tracks
 
     USERS {
         int id PK
@@ -739,7 +701,6 @@
         varchar role
         varchar full_name
         boolean is_active
-        timestamp created_at
     }
 
     PRODUCTS {
@@ -751,19 +712,17 @@
         decimal cost_price
         decimal selling_price
         boolean is_active
-        timestamp created_at
-        timestamp updated_at
     }
 
     INVENTORY {
         int id PK
         int product_id FK
         int quantity
-        timestamp last_updated
     }
 
     BILLS {
         int id PK
+        date bill_date
         varchar bill_number UK
         varchar customer_name
         varchar customer_contact
@@ -772,7 +731,6 @@
         decimal tax_amount
         decimal grand_total
         int created_by FK
-        timestamp created_at
         varchar pdf_path
     }
 
@@ -783,20 +741,6 @@
         int quantity
         decimal unit_price
         decimal total_price
-        decimal cost_price
-        decimal profit
-    }
-
-    TRANSACTIONS {
-        int id PK
-        int bill_id FK
-        int product_id FK
-        int quantity
-        decimal revenue
-        decimal cost
-        decimal profit
-        date transaction_date
-        timestamp created_at
     }</code></pre>
 <hr />
 <h2 id="table-schemas">Table Schemas</h2>
@@ -808,8 +752,7 @@
 <span class="w">    </span><span class="n">password_hash</span><span class="w">   </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
 <span class="w">    </span><span class="k">role</span><span class="w">            </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">CHECK</span><span class="w"> </span><span class="p">(</span><span class="k">role</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;admin&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;manager&#39;</span><span class="p">)),</span>
 <span class="w">    </span><span class="n">full_name</span><span class="w">       </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span>
-<span class="w">    </span><span class="n">is_active</span><span class="w">       </span><span class="nb">BOOLEAN</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">created_at</span><span class="w">      </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="w">    </span><span class="n">is_active</span><span class="w">       </span><span class="nb">BOOLEAN</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 <span class="p">);</span>
 </code></pre></div>
 <ul>
@@ -828,9 +771,7 @@
 <span class="w">    </span><span class="n">description</span><span class="w">     </span><span class="nb">TEXT</span><span class="p">,</span>
 <span class="w">    </span><span class="n">cost_price</span><span class="w">      </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
 <span class="w">    </span><span class="n">selling_price</span><span class="w">   </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">is_active</span><span class="w">       </span><span class="nb">BOOLEAN</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">created_at</span><span class="w">      </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">updated_at</span><span class="w">      </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="w">    </span><span class="n">is_active</span><span class="w">       </span><span class="nb">BOOLEAN</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="k">TRUE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 <span class="p">);</span>
 </code></pre></div>
 <ul>
@@ -844,8 +785,7 @@
 <div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">inventory</span><span class="w"> </span><span class="p">(</span>
 <span class="w">    </span><span class="n">id</span><span class="w">              </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
 <span class="w">    </span><span class="n">product_id</span><span class="w">      </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">products</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">RESTRICT</span><span class="p">,</span>
-<span class="w">    </span><span class="n">quantity</span><span class="w">        </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
-<span class="w">    </span><span class="n">last_updated</span><span class="w">    </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<span class="w">    </span><span class="n">quantity</span><span class="w">        </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span>
 <span class="p">);</span>
 </code></pre></div>
 <ul>
@@ -865,7 +805,7 @@
 <span class="w">    </span><span class="n">tax_amount</span><span class="w">          </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
 <span class="w">    </span><span class="n">grand_total</span><span class="w">         </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
 <span class="w">    </span><span class="n">created_by</span><span class="w">          </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">users</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
-<span class="w">    </span><span class="n">created_at</span><span class="w">          </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
+<span class="w">    </span><span class="n">bill_date</span><span class="w">           </span><span class="nb">DATE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
 <span class="w">    </span><span class="n">pdf_path</span><span class="w">            </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span>
 <span class="p">);</span>
 </code></pre></div>
@@ -874,6 +814,7 @@
 <li><code>customer_name</code>: The customer's name (optional).</li>
 <li><code>grand_total</code>: The final amount the customer pays.</li>
 <li><code>created_by</code>: The user who made this bill.</li>
+<li><code>pdf_path</code>: Location where the PDF bill is stored.</li>
 </ul>
 <hr />
 <h3 id="5-bill_items">5. bill_items</h3>
@@ -884,42 +825,15 @@
 <span class="w">    </span><span class="n">product_id</span><span class="w">      </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">products</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
 <span class="w">    </span><span class="n">quantity</span><span class="w">        </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
 <span class="w">    </span><span class="n">unit_price</span><span class="w">      </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">total_price</span><span class="w">     </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">cost_price</span><span class="w">      </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span>
-<span class="w">    </span><span class="n">profit</span><span class="w">          </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">GENERATED</span><span class="w"> </span><span class="n">ALWAYS</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="n">total_price</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">cost_price</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">quantity</span><span class="p">))</span><span class="w"> </span><span class="n">STORED</span>
+<span class="w">    </span><span class="n">total_price</span><span class="w">     </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
 <span class="p">);</span>
 </code></pre></div>
 <ul>
 <li><code>bill_id</code>: Links to the bill this item is part of.</li>
 <li><code>product_id</code>: Links to the product that was sold.</li>
 <li><code>quantity</code>: How many units of the product were sold.</li>
-<li><code>profit</code>: The profit made on this item.</li>
+<li><code>total_price</code>: Total price for this line item (quantity × unit_price).</li>
 </ul>
-<hr />
-<h3 id="6-transactions">6. transactions</h3>
-<p>This table is a simplified record of sales, used for quick reports.</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">transactions</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="n">id</span><span class="w">                  </span><span class="nb">SERIAL</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="p">,</span>
-<span class="w">    </span><span class="n">bill_id</span><span class="w">             </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">bills</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="k">DELETE</span><span class="w"> </span><span class="k">CASCADE</span><span class="p">,</span>
-<span class="w">    </span><span class="n">product_id</span><span class="w">          </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">REFERENCES</span><span class="w"> </span><span class="n">products</span><span class="p">(</span><span class="n">id</span><span class="p">),</span>
-<span class="w">    </span><span class="n">quantity</span><span class="w">            </span><span class="nb">INTEGER</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">revenue</span><span class="w">             </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">cost</span><span class="w">                </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">profit</span><span class="w">              </span><span class="nb">DECIMAL</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">transaction_date</span><span class="w">    </span><span class="nb">DATE</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-<span class="w">    </span><span class="n">created_at</span><span class="w">          </span><span class="k">TIMESTAMP</span><span class="w"> </span><span class="k">DEFAULT</span><span class="w"> </span><span class="n">NOW</span><span class="p">()</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
-<span class="p">);</span>
-</code></pre></div>
-<ul>
-<li><code>product_id</code>: Which product was sold.</li>
-<li><code>quantity</code>: How many units were sold.</li>
-<li><code>revenue</code>: The money earned from this sale.</li>
-<li><code>profit</code>: The profit from this sale.</li>
-<li><code>transaction_date</code>: The date of the sale.</li>
-</ul>
-<hr />
-<h2 id="summary">Summary</h2>
-<p>This database design is simple and focuses on the core needs of the application: creating bills, managing stock, and seeing reports.</p>
 
 
 
