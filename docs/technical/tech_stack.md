@@ -4,8 +4,7 @@
 
 | Technology | Purpose |
 |---|---|
-| React | UI framework |
-| TypeScript | Type safety |
+| React + Vite | UI framework |
 | React Router | Page navigation |
 | Material UI | UI components |
 | Recharts | Charts |
@@ -27,7 +26,6 @@
 
 | Technology | Purpose |
 |---|---|
-| Docker | App containerization |
-| NGINX | Reverse proxy |
+| EC2 | App Hosting |
 | GitHub Actions | CI/CD (testing & deployment) |
 | AWS | Cloud hosting |

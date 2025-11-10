@@ -83,13 +83,3 @@ This document explains how RetailPulse handles common problems and unexpected si
 
 -   **Problem**: Admin tries to deactivate the last remaining admin account.
     -   **Solution**: The system prevents this and asks the admin to promote another user first.
-
----
-
-## Summary
-
-This document helps make sure:
-
-- The system is strong and handles errors well.
-- Users get clear messages when something goes wrong.
-- The data stays correct and consistent.

@@ -20,9 +20,9 @@ The system uses Role-Based Access Control (RBAC) to decide who can do what.
 
 | Action | Manager | Admin |
 |---|---|---|
-| Create Bills | ✅ | ✅ |
-| View Own Bills | ✅ | ✅ |
-| View All Bills | ❌ | ✅ |
-| View Analytics | ❌ | ✅ |
-| Add/Edit Products | ❌ | ✅ |
-| Manage Users | ❌ | ✅ |
+| Create Bills | Yes | Yes |
+| View Own Bills | Yes | Yes |
+| View All Bills | No | Yes |
+| View Analytics | No | Yes |
+| Add/Edit Products | No | Yes |
+| Manage Users | No | Yes |

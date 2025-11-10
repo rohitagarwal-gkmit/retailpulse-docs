@@ -14,8 +14,6 @@ erDiagram
     PRODUCTS ||--o{ INVENTORY : has
     PRODUCTS ||--o{ BILL_ITEMS : contains
     BILLS ||--|{ BILL_ITEMS : has
-    BILLS ||--o{ TRANSACTIONS : generates
-    PRODUCTS ||--o{ TRANSACTIONS : tracks
     
     USERS {
         int id PK
@@ -24,7 +22,6 @@ erDiagram
         varchar role
         varchar full_name
         boolean is_active
-        timestamp created_at
     }
     
     PRODUCTS {
@@ -36,19 +33,17 @@ erDiagram
         decimal cost_price
         decimal selling_price
         boolean is_active
-        timestamp created_at
-        timestamp updated_at
     }
     
     INVENTORY {
         int id PK
         int product_id FK
         int quantity
-        timestamp last_updated
     }
     
     BILLS {
         int id PK
+        date bill_date
         varchar bill_number UK
         varchar customer_name
         varchar customer_contact
@@ -57,7 +52,6 @@ erDiagram
         decimal tax_amount
         decimal grand_total
         int created_by FK
-        timestamp created_at
         varchar pdf_path
     }
     
@@ -68,20 +62,6 @@ erDiagram
         int quantity
         decimal unit_price
         decimal total_price
-        decimal cost_price
-        decimal profit
-    }
-    
-    TRANSACTIONS {
-        int id PK
-        int bill_id FK
-        int product_id FK
-        int quantity
-        decimal revenue
-        decimal cost
-        decimal profit
-        date transaction_date
-        timestamp created_at
     }
 ```
 
