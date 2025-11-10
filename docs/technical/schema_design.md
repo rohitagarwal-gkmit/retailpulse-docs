@@ -1,14 +1,12 @@
-# Schema Design
+# Database Schema
 
-## Database Overview
+## Overview
 
-We use a PostgreSQL database to store all our data. It's reliable and keeps our information safe.
+The system uses **PostgreSQL** as the database. It has 5 simple tables to manage users, products, inventory, bills, and bill items.
 
 ---
 
 ## Entity Relationship Diagram
-
-This diagram shows how the different data tables are connected.
 
 ```mermaid
 erDiagram
@@ -89,150 +87,135 @@ erDiagram
 
 ---
 
-## Table Schemas
+## Database Tables
 
 ### 1. users
-
-This table holds information for user login.
+Stores user login information.
 
 ```sql
 CREATE TABLE users (
-    id              SERIAL PRIMARY KEY,
-    username        VARCHAR(50) UNIQUE NOT NULL,
-    password_hash   VARCHAR(255) NOT NULL,
-    role            VARCHAR(20) NOT NULL CHECK (role IN ('admin', 'manager')),
-    full_name       VARCHAR(100),
-    is_active       BOOLEAN DEFAULT TRUE NOT NULL,
-    created_at      TIMESTAMP DEFAULT NOW() NOT NULL
+    id            SERIAL PRIMARY KEY,
+    username      VARCHAR(50) UNIQUE NOT NULL,
+    password_hash VARCHAR(255) NOT NULL,
+    role          VARCHAR(20) NOT NULL,
+    full_name     VARCHAR(100),
+    is_active     BOOLEAN DEFAULT TRUE
 );
 ```
 
-- `username`: The name a user types to log in.
-- `password_hash`: The user's password, stored safely.
-- `role`: What the user is allowed to do (admin or manager).
+**Fields:**
+
+- `id` - Unique user ID
+- `username` - Login username
+- `password_hash` - Encrypted password
+- `role` - Either 'admin' or 'manager'
+- `full_name` - User's full name
+- `is_active` - Whether user can login
 
 ---
 
 ### 2. products
-
-This table lists all the products we sell.
+Stores all product information.
 
 ```sql
 CREATE TABLE products (
-    id              SERIAL PRIMARY KEY,
-    name            VARCHAR(200) UNIQUE NOT NULL,
-    category        VARCHAR(100),
-    manufacturer    VARCHAR(100),
-    description     TEXT,
-    cost_price      DECIMAL(10,2) NOT NULL,
-    selling_price   DECIMAL(10,2) NOT NULL,
-    is_active       BOOLEAN DEFAULT TRUE NOT NULL,
-    created_at      TIMESTAMP DEFAULT NOW() NOT NULL,
-    updated_at      TIMESTAMP DEFAULT NOW() NOT NULL
+    id            SERIAL PRIMARY KEY,
+    name          VARCHAR(200) UNIQUE NOT NULL,
+    category      VARCHAR(100),
+    manufacturer  VARCHAR(100),
+    description   TEXT,
+    cost_price    DECIMAL(10,2) NOT NULL,
+    selling_price DECIMAL(10,2) NOT NULL,
+    is_active     BOOLEAN DEFAULT TRUE
 );
 ```
 
-- `name`: The product's name.
-- `cost_price`: How much we pay for the product.
-- `selling_price`: How much we sell the product for.
+**Fields:**
+
+- `id` - Unique product ID
+- `name` - Product name
+- `category` - Product category (e.g., Tablets, Syrup)
+- `manufacturer` - Brand/manufacturer name
+- `description` - Product details
+- `cost_price` - Purchase price
+- `selling_price` - Selling price
+- `is_active` - Whether product is available
 
 ---
 
 ### 3. inventory
-
-This table tracks the stock level for each product.
+Tracks stock quantity for each product.
 
 ```sql
 CREATE TABLE inventory (
-    id              SERIAL PRIMARY KEY,
-    product_id      INTEGER NOT NULL REFERENCES products(id) ON DELETE RESTRICT,
-    quantity        INTEGER NOT NULL DEFAULT 0,
-    last_updated    TIMESTAMP DEFAULT NOW() NOT NULL
+    id         SERIAL PRIMARY KEY,
+    product_id INTEGER NOT NULL REFERENCES products(id),
+    quantity   INTEGER DEFAULT 0
 );
 ```
 
-- `product_id`: Links to the product.
-- `quantity`: How much stock is currently available.
+**Fields:**
+
+- `id` - Unique inventory ID
+- `product_id` - Links to products table
+- `quantity` - Current stock level
 
 ---
 
 ### 4. bills
-
-This table stores the main details of each customer bill.
+Stores bill information.
 
 ```sql
 CREATE TABLE bills (
-    id                  SERIAL PRIMARY KEY,
-    bill_number         VARCHAR(50) UNIQUE NOT NULL,
-    customer_name       VARCHAR(100),
-    customer_contact    VARCHAR(20),
-    total_amount        DECIMAL(10,2) NOT NULL,
-    discount            DECIMAL(10,2) DEFAULT 0,
-    tax_amount          DECIMAL(10,2) DEFAULT 0,
-    grand_total         DECIMAL(10,2) NOT NULL,
-    created_by          INTEGER NOT NULL REFERENCES users(id),
-    created_at          TIMESTAMP DEFAULT NOW() NOT NULL,
-    pdf_path            VARCHAR(255)
+    id               SERIAL PRIMARY KEY,
+    bill_number      VARCHAR(50) UNIQUE NOT NULL,
+    bill_date        DATE NOT NULL,
+    customer_name    VARCHAR(100),
+    customer_contact VARCHAR(20),
+    total_amount     DECIMAL(10,2) NOT NULL,
+    discount         DECIMAL(10,2) DEFAULT 0,
+    tax_amount       DECIMAL(10,2) DEFAULT 0,
+    grand_total      DECIMAL(10,2) NOT NULL,
+    created_by       INTEGER NOT NULL REFERENCES users(id),
+    pdf_path         VARCHAR(255)
 );
 ```
 
-- `bill_number`: A unique number for the bill.
-- `customer_name`: The customer's name (optional).
-- `grand_total`: The final amount the customer pays.
-- `created_by`: The user who made this bill.
+**Fields:**
+
+- `id` - Unique bill ID
+- `bill_number` - Unique bill number (e.g., BILL-001)
+- `bill_date` - Date of bill
+- `customer_name` - Customer name (optional)
+- `customer_contact` - Customer phone/email (optional)
+- `total_amount` - Sum of all items
+- `discount` - Discount amount
+- `tax_amount` - Tax/GST amount
+- `grand_total` - Final amount to pay
+- `created_by` - User who created the bill
+- `pdf_path` - Location of PDF file
 
 ---
 
 ### 5. bill_items
-
-This table lists each product sold within a bill.
+Stores individual items in each bill.
 
 ```sql
 CREATE TABLE bill_items (
-    id              SERIAL PRIMARY KEY,
-    bill_id         INTEGER NOT NULL REFERENCES bills(id) ON DELETE CASCADE,
-    product_id      INTEGER NOT NULL REFERENCES products(id),
-    quantity        INTEGER NOT NULL,
-    unit_price      DECIMAL(10,2) NOT NULL,
-    total_price     DECIMAL(10,2) NOT NULL,
-    cost_price      DECIMAL(10,2),
-    profit          DECIMAL(10,2) GENERATED ALWAYS AS (total_price - (cost_price * quantity)) STORED
+    id          SERIAL PRIMARY KEY,
+    bill_id     INTEGER NOT NULL REFERENCES bills(id),
+    product_id  INTEGER NOT NULL REFERENCES products(id),
+    quantity    INTEGER NOT NULL,
+    unit_price  DECIMAL(10,2) NOT NULL,
+    total_price DECIMAL(10,2) NOT NULL
 );
 ```
 
-- `bill_id`: Links to the bill this item is part of.
-- `product_id`: Links to the product that was sold.
-- `quantity`: How many units of the product were sold.
-- `profit`: The profit made on this item.
+**Fields:**
 
----
-
-### 6. transactions
-
-This table is a simplified record of sales, used for quick reports.
-
-```sql
-CREATE TABLE transactions (
-    id                  SERIAL PRIMARY KEY,
-    bill_id             INTEGER NOT NULL REFERENCES bills(id) ON DELETE CASCADE,
-    product_id          INTEGER NOT NULL REFERENCES products(id),
-    quantity            INTEGER NOT NULL,
-    revenue             DECIMAL(10,2) NOT NULL,
-    cost                DECIMAL(10,2) NOT NULL,
-    profit              DECIMAL(10,2) NOT NULL,
-    transaction_date    DATE NOT NULL,
-    created_at          TIMESTAMP DEFAULT NOW() NOT NULL
-);
-```
-
-- `product_id`: Which product was sold.
-- `quantity`: How many units were sold.
-- `revenue`: The money earned from this sale.
-- `profit`: The profit from this sale.
-- `transaction_date`: The date of the sale.
-
----
-
-## Summary
-
-This database design is simple and focuses on the core needs of the application: creating bills, managing stock, and seeing reports.
+- `id` - Unique item ID
+- `bill_id` - Links to bills table
+- `product_id` - Links to products table
+- `quantity` - Number of units sold
+- `unit_price` - Price per unit
+- `total_price` - quantity × unit_price
