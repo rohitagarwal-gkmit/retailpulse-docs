@@ -5,7 +5,6 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 ---
 
 ### Authentication Endpoints
-*No change here. Authentication is the entry point.*
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -15,7 +14,6 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 ---
 
 ### Store Endpoints
-*For Company Admins to manage the store network.*
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -27,7 +25,6 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 ---
 
 ### User Management Endpoints
-*For Company Admins to manage users.*
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -40,7 +37,6 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 ---
 
 ### Medicine Master Endpoints
-*For managing the company-wide medicine catalog.*
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -52,7 +48,6 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 ---
 
 ### Inventory Endpoints
-*The core of inventory management. Granular control over stock.*
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -67,7 +62,6 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 ---
 
 ### Bill Endpoints
-*Store-specific endpoints for creating and viewing bills.*
 
 | Method | Endpoint | Description |
 |---|---|---|
@@ -78,7 +72,6 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 ---
 
 ### Analytics Endpoints
-*Flexible endpoints for company-wide or store-specific insights.*
 
 | Method | Endpoint | Description |
 |---|---|---|
