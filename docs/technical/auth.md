@@ -22,21 +22,21 @@ Below is a summary of the permissions for each role.
 | Action | Company Admin | Store Manager | Stockist | Company Stockist | Sales |
 |---|:---:|:---:|:---:|:---:|:---:|
 | **Store Management** | | | | | |
-| Create/Edit Stores | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Create/Edit Stores | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
 | **User Management** | | | | | |
-| Create/Edit Users | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Create/Edit Users | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
 | **Medicine Master List** | | | | | |
-| Create/Edit Medicines | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Create/Edit Medicines | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
 | **Inventory** | | | | | |
-| View Own Store Inventory | ✅ | ✅ | ✅ | ✅ | ✅ |
-| View All Stores' Inventory | ✅ | ❌ | ✅ | ✅ | ✅ |
-| Add/Edit Own Store Inventory | ✅ | ✅ | ✅ | ❌ | ❌ |
-| Move Stock (within store) | ✅ | ✅ | ✅ | ❌ | ❌ |
-| Transfer Stock (between stores) | ✅ | ❌ | ❌ | ✅ | ❌ |
+| View Own Store Inventory | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> |
+| View All Stores' Inventory | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> |
+| Add/Edit Own Store Inventory | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
+| Move Stock (within store) | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
+| Transfer Stock (between stores) | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> |
 | **Billing** | | | | | |
-| Create/Edit Bills (own store) | ✅ | ✅ | ❌ | ❌ | ✅ |
-| View Bills (own store) | ✅ | ✅ | ❌ | ❌ | ✅ |
-| View Bills (all stores) | ✅ | ❌ | ❌ | ❌ | ❌ |
+| Create/Edit Bills (own store) | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: green;">Yes</span> |
+| View Bills (own store) | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: green;">Yes</span> |
+| View Bills (all stores) | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
 | **Analytics** | | | | | |
-| View Own Store Analytics | ✅ | ✅ | ❌ | ❌ | ✅ |
-| View All Stores' Analytics | ✅ | ❌ | ❌ | ❌ | ❌ |
+| View Own Store Analytics | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: green;">Yes</span> |
+| View All Stores' Analytics | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |

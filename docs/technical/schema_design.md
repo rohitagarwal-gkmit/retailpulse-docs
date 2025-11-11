@@ -146,6 +146,7 @@ erDiagram
 Stores information for each retail store.
 
 **Fields:**
+
 - `id` (SERIAL PRIMARY KEY): Unique ID for the store.
 - `name` (VARCHAR(255) UNIQUE NOT NULL): The name of the store (e.g., "Main Street Pharmacy").
 - `address` (TEXT): Physical address of the store.
@@ -158,6 +159,7 @@ Stores information for each retail store.
 Stores user login information and their assigned role.
 
 **Fields:**
+
 - `id` (SERIAL PRIMARY KEY): Unique user ID.
 - `store_id` (INTEGER REFERENCES stores(id)): The store this user belongs to. Can be `NULL` for company-wide users.
 - `role_id` (INTEGER NOT NULL REFERENCES roles(id)): The role assigned to this user.
@@ -173,6 +175,7 @@ Stores user login information and their assigned role.
 Defines the user roles available in the system.
 
 **Fields:**
+
 - `id` (SERIAL PRIMARY KEY): Unique ID for the role.
 - `name` (VARCHAR(50) UNIQUE NOT NULL): The name of the role (e.g., 'Company Admin', 'Store Manager', 'Sales').
 - `description` (TEXT): A brief description of the role.
@@ -181,6 +184,7 @@ Defines the user roles available in the system.
 Defines granular permissions for actions within the system.
 
 **Fields:**
+
 - `id` (SERIAL PRIMARY KEY): Unique ID for the permission.
 - `name` (VARCHAR(100) UNIQUE NOT NULL): The name of the permission (e.g., 'bills.create', 'analytics.view.all').
 - `description` (TEXT): A brief description of what the permission allows.
@@ -189,6 +193,7 @@ Defines granular permissions for actions within the system.
 A junction table that assigns permissions to roles, creating a many-to-many relationship.
 
 **Fields:**
+
 - `role_id` (INTEGER NOT NULL REFERENCES roles(id)): The role being assigned a permission.
 - `permission_id` (INTEGER NOT NULL REFERENCES permissions(id)): The permission being granted.
 - PRIMARY KEY (`role_id`, `permission_id`): Ensures each permission is assigned to a role only once.
@@ -197,6 +202,7 @@ A junction table that assigns permissions to roles, creating a many-to-many rela
 Stores general information about each medicine. This is the master catalog of all pharmaceuticals the company sells.
 
 **Fields:**
+
 - `id` (SERIAL PRIMARY KEY): Unique medicine ID.
 - `name` (VARCHAR(255) UNIQUE NOT NULL): Medicine name.
 - `category` (VARCHAR(100)): Medicine category (e.g., "Antibiotic", "Analgesic").
@@ -211,6 +217,7 @@ Stores general information about each medicine. This is the master catalog of al
 This is the core inventory table. It tracks specific batches of medicines in specific stores and locations.
 
 **Fields:**
+
 - `id` (SERIAL PRIMARY KEY): Unique ID for this inventory item.
 - `medicine_id` (INTEGER NOT NULL REFERENCES medicines(id)): The medicine this item refers to.
 - `store_id` (INTEGER NOT NULL REFERENCES stores(id)): The store where this item is located.
@@ -230,6 +237,7 @@ This is the core inventory table. It tracks specific batches of medicines in spe
 Logs the movement of inventory items from one location to another, creating an audit trail.
 
 **Fields:**
+
 - `id` (SERIAL PRIMARY KEY): Unique ID for the movement log.
 - `inventory_item_id` (INTEGER NOT NULL REFERENCES inventory_items(id)): The inventory item that was moved.
 - `moved_by_user_id` (INTEGER NOT NULL REFERENCES users(id)): The user who performed the movement.
@@ -243,6 +251,7 @@ Logs the movement of inventory items from one location to another, creating an a
 Stores header information for each bill (receipt).
 
 **Fields:**
+
 - `id` (SERIAL PRIMARY KEY): Unique bill ID.
 - `store_id` (INTEGER NOT NULL REFERENCES stores(id)): The store that issued the bill.
 - `created_by_user_id` (INTEGER NOT NULL REFERENCES users(id)): The user who created the bill.
@@ -262,6 +271,7 @@ Stores header information for each bill (receipt).
 Stores the individual line items for each bill.
 
 **Fields:**
+
 - `id` (SERIAL PRIMARY KEY): Unique ID for the bill line item.
 - `bill_id` (INTEGER NOT NULL REFERENCES bills(id)): The bill this item belongs to.
 - `medicine_id` (INTEGER NOT NULL REFERENCES medicines(id)): The medicine that was sold.
