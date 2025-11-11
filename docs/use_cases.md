@@ -2,12 +2,12 @@
 
 ## Primary Use Cases
 
-### UC-01: Clerk Creates a Bill
+### UC-01: Sales Creates a Bill
 
-- **Actor**: Clerk
+- **Actor**: Sales
 - **Goal**: To create a bill for a customer (e.g., a pharmacy) at their assigned store.
 - **Flow**:
-    1.  Clerk logs in and is on the "Create Bill" page for their store.
+    1.  Sales logs in and is on the "Create Bill" page for their store.
     2.  Searches for a medicine. The system shows available batches with expiry dates and quantities.
     3.  Selects a batch and adds it to the bill.
     4.  Enters the quantity.
@@ -100,18 +100,3 @@
     2.  Runs the "Expiring Soon" report, with a filter for "Next 60 days".
     3.  The system generates a list of all medicine batches that will expire in the next 60 days, showing the medicine name, batch number, quantity, and expiry date.
     4.  The manager can use this list to create a sales promotion or instruct staff to sell these batches first.
-
----
-
-### UC-08: User Logs In
-
-- **Actor**: Any User
-- **Goal**: To log into the system securely.
-- **Flow**:
-    1.  User goes to the login page.
-    2.  Enters their username and password.
-    3.  Clicks "Login".
-    4.  The system verifies their credentials, checks their role and assigned store, and redirects them to the appropriate dashboard.
-- **Alternatives**:
-    - If credentials are wrong, an error is shown.
-    - If the account is deactivated, login fails.

@@ -8,10 +8,9 @@ To support a growing multi-store wholesale business, we have expanded our user r
 |---|---|---|
 | **Company Admin** | All Stores | Has complete control. Manages stores, oversees all inventory, views company-wide analytics, and manages all user accounts. |
 | **Store Manager** | Assigned Store | Manages a single store. Oversees daily operations, manages staff, views store-level analytics, and handles local inventory. |
-| **Clerk** | Assigned Store | Handles day-to-day sales. Primarily responsible for creating bills for customers (e.g., pharmacies, clinics). |
 | **Stockist** | Assigned Store | Manages the inventory for a single store. Responsible for receiving new medicine shipments, organizing them, and tracking their location. |
 | **Company Stockist** | All Stores | A central role for inventory oversight. Can view inventory across all stores and authorize/initiate stock transfers between them. |
-| **Sales** | Assigned Stores | Views sales reports and product performance for one or more stores to analyze trends and performance. |
+| **Sales** | Assigned Store(s) | Creates bills for customers at the point of sale, handles customer interactions, and analyzes sales data to track performance and identify trends. |
 
 ---
 
@@ -24,7 +23,7 @@ RetailPulse is structured into five main modules, designed to support a multi-st
 ## Module 1: Bill Generation
 
 ### Purpose
-To enable fast and accurate billing for customers at the store level, with all data automatically synced.
+To enable fast and accurate billing for customers at the store level, with all data automatically synced, primarily handled by the Sales role.
 
 ### Features
 
@@ -44,7 +43,7 @@ To enable fast and accurate billing for customers at the store level, with all d
 
 #### 1.4 Bill Numbering and Tracking
 - **Smart Numbering**: Bills get a unique number that includes the store ID (e.g., `STORE1-BILL-00001`).
-- **Audit Trail**: Records the date, time, and the clerk who created the bill.
+- **Audit Trail**: Records the date, time, and the Sales user who created the bill.
 
 #### 1.5 PDF Generation
 - **Customized PDFs**: Bills are generated in a professional PDF format with the specific store's logo and address.
@@ -125,7 +124,7 @@ To secure the system and ensure users only access what their role permits.
 - **Session Management**: The system manages user sessions and provides automatic logouts for security.
 
 #### 4.3 Role-Based Access Control (RBAC)
-- **Granular Permissions**: The system enforces the permissions defined in the **User Roles** table. For example, a `Clerk` from Store A cannot create a bill for Store B, nor can they see Store B's inventory. A `Company Admin` can do both.
+- **Granular Permissions**: The system enforces the permissions defined in the **User Roles** table. For example, a `Sales` user from Store A cannot create a bill for Store B, nor can they see Store B's inventory. A `Company Admin` can do both.
 
 ---
 
@@ -148,32 +147,25 @@ To provide each user with an immediate, relevant overview of their tasks and key
 - **Key Metrics**: Total revenue, profit, and sales for their store.
 - **Visuals**: Charts showing daily/weekly sales trends, top-selling medicines, and inventory value for their store.
 - **Alerts**: Notifications for stock expiring soon, low stock levels, and pending inter-store transfers for their store.
-- **Quick Links**: Create Bill, View Store Inventory, Store Analytics, Manage Staff (Clerks/Stockists).
+- **Quick Links**: Create Bill, View Store Inventory, Store Analytics, Manage Staff (Sales/Stockists).
 
-#### 5.3 Clerk Dashboard
-- **View**: A streamlined interface focused on the primary task of billing.
-- **Default Page**: The "Create Bill" page is the main dashboard.
-- **Visuals**: A simple list of their own recent bills created during the current session.
-- **Alerts**: None by default, to maintain a clean interface.
-- **Quick Links**: Create Bill, View Own Bill History.
-
-#### 5.4 Stockist Dashboard
+#### 5.3 Stockist Dashboard
 - **View**: Focused on inventory management for their assigned store.
 - **Key Metrics**: Total inventory value, number of unique items, and stock-out percentage for their store.
 - **Visuals**: A list of pending tasks.
 - **Alerts**: Notifications for newly received shipments, pending stock counts, and items with low stock.
 - **Quick Links**: View Store Inventory, Receive Stock, Move Stock, View Transfers.
 
-#### 5.5 Company Stockist Dashboard
+#### 5.4 Company Stockist Dashboard
 - **View**: Company-wide inventory overview.
 - **Key Metrics**: Total inventory value across all stores, number of pending inter-store transfers.
 - **Visuals**: A table showing stock levels of key medicines across all stores for easy comparison.
 - **Alerts**: Notifications for new transfer requests and completed transfers.
 - **Quick Links**: View All Inventory, Initiate Transfer, View Transfer History.
 
-#### 5.6 Sales Dashboard
-- **View**: Focused on sales performance for their assigned region or stores.
-- **Key Metrics**: Sales revenue vs. target, number of bills created, and average bill value.
-- **Visuals**: Leaderboards showing top-selling medicines and top-performing stores in their region.
-- **Alerts**: Notifications for significant sales events or when a target is met.
-- **Quick Links**: View Sales Reports, Product Performance Analytics.
+#### 5.5 Sales Dashboard
+- **View**: A comprehensive interface for sales activities and performance analysis.
+- **Key Metrics**: Sales revenue vs. target, number of bills created, average bill value, and top-selling medicines.
+- **Visuals**: Leaderboards showing top-performing sales users, sales trends, and customer purchase patterns.
+- **Alerts**: Notifications for significant sales events, customer inquiries, or when a sales target is met.
+- **Quick Links**: Create Bill, View Own Bill History, View Sales Reports, Product Performance Analytics.

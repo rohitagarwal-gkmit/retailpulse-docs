@@ -76,10 +76,10 @@ This document explains how RetailPulse handles common problems and unexpected si
 
 ## 6. Multi-Store and Advanced Inventory Edge Cases
 
--   **Problem**: A `Clerk` tries to sell a medicine from a batch that has expired.
+-   **Problem**: A `Sales` user tries to sell a medicine from a batch that has expired.
     -   **Solution**: The system should not show expired batches in the search results on the billing page. If an API call is made directly, the backend should reject the request with a "Cannot sell from expired batch" error.
 
--   **Problem**: Two clerks try to sell the last item of a batch at the same time (a race condition).
+-   **Problem**: Two `Sales` users try to sell the last item of a batch at the same time (a race condition).
     -   **Solution**: The system uses database-level transaction isolation. The first transaction to commit will succeed. The second transaction will fail when it attempts to update the quantity, as the stock will already be zero. It will receive an error like "Insufficient stock".
 
 -   **Problem**: A stock transfer is sent from Store A, but Store B claims it was never received or the quantity is wrong.

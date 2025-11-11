@@ -2,9 +2,9 @@
 
 ## Overview
 
-The system uses **PostgreSQL** as the database. The schema is designed to support a multi-store medical retail business, with detailed inventory tracking and role-based access for different user types.
+The system uses **PostgreSQL** as the database. The schema is designed to support a multi-store medical retail business, with detailed inventory tracking and a flexible Role-Based Access Control (RBAC) system.
 
-It includes tables for managing stores, users, medicines, and a detailed inventory system that tracks pharmaceuticals by batch, expiry date, and location within each store. It also tracks financial transactions like bills and the movement of stock.
+The RBAC system is composed of `roles`, `permissions`, and a `role_permissions` junction table. This allows for granular control over user actions, making the system scalable and easy to manage.
 
 To ensure data integrity and history, all tables include `created_at`, `updated_at`, and `deleted_at` timestamps for soft deletes.
 
@@ -14,17 +14,37 @@ To ensure data integrity and history, all tables include `created_at`, `updated_
 
 ```mermaid
 erDiagram
-    STORES ||--|{ USERS : "employs"
-    STORES ||--|{ BILLS : "generates"
-    STORES ||--|{ INVENTORY_ITEMS : "has"
-    USERS ||--o{ BILLS : "creates"
-    USERS ||--o{ INVENTORY_MOVEMENTS : "performs"
-    MEDICINES ||--o{ INVENTORY_ITEMS : "is an instance of"
-    BILLS ||--|{ BILL_ITEMS : "contains"
-    MEDICINES ||--o{ BILL_ITEMS : "appears in"
-    INVENTORY_ITEMS ||--o{ INVENTORY_MOVEMENTS : "is moved in"
+    users {
+        int id PK
+        int store_id FK
+        int role_id FK
+        varchar username UK
+        varchar password_hash
+        varchar full_name
+        boolean is_active
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
+    }
 
-    STORES {
+    roles {
+        int id PK
+        varchar name UK
+        text description
+    }
+
+    permissions {
+        int id PK
+        varchar name UK
+        text description
+    }
+
+    role_permissions {
+        int role_id PK, FK
+        int permission_id PK, FK
+    }
+
+    stores {
         int id PK
         varchar name UK
         text address
@@ -34,20 +54,7 @@ erDiagram
         timestamptz deleted_at
     }
 
-    USERS {
-        int id PK
-        int store_id FK "Can be NULL for company-level users"
-        varchar username UK
-        varchar password_hash
-        varchar role
-        varchar full_name
-        boolean is_active
-        timestamptz created_at
-        timestamptz updated_at
-        timestamptz deleted_at
-    }
-
-    MEDICINES {
+    medicines {
         int id PK
         varchar name UK
         varchar category
@@ -59,7 +66,7 @@ erDiagram
         timestamptz deleted_at
     }
 
-    INVENTORY_ITEMS {
+    inventory_items {
         int id PK
         int medicine_id FK
         int store_id FK
@@ -67,8 +74,8 @@ erDiagram
         varchar manufacturing_id
         date expire_date
         int quantity
-        varchar location "e.g., Shelf A1, Rack B2"
-        varchar storage_category "e.g., Cold Storage, General"
+        varchar location
+        varchar storage_category
         decimal cost_price
         decimal selling_price
         timestamptz created_at
@@ -76,7 +83,7 @@ erDiagram
         timestamptz deleted_at
     }
 
-    INVENTORY_MOVEMENTS {
+    inventory_movements {
         int id PK
         int inventory_item_id FK
         int moved_by_user_id FK
@@ -87,7 +94,7 @@ erDiagram
         timestamptz movement_date
     }
 
-    BILLS {
+    bills {
         int id PK
         int store_id FK
         int created_by_user_id FK
@@ -104,11 +111,11 @@ erDiagram
         timestamptz deleted_at
     }
 
-    BILL_ITEMS {
+    bill_items {
         int id PK
         int bill_id FK
         int medicine_id FK
-        varchar batch_number "To know which batch was sold"
+        varchar batch_number
         int quantity
         decimal unit_price
         decimal total_price
@@ -116,6 +123,19 @@ erDiagram
         timestamptz updated_at
         timestamptz deleted_at
     }
+
+    users ||--|{ roles : "has"
+    roles ||--|{ role_permissions : "has many"
+    permissions ||--o{ role_permissions : "has many"
+    stores ||--|{ users : "employs"
+    stores ||--|{ bills : "generates"
+    stores ||--|{ inventory_items : "has"
+    users ||--o{ bills : "creates"
+    users ||--o{ inventory_movements : "performs"
+    medicines ||--o{ inventory_items : "is an instance of"
+    bills ||--|{ bill_items : "contains"
+    medicines ||--o{ bill_items : "appears in"
+    inventory_items ||--o{ inventory_movements : "is moved in"
 ```
 
 ---
@@ -135,21 +155,45 @@ Stores information for each retail store.
 - `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
 
 ### 2. `users`
-Stores user login information and their roles.
+Stores user login information and their assigned role.
 
 **Fields:**
 - `id` (SERIAL PRIMARY KEY): Unique user ID.
-- `store_id` (INTEGER REFERENCES stores(id)): The store this user belongs to. Can be `NULL` for company-wide users (e.g., Company Admin).
+- `store_id` (INTEGER REFERENCES stores(id)): The store this user belongs to. Can be `NULL` for company-wide users.
+- `role_id` (INTEGER NOT NULL REFERENCES roles(id)): The role assigned to this user.
 - `username` (VARCHAR(100) UNIQUE NOT NULL): Login username.
 - `password_hash` (VARCHAR(255) NOT NULL): Encrypted password.
-- `role` (VARCHAR(50) NOT NULL): The user's role (e.g., 'company_admin', 'store_manager', 'clerk').
 - `full_name` (VARCHAR(255)): User's full name.
 - `is_active` (BOOLEAN NOT NULL DEFAULT true): Whether the user can log in.
 - `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
 - `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
 - `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
 
-### 3. `medicines`
+### 3. `roles`
+Defines the user roles available in the system.
+
+**Fields:**
+- `id` (SERIAL PRIMARY KEY): Unique ID for the role.
+- `name` (VARCHAR(50) UNIQUE NOT NULL): The name of the role (e.g., 'Company Admin', 'Store Manager', 'Sales').
+- `description` (TEXT): A brief description of the role.
+
+### 4. `permissions`
+Defines granular permissions for actions within the system.
+
+**Fields:**
+- `id` (SERIAL PRIMARY KEY): Unique ID for the permission.
+- `name` (VARCHAR(100) UNIQUE NOT NULL): The name of the permission (e.g., 'bills.create', 'analytics.view.all').
+- `description` (TEXT): A brief description of what the permission allows.
+
+### 5. `role_permissions`
+A junction table that assigns permissions to roles, creating a many-to-many relationship.
+
+**Fields:**
+- `role_id` (INTEGER NOT NULL REFERENCES roles(id)): The role being assigned a permission.
+- `permission_id` (INTEGER NOT NULL REFERENCES permissions(id)): The permission being granted.
+- PRIMARY KEY (`role_id`, `permission_id`): Ensures each permission is assigned to a role only once.
+
+### 6. `medicines`
 Stores general information about each medicine. This is the master catalog of all pharmaceuticals the company sells.
 
 **Fields:**
@@ -163,7 +207,7 @@ Stores general information about each medicine. This is the master catalog of al
 - `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
 - `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
 
-### 4. `inventory_items`
+### 7. `inventory_items`
 This is the core inventory table. It tracks specific batches of medicines in specific stores and locations.
 
 **Fields:**
@@ -182,7 +226,7 @@ This is the core inventory table. It tracks specific batches of medicines in spe
 - `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
 - `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
 
-### 5. `inventory_movements`
+### 8. `inventory_movements`
 Logs the movement of inventory items from one location to another, creating an audit trail.
 
 **Fields:**
@@ -195,7 +239,7 @@ Logs the movement of inventory items from one location to another, creating an a
 - `reason` (TEXT): The reason for the movement (e.g., "Restocking shelf", "Store transfer").
 - `movement_date` (TIMESTAMPTZ NOT NULL DEFAULT now()): When the movement occurred.
 
-### 6. `bills`
+### 9. `bills`
 Stores header information for each bill (receipt).
 
 **Fields:**
@@ -214,7 +258,7 @@ Stores header information for each bill (receipt).
 - `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
 - `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
 
-### 7. `bill_items`
+### 10. `bill_items`
 Stores the individual line items for each bill.
 
 **Fields:**
@@ -228,3 +272,4 @@ Stores the individual line items for each bill.
 - `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
 - `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
 - `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
+

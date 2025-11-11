@@ -12,7 +12,7 @@ As a medical wholesale business grows from a single store to multiple locations,
 Owners cannot get a clear, real-time view of performance across all stores. Each location operates in a silo, making it impossible to compare sales, manage stock, or enforce pharmaceutical handling standards effectively.
 
 ### 2. Complex Inventory Management
-Tracking medicine inventory becomes a nightmare. It's difficult to know the exact stock levels at each location, leading to overstocking in one store and stockouts in another. Tracking critical details like batch numbers, expiry dates, and storage conditions (e.g., cold storage) across a network of stores is Difficult with manual methods.
+Tracking medicine inventory becomes a nightmare. It's difficult to know the exact stock levels at each location, leading to overstocking in one store and stockouts in another. Tracking critical details like batch numbers, expiry dates, and storage conditions (e.g., cold storage) across a network of stores is difficult with manual methods.
 
 ### 3. Inefficient Operations
 Manual processes like handwriting bills, physically checking stock, and consolidating paper reports are slow, prone to errors, and do not scale as the business expands.
@@ -45,7 +45,6 @@ The system is designed with a clear role-based structure to support a growing wh
 |---|---|---|
 | **Company Admin** | All Stores | Oversees the entire business, manages stores, and views company-wide analytics. |
 | **Store Manager** | Single Store | Manages day-to-day operations and staff for their assigned store. |
-| **Clerk** | Single Store | Creates bills for customers at the point of sale. |
 | **Stockist** | Single Store | Manages all inventory within their assigned store, from receiving to organizing. |
 | **Company Stockist** | All Stores | Manages high-level inventory, including transfers between stores. |
-| **Sales** | Assigned Stores | Analyzes sales data to track performance and identify trends. |
+| **Sales** | Assigned Stores | Creates bills for customers at the point of sale and analyzes sales data to track performance and identify trends. |
