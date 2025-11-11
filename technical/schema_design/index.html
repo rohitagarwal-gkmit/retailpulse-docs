@@ -388,6 +388,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#why-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why PostgreSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#entity-relationship-diagram" class="md-nav__link">
     <span class="md-ellipsis">
       Entity Relationship Diagram
@@ -516,6 +525,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#indexing-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indexing Strategy
+    </span>
+  </a>
   
 </li>
       
@@ -661,6 +679,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#why-postgresql" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why PostgreSQL
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#entity-relationship-diagram" class="md-nav__link">
     <span class="md-ellipsis">
       Entity Relationship Diagram
@@ -792,6 +819,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#indexing-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Indexing Strategy
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -810,8 +846,16 @@
 
 <h1 id="database-schema">Database Schema</h1>
 <h2 id="overview">Overview</h2>
-<p>The system uses <strong>PostgreSQL</strong> as the database. The schema is designed to support a multi-store medical retail business, with detailed inventory tracking and a flexible Role-Based Access Control (RBAC) system.</p>
-<p>To ensure data integrity and history, all tables include <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps for soft deletes.</p>
+<p>The system uses <strong>PostgreSQL</strong> for its ACID compliance, strong relational support, and efficient handling of complex joins needed for multi-store inventory and RBAC. </p>
+<p>Users can have multiple roles and work across multiple stores via junction tables (<code>user_stores</code> and <code>user_roles</code>). All tables use soft deletes with <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<h2 id="why-postgresql">Why PostgreSQL</h2>
+<ul>
+<li><strong>ACID compliance</strong>: Financial and inventory transactions require guaranteed consistency</li>
+<li><strong>Complex relationships</strong>: Multiple many-to-many relationships (users-roles, users-stores, bills-products)</li>
+<li><strong>Structured data</strong>: Product details, batches, pricing, and transactions are inherently structured</li>
+<li><strong>SQL querying</strong>: Efficient aggregations and reporting on relational data</li>
+<li><strong>RBAC support</strong>: Natural fit for role-permission modeling</li>
+</ul>
 <hr />
 <h2 id="entity-relationship-diagram">Entity Relationship Diagram</h2>
 <pre class="mermaid"><code>erDiagram
@@ -971,29 +1015,50 @@
 <hr />
 <h2 id="database-tables">Database Tables</h2>
 <h3 id="stores"><code>stores</code></h3>
-<p>The <code>stores</code> table contains a record for each retail store location. It includes a unique <code>id</code>, the store's <code>name</code>, <code>address</code>, and <code>contact_phone</code>. Timestamps for creation, updates, and soft deletes are included.</p>
+<p>Store locations with name, address, and contact info.</p>
 <h3 id="users"><code>users</code></h3>
-<p>The <code>users</code> table is the central record for every person who can log in to the system. It contains a unique <code>id</code>, <code>username</code>, <code>password_hash</code>, <code>full_name</code>, and an <code>is_active</code> flag. A user's roles and store assignments are managed in separate junction tables, so this table does not contain <code>role_id</code> or <code>store_id</code>. It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Central user records with username, password hash, and full name. Roles and stores assigned via junction tables.</p>
 <h3 id="roles"><code>roles</code></h3>
-<p>The <code>roles</code> table defines the user roles available in the system. It has a unique <code>id</code> and a <code>name</code> for the role (e.g., 'Company Admin', 'Store Manager', 'Sales'), along with a <code>description</code>. It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Defines available roles (Company Admin, Store Manager, Sales, Stockist, Company Stockist).</p>
 <h3 id="user_roles"><code>user_roles</code></h3>
-<p>This is a junction table that assigns roles to users, creating a many-to-many relationship. It links <code>user_id</code> to <code>role_id</code>, allowing a single user to have multiple roles (e.g., a user could be both a 'Store Manager' and 'Sales'). It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Junction table linking users to roles (many-to-many).</p>
 <h3 id="permissions"><code>permissions</code></h3>
-<p>The <code>permissions</code> table defines granular permissions for actions within the system. It has a unique <code>id</code> and a <code>name</code> for the permission (e.g., 'bills.create', 'analytics.view.all'), with a <code>description</code> of what it allows. It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Granular action permissions (e.g., 'bills.create', 'inventory.manage').</p>
 <h3 id="role_permissions"><code>role_permissions</code></h3>
-<p>This is a junction table that assigns permissions to roles, creating a many-to-many relationship. It links <code>role_id</code> to <code>permission_id</code>, ensuring each permission is assigned to a role only once. It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Junction table linking roles to permissions (many-to-many).</p>
 <h3 id="user_stores"><code>user_stores</code></h3>
-<p>This is a junction table that assigns users to stores, creating a many-to-many relationship. It links <code>user_id</code> to <code>store_id</code>, allowing a single user to be associated with multiple stores. It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Junction table linking users to stores (many-to-many).</p>
 <h3 id="products"><code>products</code></h3>
-<p>The <code>products</code> table is the master catalog of all products the company sells. It contains the product's <code>id</code>, <code>name</code>, <code>category</code>, <code>manufacturer</code>, <code>description</code>, and an <code>is_active</code> flag. It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Master product catalog with name, category, manufacturer, and description.</p>
 <h3 id="inventory_items"><code>inventory_items</code></h3>
-<p>This is the core inventory table, tracking specific batches of products in specific stores and locations. It links to <code>products</code> and <code>stores</code> and includes a <code>batch_number</code>, <code>manufacturing_id</code>, <code>expire_date</code>, <code>quantity</code>, <code>location</code>, <code>storage_category</code>, <code>cost_price</code>, and <code>selling_price</code>. It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Batch-level inventory tracking per store with expiry dates, quantities, location, and pricing.</p>
 <h3 id="inventory_movements"><code>inventory_movements</code></h3>
-<p>The <code>inventory_movements</code> table logs the movement of inventory items from one location to another, creating an audit trail. It records the <code>inventory_item_id</code>, the <code>moved_by_user_id</code>, <code>quantity_moved</code>, <code>from_location</code>, <code>to_location</code>, a <code>reason</code>, and the <code>movement_date</code>. It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Audit trail of inventory transfers between locations with user, quantity, and reason.</p>
 <h3 id="bills"><code>bills</code></h3>
-<p>The <code>bills</code> table stores header information for each bill (receipt). It is linked to the <code>stores</code> where it was created and the <code>users</code> who created it. It also contains a unique <code>bill_number</code>, customer details, and financial totals (<code>total_amount</code>, <code>discount</code>, <code>tax_amount</code>, <code>grand_total</code>). It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Bill headers with store, user, bill number, customer details, and totals.</p>
 <h3 id="bill_products"><code>bill_products</code></h3>
-<p>The <code>bill_products</code> table stores the individual line items for each bill. It links to the <code>bills</code> table and the specific <code>products</code> sold. It includes the <code>quantity</code>, <code>unit_price</code>, <code>total_price</code>, and the <code>batch_number</code> of the item sold for accurate inventory tracking. It also includes <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
+<p>Bill line items with product, quantity, pricing, and batch number for inventory tracking.</p>
+<h2 id="indexing-strategy">Indexing Strategy</h2>
+<p><strong>Auto-created indexes:</strong>
+- Primary keys (all tables)
+- Unique constraints (<code>username</code>, <code>bill_number</code>, product/role/permission <code>name</code>)</p>
+<p><strong>Explicit B-tree indexes on:</strong></p>
+<p><strong>Foreign keys</strong> (for JOIN performance):
+- <code>user_roles</code>: <code>user_id</code>, <code>role_id</code>
+- <code>user_stores</code>: <code>user_id</code>, <code>store_id</code>
+- <code>role_permissions</code>: <code>role_id</code>, <code>permission_id</code>
+- <code>inventory_items</code>: <code>product_id</code>, <code>store_id</code>
+- <code>inventory_movements</code>: <code>inventory_item_id</code>, <code>moved_by_user_id</code>
+- <code>bills</code>: <code>store_id</code>, <code>created_by_user_id</code>
+- <code>bill_products</code>: <code>bill_id</code>, <code>product_id</code></p>
+<p><strong>Query-heavy columns:</strong>
+- <code>inventory_items.expire_date</code> - frequent expiry checks and range queries
+- <code>inventory_items.batch_number</code> - batch-specific searches
+- <code>products.category</code> - filtering by category
+- <code>products.manufacturer</code> - filtering by manufacturer
+- <code>bills.bill_date</code> - date-based reporting</p>
+<p><strong>Why B-tree:</strong>
+Handles equality, range queries, sorting, and pattern matching efficiently - covers all common query patterns in the system.</p>
 
 
 

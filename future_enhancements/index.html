@@ -60,7 +60,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#future-functional-enhancements" class="md-skip">
+        <a href="#future-enhancements" class="md-skip">
           Skip to content
         </a>
       
@@ -434,6 +434,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Future Enhancements
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -445,6 +458,70 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-barcode-scanner-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Barcode Scanner Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-whatsapp-bill-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. WhatsApp Bill Sharing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-customer-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Customer Management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-low-stock-alerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Low Stock Alerts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-sales-analytics-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Sales Analytics Dashboard
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -470,6 +547,59 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-barcode-scanner-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Barcode Scanner Integration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-whatsapp-bill-sharing" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. WhatsApp Bill Sharing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-customer-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Customer Management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-low-stock-alerts" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Low Stock Alerts
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-sales-analytics-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Sales Analytics Dashboard
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -484,23 +614,111 @@
 
 
 
-<h1 id="future-functional-enhancements">Future Functional Enhancements</h1>
-<ol>
-<li><strong>Analytics Dashboard</strong>: A comprehensive dashboard to provide actionable insights into sales, product performance, and inventory. This will include features like time-range filtering, visual charts, and reports on:<ul>
-<li>Sales trends (revenue, profit, best-sellers)</li>
-<li>Inventory insights (stock valuation, aging inventory)</li>
-<li>Advanced analytics (customer segmentation, purchase patterns)</li>
-</ul>
-</li>
-<li>Quick product search and billing using barcode scanner</li>
-<li>Send bill PDFs directly to customer's WhatsApp</li>
-<li>Store customer contact details and view their purchase history</li>
-<li>Track credit sales and outstanding payments from customers</li>
-<li>Maintain supplier details and track purchase orders sent to suppliers</li>
-<li>Automatic email/SMS notifications when products fall below the minimum stock level</li>
-<li>Send bills and payment reminders to customers via email</li>
-<li>Role-based dashboard customization, allowing users to personalize their workspace</li>
-</ol>
+<h1 id="future-enhancements">Future Enhancements</h1>
+<p>This document outlines 5 simple future enhancements for the RetailPulse system with their implementation approach.</p>
+<hr />
+<h2 id="1-barcode-scanner-integration">1. Barcode Scanner Integration</h2>
+<p><strong>Description:</strong><br />
+Enable quick product search and billing using barcode scanners for faster checkout.</p>
+<p><strong>Implementation:</strong>
+- Add barcode field to Product schema
+- Integrate barcode scanner library (e.g., QuaggaJS for web)
+- Create barcode input API endpoint that searches products by barcode
+- Update Sales UI with barcode scan button
+- Auto-add scanned products to cart</p>
+<p><strong>Workflow:</strong></p>
+<pre class="mermaid"><code>flowchart LR
+    A[Scan Barcode] --&gt; B[Barcode Scanner Library]
+    B --&gt; C[Send Barcode to API]
+    C --&gt; D{Product Found?}
+    D --&gt;|Yes| E[Add to Cart]
+    D --&gt;|No| F[Show Error]
+    E --&gt; G[Continue Billing]</code></pre>
+<hr />
+<h2 id="2-whatsapp-bill-sharing">2. WhatsApp Bill Sharing</h2>
+<p><strong>Description:</strong><br />
+Send bill PDFs directly to customers via WhatsApp after purchase.</p>
+<p><strong>Implementation:</strong>
+- Integrate WhatsApp Business API or third-party service (e.g., Twilio)
+- Add customer phone number field in billing form (optional)
+- Generate bill PDF using existing system
+- Create API endpoint to send PDF via WhatsApp
+- Add "Send via WhatsApp" button on bill confirmation screen</p>
+<p><strong>Workflow:</strong></p>
+<pre class="mermaid"><code>flowchart LR
+    A[Bill Generated] --&gt; B[Enter Customer Phone]
+    B --&gt; C[Click Send WhatsApp]
+    C --&gt; D[Generate PDF]
+    D --&gt; E[Call WhatsApp API]
+    E --&gt; F[Send PDF to Customer]
+    F --&gt; G[Show Success Message]</code></pre>
+<hr />
+<h2 id="3-customer-management">3. Customer Management</h2>
+<p><strong>Description:</strong><br />
+Store customer contact details and view their complete purchase history.</p>
+<p><strong>Implementation:</strong>
+- Create Customer schema (name, phone, email, address)
+- Add customer selection/creation in billing flow
+- Link bills to customer records via foreign key
+- Create Customer Management page for CRUD operations
+- Build customer profile page showing all past bills
+- Add search and filter functionality</p>
+<p><strong>Workflow:</strong></p>
+<pre class="mermaid"><code>flowchart TD
+    A[Create Bill] --&gt; B{Customer Exists?}
+    B --&gt;|Yes| C[Select Customer]
+    B --&gt;|No| D[Create New Customer]
+    C --&gt; E[Link to Bill]
+    D --&gt; E
+    E --&gt; F[Save Bill]
+    F --&gt; G[View Customer Profile]
+    G --&gt; H[Display Purchase History]</code></pre>
+<hr />
+<h2 id="4-low-stock-alerts">4. Low Stock Alerts</h2>
+<p><strong>Description:</strong><br />
+Automatic notifications when products fall below minimum stock level.</p>
+<p><strong>Implementation:</strong>
+- Add minimum_stock_level field to Product schema
+- Create background job/cron to check stock levels daily
+- Integrate email service (e.g., SendGrid) or SMS service
+- Build notification template for low stock alerts
+- Send alerts to Store Manager and Company Stockist
+- Add notification preferences in user settings</p>
+<p><strong>Workflow:</strong></p>
+<pre class="mermaid"><code>flowchart LR
+    A[Daily Cron Job] --&gt; B[Check Inventory Levels]
+    B --&gt; C{Stock &lt; Minimum?}
+    C --&gt;|Yes| D[Generate Alert]
+    C --&gt;|No| E[Continue]
+    D --&gt; F[Send Email/SMS]
+    F --&gt; G[Notify Manager]
+    F --&gt; H[Notify Company Stockist]</code></pre>
+<hr />
+<h2 id="5-sales-analytics-dashboard">5. Sales Analytics Dashboard</h2>
+<p><strong>Description:</strong><br />
+Visual dashboard showing sales trends, top products, and revenue insights.</p>
+<p><strong>Implementation:</strong>
+- Create analytics API endpoints aggregating sales data
+- Use charting library (e.g., Chart.js or Recharts)
+- Build dashboard page with key metrics:
+  - Total sales and revenue (daily/weekly/monthly)
+  - Top selling products
+  - Sales by product category
+  - Store-wise performance comparison
+- Add date range filters
+- Role-based access (Company Admin sees all stores, Manager sees own store)</p>
+<p><strong>Workflow:</strong></p>
+<pre class="mermaid"><code>flowchart TD
+    A[User Opens Dashboard] --&gt; B[Select Date Range]
+    B --&gt; C[API Aggregates Sales Data]
+    C --&gt; D[Calculate Metrics]
+    D --&gt; E[Generate Charts]
+    E --&gt; F[Display Revenue Trends]
+    E --&gt; G[Display Top Products]
+    E --&gt; H[Display Store Comparison]
+    F --&gt; I[Interactive Dashboard]
+    G --&gt; I
+    H --&gt; I</code></pre>
 
 
 
