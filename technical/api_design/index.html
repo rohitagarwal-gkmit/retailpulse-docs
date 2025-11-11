@@ -452,9 +452,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#medicine-master-endpoints" class="md-nav__link">
+  <a href="#product-master-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
-      Medicine Master Endpoints
+      Product Master Endpoints
     </span>
   </a>
   
@@ -473,15 +473,6 @@
   <a href="#bill-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
       Bill Endpoints
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#analytics-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analytics Endpoints
     </span>
   </a>
   
@@ -601,9 +592,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#medicine-master-endpoints" class="md-nav__link">
+  <a href="#product-master-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
-      Medicine Master Endpoints
+      Product Master Endpoints
     </span>
   </a>
   
@@ -622,15 +613,6 @@
   <a href="#bill-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
       Bill Endpoints
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#analytics-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analytics Endpoints
     </span>
   </a>
   
@@ -749,7 +731,7 @@
 </tbody>
 </table>
 <hr />
-<h3 id="medicine-master-endpoints">Medicine Master Endpoints</h3>
+<h3 id="product-master-endpoints">Product Master Endpoints</h3>
 <table>
 <thead>
 <tr>
@@ -761,23 +743,23 @@
 <tbody>
 <tr>
 <td><code>POST</code></td>
-<td><code>/medicines</code></td>
-<td>Create a new medicine in the master catalog.</td>
+<td><code>/products</code></td>
+<td>Create a new product in the master catalog.</td>
 </tr>
 <tr>
 <td><code>GET</code></td>
-<td><code>/medicines</code></td>
-<td>List all medicines in the master catalog.</td>
+<td><code>/products</code></td>
+<td>List all products in the master catalog.</td>
 </tr>
 <tr>
 <td><code>GET</code></td>
-<td><code>/medicines/{medicine_id}</code></td>
-<td>Get details for a specific master medicine.</td>
+<td><code>/products/{product_id}</code></td>
+<td>Get details for a specific master product.</td>
 </tr>
 <tr>
 <td><code>PATCH</code></td>
-<td><code>/medicines/{medicine_id}</code></td>
-<td>Update a master medicine's details.</td>
+<td><code>/products/{product_id}</code></td>
+<td>Update a master product's details.</td>
 </tr>
 </tbody>
 </table>
@@ -854,34 +836,6 @@
 <td><code>GET</code></td>
 <td><code>/bills/{bill_id}</code></td>
 <td>Get details for a specific bill (accessible across stores by Admins).</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h3 id="analytics-endpoints">Analytics Endpoints</h3>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Endpoint</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>GET</code></td>
-<td><code>/analytics/sales</code></td>
-<td>Get sales report data. Can be filtered by <code>store_id</code>. If no filter, returns company-wide data.</td>
-</tr>
-<tr>
-<td><code>GET</code></td>
-<td><code>/analytics/inventory</code></td>
-<td>Get inventory reports (e.g., stock valuation, expiring soon). Can be filtered by <code>store_id</code>.</td>
-</tr>
-<tr>
-<td><code>GET</code></td>
-<td><code>/analytics/performance</code></td>
-<td>Get performance metrics (e.g., top medicines). Can be filtered by <code>store_id</code>.</td>
 </tr>
 </tbody>
 </table>

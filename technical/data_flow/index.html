@@ -620,29 +620,21 @@
 <p>This document shows detailed data flow diagrams for each user role in the RetailPulse system.</p>
 <hr />
 <h2 id="1-company-admin-data-flow">1. Company Admin Data Flow</h2>
-<p>The Company Admin manages the entire system, including stores, users, and viewing all analytics.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-flowchart TD
+<p>The Company Admin manages the entire system, including stores and users.</p>
+<pre class="mermaid"><code>flowchart TD
     Admin[Company Admin] --&gt;|Store details| P1((Manage Stores))
     P1 --&gt; Mgmt[Store &amp; User Management]
     Mgmt --&gt;|Read/Write| DB[(Database)]
 
     Admin --&gt;|User details| P2((Manage Users))
-    P2 --&gt; Mgmt
-
-    Admin --&gt;|Request reports| P3((View Analytics))
-    P3 --&gt; Anal[Analytics Module]
-    Anal --&gt;|Read| DB
-    Anal --&gt;|Reports| Admin</code></pre>
+    P2 --&gt; Mgmt</code></pre>
 <p><strong>Key Functions:</strong>
 - Manage all stores (create, edit, delete)
-- Manage all users across stores
-- View company-wide analytics and reports</p>
+- Manage all users across stores</p>
 <hr />
 <h2 id="2-store-manager-data-flow">2. Store Manager Data Flow</h2>
-<p>The Store Manager oversees a specific store, manages store staff, and views store-level analytics.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-flowchart TD
+<p>The Store Manager oversees a specific store, manages store staff, and views store-level inventory.</p>
+<pre class="mermaid"><code>flowchart TD
     Manager[Store Manager] --&gt;|Staff details| P1((Manage Staff))
     P1 --&gt; Mgmt[User Management]
     Mgmt --&gt;|Write| DB[(Database)]
@@ -650,12 +642,7 @@ flowchart TD
     Manager --&gt;|Request inventory| P2((View Inventory))
     P2 --&gt; Inv[Inventory Module]
     Inv --&gt;|Read| DB
-    Inv --&gt;|Stock data| Manager
-
-    Manager --&gt;|Request reports| P3((View Reports))
-    P3 --&gt; Anal[Analytics Module]
-    Anal --&gt;|Read| DB
-    Anal --&gt;|Store analytics| Manager</code></pre>
+    Inv --&gt;|Stock data| Manager</code></pre>
 <p><strong>Key Functions:</strong>
 - Manage store staff (create Sales, Stockist users)
 - View store inventory levels
@@ -663,8 +650,7 @@ flowchart TD
 <hr />
 <h2 id="3-sales-data-flow">3. Sales Data Flow</h2>
 <p>The Sales user creates bills, searches for products, and handles customer transactions.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-flowchart TD
+<pre class="mermaid"><code>flowchart TD
     Sales[Sales] --&gt;|Search query| P1((Search Product))
     P1 --&gt; Inv[Inventory Module]
     Inv --&gt;|Read| DB[(Database)]
@@ -677,14 +663,13 @@ flowchart TD
     Inv --&gt;|Update stock| DB
     Bill --&gt;|Bill &amp; PDF| Sales</code></pre>
 <p><strong>Key Functions:</strong>
-- Search for products/medicines
+- Search for products
 - Create customer bills and generate PDF
 - Automatic inventory deduction</p>
 <hr />
 <h2 id="4-stockist-data-flow">4. Stockist Data Flow</h2>
 <p>The Stockist manages local store inventory, receives stock, and updates quantities.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-flowchart TD
+<pre class="mermaid"><code>flowchart TD
     Stockist[Stockist] --&gt;|Request| P1((View Inventory))
     P1 --&gt; Inv[Inventory Module]
     Inv --&gt;|Read| DB[(Database)]
@@ -700,8 +685,7 @@ flowchart TD
 <hr />
 <h2 id="5-company-stockist-data-flow">5. Company Stockist Data Flow</h2>
 <p>The Company Stockist oversees inventory across all stores and manages inter-store transfers.</p>
-<pre class="mermaid"><code>%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-flowchart TD
+<pre class="mermaid"><code>flowchart TD
     CompStockist[Company Stockist] --&gt;|Request| P1((View All Inventory))
     P1 --&gt; Inv[Inventory Module]
     Inv --&gt;|Read all stores| DB[(Database)]
@@ -710,16 +694,7 @@ flowchart TD
     CompStockist --&gt;|Transfer details| P2((Transfer Stock))
     P2 --&gt; Inv
     Inv --&gt;|Update stores| DB
-    Inv --&gt;|Confirmation| CompStockist
-
-    CompStockist --&gt;|Request| P3((Check Expiry))
-    P3 --&gt; Inv
-    Inv --&gt;|Read| DB
-    Inv --&gt;|Expiry alerts| CompStockist</code></pre>
-<p><strong>Key Functions:</strong>
-- View inventory across all stores
-- Manage inter-store stock transfers
-- Monitor expiry dates company-wide</p>
+    Inv --&gt;|Confirmation| CompStockist</code></pre>
 
 
 

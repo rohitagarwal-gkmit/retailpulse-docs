@@ -687,15 +687,15 @@
 <h2 id="2-bill-creation-problems">2. Bill Creation Problems</h2>
 <ul>
 <li>
-<p><strong>Problem</strong>: User tries to create a bill with no medicines.</p>
+<p><strong>Problem</strong>: User tries to create a bill with no products.</p>
 <ul>
-<li><strong>Solution</strong>: The system requires at least one medicine to be in the bill.</li>
+<li><strong>Solution</strong>: The system requires at least one product to be in the bill.</li>
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: A medicine is not found in the store's inventory or is inactive.</p>
+<p><strong>Problem</strong>: A product is not found in the store's inventory or is inactive.</p>
 <ul>
-<li><strong>Solution</strong>: The system shows a "Medicine not found or inactive" message.</li>
+<li><strong>Solution</strong>: The system shows a "Product not found or inactive" message.</li>
 </ul>
 </li>
 <li>
@@ -721,9 +721,9 @@
 <h2 id="3-inventory-management-problems">3. Inventory Management Problems</h2>
 <ul>
 <li>
-<p><strong>Problem</strong>: <code>Company Admin</code> tries to create a medicine with a name that already exists.</p>
+<p><strong>Problem</strong>: <code>Company Admin</code> tries to create a product with a name that already exists.</p>
 <ul>
-<li><strong>Solution</strong>: The system shows a "Medicine with this name already exists" message.</li>
+<li><strong>Solution</strong>: The system shows a "Product with this name already exists" message.</li>
 </ul>
 </li>
 <li>
@@ -775,7 +775,7 @@
 <h2 id="6-multi-store-and-advanced-inventory-edge-cases">6. Multi-Store and Advanced Inventory Edge Cases</h2>
 <ul>
 <li>
-<p><strong>Problem</strong>: A <code>Sales</code> user tries to sell a medicine from a batch that has expired.</p>
+<p><strong>Problem</strong>: A <code>Sales</code> user tries to sell a product from a batch that has expired.</p>
 <ul>
 <li><strong>Solution</strong>: The system should not show expired batches in the search results on the billing page. If an API call is made directly, the backend should reject the request with a "Cannot sell from expired batch" error.</li>
 </ul>
