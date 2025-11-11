@@ -1,125 +1,171 @@
 # Functional Documentation
 
-## User Roles
+## User Roles and Permissions
 
-| Role | Access | What they can do |
+To support a growing multi-store wholesale business, we have expanded our user roles. The system now supports a clear hierarchy, ensuring staff can only access the information they need.
+
+| Role | Scope | Key Responsibilities |
 |---|---|---|
-| Admin | Full | See reports, profits, stock trends, add/change/delete products, view all bills, manage users |
-| Store Manager | Limited | Create bills, view stock, download PDF bills, search products |
+| **Company Admin** | All Stores | Has complete control. Manages stores, oversees all inventory, views company-wide analytics, and manages all user accounts. |
+| **Store Manager** | Assigned Store | Manages a single store. Oversees daily operations, manages staff, views store-level analytics, and handles local inventory. |
+| **Stockist** | Assigned Store | Manages the inventory for a single store. Responsible for receiving new medicine shipments, organizing them, and tracking their location. |
+| **Company Stockist** | All Stores | A central role for inventory oversight. Can view inventory across all stores and authorize/initiate stock transfers between them. |
+| **Sales** | Assigned Store(s) | Creates bills for customers at the point of sale, handles customer interactions, and analyzes sales data to track performance and identify trends. |
 
 ---
 
 ## System Modules Overview
 
-RetailPulse has three main parts that help medical wholesale businesses.
+RetailPulse is structured into five main modules, designed to support a multi-store medical wholesale operation.
 
 ---
 
 ## Module 1: Bill Generation
 
 ### Purpose
-To help store managers make bills quickly and correctly.
+To enable fast and accurate billing for customers at the store level, with all data automatically synced, primarily handled by the Sales role.
 
 ### Features
 
-#### 1.1 Product Search and Selection
-- Search: Find medicines by name, maker, or type.
-- Product Details: See stock and price when picking a product.
-- Multi-Product: Add many products to one bill.
+#### 1.1 Medicine Search and Selection
+- **Store-Specific Search**: Find medicines available at the user's current store.
+- **Detailed View**: See stock availability for different batches (e.g., with different expiry dates) before adding to a bill.
+- **Multi-Product**: Add multiple medicines to a single bill.
 
 #### 1.2 Real-time Stock Validation
-- Availability: Check if a product is in stock before adding to a bill.
-- Quantity: Make sure the amount asked for is not more than what's available.
+- **Batch-Level Check**: When a medicine is added to a bill, the system checks the quantity available in a specific batch.
+- **Quantity Lock**: Ensures the amount requested does not exceed what's available in the selected batch.
 
 #### 1.3 Bill Creation Form
-- Customer Info: Add customer name, contact.
-- Product List: Shows product name, unit price, quantity, and total price.
-- Calculations: Shows subtotal, discount, tax, and grand total.
+- **Customer Info**: Add customer name (e.g., pharmacy name) and contact details.
+- **Product List**: Shows medicine name, batch number, expiry date, unit price, quantity, and total price.
+- **Calculations**: Automatically calculates subtotal, discount, tax, and the grand total.
 
 #### 1.4 Bill Numbering and Tracking
-- Unique Numbers: Bills get an automatic, unique number.
-- Date/Time: Records when the bill was made.
-- Created By: Shows which manager made the bill.
+- **Smart Numbering**: Bills get a unique number that includes the store ID (e.g., `STORE1-BILL-00001`).
+- **Audit Trail**: Records the date, time, and the Sales user who created the bill.
 
 #### 1.5 PDF Generation
-Bills are made in a professional PDF format with the store logo. Includes store info, item list, and payment summary. You can download the PDF instantly.
+- **Customized PDFs**: Bills are generated in a professional PDF format with the specific store's logo and address.
+- **Instant Download**: Download the PDF right after creating the bill.
 
 #### 1.6 Automatic Inventory Update
-- Stock Deduction: Stock amounts are automatically reduced.
-- Sales Log: Every sale is recorded for reports.
+- **Deduct from Batch**: When a bill is finalized, the stock quantity is automatically deducted from the correct batch in the inventory.
+- **Sales Log**: Every sale is logged for analytics.
 
 ---
 
 ## Module 2: Inventory Management
 
 ### Purpose
-To give admins full control over products and stock, with alerts for low or expiring items.
+To provide powerful, granular control over pharmaceutical inventory across all stores, from receiving shipments to tracking their final sale.
 
 ### Features
 
-#### 2.1 Product Creation
-- Basic Info: Add product name, category, manufacturer, and description.
-- Pricing: Set cost price, selling price, and see profit margin.
+#### 2.1 Medicine Master List
+- **Central Catalog**: A central list of all medicines the company sells, managed by Company Admins.
+- **Basic Info**: Includes medicine name, category, manufacturer, and description.
 
-#### 2.2 View Inventory
-- List View: See all products in a sortable table with key details.
-- Search and Filter: Find products by name, maker, category, or stock status.
+#### 2.2 Detailed Inventory Tracking
+- **Batch & Expiry**: Each medicine delivery is stored as a unique batch with its own batch number, manufacturing ID, expiry date, cost price, and selling price.
+- **Location Management**: Track exactly where each batch is located within a store (e.g., `Shelf A1`, `Storeroom Rack 3`).
+- **Storage Categories**: Assign a storage type to each item, such as `Cold Storage` or `General`, to ensure proper handling of sensitive medicines.
 
-#### 2.3 Update Inventor
-- Edit Details: Change product prices, reorder levels, or descriptions.
-- Stock Adjustments: Manually add or reduce stock, with reasons and a record of who did it.
+#### 2.3 View Inventory
+- **Company-Wide View**: Company Admins and Company Stockists can see inventory levels across all stores.
+- **Store-Level View**: Store Managers and Stockists can see a detailed view of the inventory in their own store.
+- **Advanced Filtering**: Filter inventory by medicine, category, expiry date (e.g., "expiring in 30 days"), or location.
 
-#### 2.4 Delete Product
-- Delete: permanently removed.
+#### 2.4 Stock Adjustments and Movement
+- **Manual Adjustments**: Manually change stock quantity with a mandatory reason (e.g., "Damaged stock," "Cycle count correction").
+- **Internal Movement**: Log the movement of stock from one location to another within the same store (e.g., from the storeroom to a shelf).
+- **Inter-Store Transfers**: A formal process for Company Stockists to initiate and track the transfer of stock from one store to another.
 
 ---
 
 ## Module 3: Analytics Dashboard
 
 ### Purpose
-To give admins real-time business insights for smart decisions.
+To provide actionable insights for different roles, from store-level performance to company-wide trends.
 
 ### Features
 
-#### 3.1 Sales Analytics
-- Revenue: Shows total revenue and trends over time.
-- Bills: Shows number of bills, average bill value, and peak hours.
-- Profit: Shows total profit, profit margin, and trends.
+#### 3.1 Multi-Store Sales Analytics
+- **Company View**: Admins can see total revenue, profit, and sales trends across all stores. They can also compare the performance of different stores.
+- **Store View**: Store Managers can see detailed sales analytics for their own store.
 
-#### 3.2 Product Performance
-- Best Sellers: Lists top products by sales, revenue, and profit.
-- Slow Movers: Identifies products with low sales.
-- Profitability: Shows products with high profit margins or those losing money.
+#### 3.2 Advanced Product Performance
+- **Best Sellers**: Identify top-selling medicines by store, region, or across the entire company.
+- **Batch Profitability**: Analyze the profitability of different batches of the same medicine, which may have been purchased at different prices.
 
 #### 3.3 Inventory Insights
-- Stock Summary: Shows total inventory value, unique products, and low/out-of-stock items.
-- Categories: Shows stock and sales by category.
+- **Aging Inventory**: Generate reports to identify stock that is nearing its expiry date.
+- **Stock Valuation**: View the total value of inventory, broken down by store and product category.
+- **Movement History**: See a log of how stock has moved, helping to identify bottlenecks or optimize layout.
 
 #### 3.4 Time Range Filters
-- Quick Views: See data for today, this week, this month, or this year.
-- Custom Dates: Pick your own start and end dates.
-
-#### 3.5 Visual Dashboards
-- Charts: Uses line, bar, and pie charts for easy understanding.
-- Interactive: Hover for details, click to see more.
+- **Flexible Filtering**: Filter all reports by standard (today, this week) or custom date ranges.
 
 ---
 
 ## Module 4: Authentication and Authorization
 
 ### Purpose
-To secure the system and ensure users only access what they are allowed to.
+To secure the system and ensure users only access what their role permits.
 
 ### Features
 
-#### 4.1 User Registration
-- Admin Only: Only admins can create new user accounts.
-- User Details: Admins add name, username, password, and role.
+#### 4.1 User Registration and Management
+- **Admin Control**: Only Company Admins can create or deactivate stores and other users.
+- **Store Assignment**: When creating a user, an Admin assigns them a role and, if applicable, a home store.
 
 #### 4.2 User Login
-- Methods: Log in with username and password.
-- Session: Manages user sessions and automatic logouts.
+- **Secure Login**: Users log in with a username and password.
+- **Session Management**: The system manages user sessions and provides automatic logouts for security.
 
-#### 4.3 Role-Based Access Control
-- Manager Role: Can create bills, view stock, and see their own bill history.
-- Admin Role: Has all manager permissions plus full control over inventory, analytics, and user management.
+#### 4.3 Role-Based Access Control (RBAC)
+- **Granular Permissions**: The system enforces the permissions defined in the **User Roles** table. For example, a `Sales` user from Store A cannot create a bill for Store B, nor can they see Store B's inventory. A `Company Admin` can do both.
+
+---
+
+## Module 5: Role-Based Dashboards
+
+### Purpose
+To provide each user with an immediate, relevant overview of their tasks and key metrics as soon as they log in. Each dashboard is tailored to the user's specific role.
+
+### Features
+
+#### 5.1 Company Admin Dashboard
+- **View**: Company-wide ("bird's-eye") view.
+- **Key Metrics**: Total revenue, total profit, and total sales across all stores.
+- **Visuals**: A map showing all store locations, charts comparing store performance.
+- **Alerts**: Notifications for system-wide issues, low-performing stores, or large-scale stock shortages.
+- **Quick Links**: Manage Stores, Manage Users, Company-Wide Analytics.
+
+#### 5.2 Store Manager Dashboard
+- **View**: Focused on their single, assigned store.
+- **Key Metrics**: Total revenue, profit, and sales for their store.
+- **Visuals**: Charts showing daily/weekly sales trends, top-selling medicines, and inventory value for their store.
+- **Alerts**: Notifications for stock expiring soon, low stock levels, and pending inter-store transfers for their store.
+- **Quick Links**: Create Bill, View Store Inventory, Store Analytics, Manage Staff (Sales/Stockists).
+
+#### 5.3 Stockist Dashboard
+- **View**: Focused on inventory management for their assigned store.
+- **Key Metrics**: Total inventory value, number of unique items, and stock-out percentage for their store.
+- **Visuals**: A list of pending tasks.
+- **Alerts**: Notifications for newly received shipments, pending stock counts, and items with low stock.
+- **Quick Links**: View Store Inventory, Receive Stock, Move Stock, View Transfers.
+
+#### 5.4 Company Stockist Dashboard
+- **View**: Company-wide inventory overview.
+- **Key Metrics**: Total inventory value across all stores, number of pending inter-store transfers.
+- **Visuals**: A table showing stock levels of key medicines across all stores for easy comparison.
+- **Alerts**: Notifications for new transfer requests and completed transfers.
+- **Quick Links**: View All Inventory, Initiate Transfer, View Transfer History.
+
+#### 5.5 Sales Dashboard
+- **View**: A comprehensive interface for sales activities and performance analysis.
+- **Key Metrics**: Sales revenue vs. target, number of bills created, average bill value, and top-selling medicines.
+- **Visuals**: Leaderboards showing top-performing sales users, sales trends, and customer purchase patterns.
+- **Alerts**: Notifications for significant sales events, customer inquiries, or when a sales target is met.
+- **Quick Links**: Create Bill, View Own Bill History, View Sales Reports, Product Performance Analytics.

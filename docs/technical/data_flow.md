@@ -1,114 +1,140 @@
-# Data Flow Diagrams
+# System Data Flow
 
-## 1. Bill Creation Flow
+This document shows detailed data flow diagrams for each user role in the RetailPulse system.
 
-This shows the steps for creating a bill.
+---
+
+## 1. Company Admin Data Flow
+
+The Company Admin manages the entire system, including stores, users, and viewing all analytics.
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-sequenceDiagram
-    actor Manager
-    participant UI as Frontend
-    participant API as Backend
-    participant DB as Database
+flowchart TD
+    Admin[Company Admin] -->|Store details| P1((Manage Stores))
+    P1 --> Mgmt[Store & User Management]
+    Mgmt -->|Read/Write| DB[(Database)]
     
-    Manager->>UI: Fills out bill form
-    UI->>API: Sends bill data
-    API->>DB: Save bill details
-    API->>DB: Update product stock
-    API-->>UI: Return success
-    UI-->>Manager: Show success message
+    Admin -->|User details| P2((Manage Users))
+    P2 --> Mgmt
+    
+    Admin -->|Request reports| P3((View Analytics))
+    P3 --> Anal[Analytics Module]
+    Anal -->|Read| DB
+    Anal -->|Reports| Admin
 ```
+
+**Key Functions:**
+- Manage all stores (create, edit, delete)
+- Manage all users across stores
+- View company-wide analytics and reports
 
 ---
 
-## 2. User Login Flow
+## 2. Store Manager Data Flow
 
-This shows how a user logs in to the system.
+The Store Manager oversees a specific store, manages store staff, and views store-level analytics.
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-sequenceDiagram
-    actor User
-    participant UI as Frontend
-    participant API as Backend
-    participant DB as Database
-
-    User->>UI: Enters username and password
-    UI->>API: Sends login credentials
-    API->>DB: Check username and password
-    DB-->>API: Return user data
-    alt Login successful
-        API-->>UI: Return success with user role
-        UI-->>User: Redirect to dashboard
-    else Login failed
-        API-->>UI: Return error
-        UI-->>User: Show error message
-    end
+flowchart TD
+    Manager[Store Manager] -->|Staff details| P1((Manage Staff))
+    P1 --> Mgmt[User Management]
+    Mgmt -->|Write| DB[(Database)]
+    
+    Manager -->|Request inventory| P2((View Inventory))
+    P2 --> Inv[Inventory Module]
+    Inv -->|Read| DB
+    Inv -->|Stock data| Manager
+    
+    Manager -->|Request reports| P3((View Reports))
+    P3 --> Anal[Analytics Module]
+    Anal -->|Read| DB
+    Anal -->|Store analytics| Manager
 ```
+
+**Key Functions:**
+- Manage store staff (create Sales, Stockist users)
+- View store inventory levels
+- View store-specific sales analytics
 
 ---
 
-## 3. Add New Product Flow
+## 3. Sales Data Flow
 
-This shows how an Admin adds a new product.
+The Sales user creates bills, searches for products, and handles customer transactions.
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-sequenceDiagram
-    actor Admin
-    participant UI as Frontend
-    participant API as Backend
-    participant DB as Database
-
-    Admin->>UI: Fills product form
-    UI->>API: Sends product data
-    API->>DB: Save product
-    DB-->>API: Return success
-    API-->>UI: Return success
-    UI-->>Admin: Show "Product Added" message
+flowchart TD
+    Sales[Sales] -->|Search query| P1((Search Product))
+    P1 --> Inv[Inventory Module]
+    Inv -->|Read| DB[(Database)]
+    Inv -->|Product list| Sales
+    
+    Sales -->|Bill items| P2((Create Bill))
+    P2 --> Bill[Billing Module]
+    Bill -->|Save bill| DB
+    Bill -->|Deduct stock| Inv
+    Inv -->|Update stock| DB
+    Bill -->|Bill & PDF| Sales
 ```
+
+**Key Functions:**
+- Search for products/medicines
+- Create customer bills and generate PDF
+- Automatic inventory deduction
 
 ---
 
-## 4. Update Product Stock Flow
+## 4. Stockist Data Flow
 
-This shows how an Admin updates product stock.
+The Stockist manages local store inventory, receives stock, and updates quantities.
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-sequenceDiagram
-    actor Admin
-    participant UI as Frontend
-    participant API as Backend
-    participant DB as Database
-
-    Admin->>UI: Enters new stock quantity
-    UI->>API: Sends product ID and new quantity
-    API->>DB: Update stock in inventory table
-    DB-->>API: Return success
-    API-->>UI: Return success
-    UI-->>Admin: Show "Stock Updated" message
+flowchart TD
+    Stockist[Stockist] -->|Request| P1((View Inventory))
+    P1 --> Inv[Inventory Module]
+    Inv -->|Read| DB[(Database)]
+    Inv -->|Stock with batches| Stockist
+    
+    Stockist -->|Stock & batch details| P2((Receive Stock))
+    P2 --> Inv
+    Inv -->|Add stock| DB
+    Inv -->|Confirmation| Stockist
 ```
+
+**Key Functions:**
+- View store inventory with batch details
+- Receive and add new stock with expiry dates
 
 ---
 
-## 5. View Reports Flow
+## 5. Company Stockist Data Flow
 
-This shows how an Admin views sales and inventory reports.
+The Company Stockist oversees inventory across all stores and manages inter-store transfers.
 
 ```mermaid
 %%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
-sequenceDiagram
-    actor Admin
-    participant UI as Frontend
-    participant API as Backend
-    participant DB as Database
-
-    Admin->>UI: Opens reports page
-    UI->>API: Request reports data
-    API->>DB: Query bills and inventory
-    DB-->>API: Return data
-    API-->>UI: Send formatted data
-    UI-->>Admin: Display charts and tables
+flowchart TD
+    CompStockist[Company Stockist] -->|Request| P1((View All Inventory))
+    P1 --> Inv[Inventory Module]
+    Inv -->|Read all stores| DB[(Database)]
+    Inv -->|Consolidated data| CompStockist
+    
+    CompStockist -->|Transfer details| P2((Transfer Stock))
+    P2 --> Inv
+    Inv -->|Update stores| DB
+    Inv -->|Confirmation| CompStockist
+    
+    CompStockist -->|Request| P3((Check Expiry))
+    P3 --> Inv
+    Inv -->|Read| DB
+    Inv -->|Expiry alerts| CompStockist
 ```
+
+**Key Functions:**
+- View inventory across all stores
+- Manage inter-store stock transfers
+- Monitor expiry dates company-wide
