@@ -54,7 +54,7 @@ erDiagram
         timestamptz deleted_at
     }
 
-    medicines {
+    products {
         int id PK
         varchar name UK
         varchar category
@@ -68,7 +68,7 @@ erDiagram
 
     inventory_items {
         int id PK
-        int medicine_id FK
+        int product_id FK
         int store_id FK
         varchar batch_number
         varchar manufacturing_id
@@ -111,10 +111,10 @@ erDiagram
         timestamptz deleted_at
     }
 
-    bill_items {
+    bill_products {
         int id PK
         int bill_id FK
-        int medicine_id FK
+        int product_id FK
         varchar batch_number
         int quantity
         decimal unit_price
@@ -132,9 +132,9 @@ erDiagram
     stores ||--|{ inventory_items : "has"
     users ||--o{ bills : "creates"
     users ||--o{ inventory_movements : "performs"
-    medicines ||--o{ inventory_items : "is an instance of"
-    bills ||--|{ bill_items : "contains"
-    medicines ||--o{ bill_items : "appears in"
+    products ||--o{ inventory_items : "is an instance of"
+    bills ||--|{ bill_products : "contains"
+    products ||--o{ bill_products : "appears in"
     inventory_items ||--o{ inventory_movements : "is moved in"
 ```
 
@@ -198,28 +198,28 @@ A junction table that assigns permissions to roles, creating a many-to-many rela
 - `permission_id` (INTEGER NOT NULL REFERENCES permissions(id)): The permission being granted.
 - PRIMARY KEY (`role_id`, `permission_id`): Ensures each permission is assigned to a role only once.
 
-### 6. `medicines`
-Stores general information about each medicine. This is the master catalog of all pharmaceuticals the company sells.
+### 6. `products`
+Stores general information about each product. This is the master catalog of all products the company sells.
 
 **Fields:**
 
-- `id` (SERIAL PRIMARY KEY): Unique medicine ID.
-- `name` (VARCHAR(255) UNIQUE NOT NULL): Medicine name.
-- `category` (VARCHAR(100)): Medicine category (e.g., "Antibiotic", "Analgesic").
+- `id` (SERIAL PRIMARY KEY): Unique product ID.
+- `name` (VARCHAR(255) UNIQUE NOT NULL): Product name.
+- `category` (VARCHAR(100)): Product category (e.g., "Antibiotic", "Analgesic").
 - `manufacturer` (VARCHAR(255)): Brand or manufacturer name.
-- `description` (TEXT): Medicine details.
-- `is_active` (BOOLEAN NOT NULL DEFAULT true): Whether the medicine is available for sale.
+- `description` (TEXT): Product details.
+- `is_active` (BOOLEAN NOT NULL DEFAULT true): Whether the product is available for sale.
 - `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
 - `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
 - `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
 
 ### 7. `inventory_items`
-This is the core inventory table. It tracks specific batches of medicines in specific stores and locations.
+This is the core inventory table. It tracks specific batches of products in specific stores and locations.
 
 **Fields:**
 
 - `id` (SERIAL PRIMARY KEY): Unique ID for this inventory item.
-- `medicine_id` (INTEGER NOT NULL REFERENCES medicines(id)): The medicine this item refers to.
+- `product_id` (INTEGER NOT NULL REFERENCES products(id)): The product this item refers to.
 - `store_id` (INTEGER NOT NULL REFERENCES stores(id)): The store where this item is located.
 - `batch_number` (VARCHAR(100)): The batch number for this group of items.
 - `manufacturing_id` (VARCHAR(100)): The manufacturing ID, if available.
@@ -267,14 +267,14 @@ Stores header information for each bill (receipt).
 - `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
 - `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
 
-### 10. `bill_items`
+### 10. `bill_products`
 Stores the individual line items for each bill.
 
 **Fields:**
 
 - `id` (SERIAL PRIMARY KEY): Unique ID for the bill line item.
 - `bill_id` (INTEGER NOT NULL REFERENCES bills(id)): The bill this item belongs to.
-- `medicine_id` (INTEGER NOT NULL REFERENCES medicines(id)): The medicine that was sold.
+- `product_id` (INTEGER NOT NULL REFERENCES products(id)): The product that was sold.
 - `batch_number` (VARCHAR(100)): The specific batch number of the item sold, for accurate tracking.
 - `quantity` (INTEGER NOT NULL): Number of units sold.
 - `unit_price` (DECIMAL(10, 2) NOT NULL): Price per unit at the time of sale.
@@ -282,4 +282,5 @@ Stores the individual line items for each bill.
 - `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
 - `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
 - `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
+
 

@@ -24,11 +24,11 @@ This document explains how RetailPulse handles common problems and unexpected si
 
 ## 2. Bill Creation Problems
 
--   **Problem**: User tries to create a bill with no medicines.
-    -   **Solution**: The system requires at least one medicine to be in the bill.
+-   **Problem**: User tries to create a bill with no products.
+    -   **Solution**: The system requires at least one product to be in the bill.
 
--   **Problem**: A medicine is not found in the store's inventory or is inactive.
-    -   **Solution**: The system shows a "Medicine not found or inactive" message.
+-   **Problem**: A product is not found in the store's inventory or is inactive.
+    -   **Solution**: The system shows a "Product not found or inactive" message.
 
 -   **Problem**: The quantity requested is more than the available stock in the selected batch.
     -   **Solution**: The system shows an error message like "Only 5 units available in this batch".
@@ -43,8 +43,8 @@ This document explains how RetailPulse handles common problems and unexpected si
 
 ## 3. Inventory Management Problems
 
--   **Problem**: `Company Admin` tries to create a medicine with a name that already exists.
-    -   **Solution**: The system shows a "Medicine with this name already exists" message.
+-   **Problem**: `Company Admin` tries to create a product with a name that already exists.
+    -   **Solution**: The system shows a "Product with this name already exists" message.
 
 -   **Problem**: `Stockist` tries to adjust stock to a negative quantity.
     -   **Solution**: The system shows a "Stock quantity cannot be negative" message. The database has a `CHECK` constraint to enforce this.
@@ -76,7 +76,7 @@ This document explains how RetailPulse handles common problems and unexpected si
 
 ## 6. Multi-Store and Advanced Inventory Edge Cases
 
--   **Problem**: A `Sales` user tries to sell a medicine from a batch that has expired.
+-   **Problem**: A `Sales` user tries to sell a product from a batch that has expired.
     -   **Solution**: The system should not show expired batches in the search results on the billing page. If an API call is made directly, the backend should reject the request with a "Cannot sell from expired batch" error.
 
 -   **Problem**: Two `Sales` users try to sell the last item of a batch at the same time (a race condition).

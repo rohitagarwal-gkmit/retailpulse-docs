@@ -9,7 +9,6 @@ This document shows detailed data flow diagrams for each user role in the Retail
 The Company Admin manages the entire system, including stores, users, and viewing all analytics.
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 flowchart TD
     Admin[Company Admin] -->|Store details| P1((Manage Stores))
     P1 --> Mgmt[Store & User Management]
@@ -36,7 +35,6 @@ flowchart TD
 The Store Manager oversees a specific store, manages store staff, and views store-level analytics.
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 flowchart TD
     Manager[Store Manager] -->|Staff details| P1((Manage Staff))
     P1 --> Mgmt[User Management]
@@ -65,7 +63,6 @@ flowchart TD
 The Sales user creates bills, searches for products, and handles customer transactions.
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 flowchart TD
     Sales[Sales] -->|Search query| P1((Search Product))
     P1 --> Inv[Inventory Module]
@@ -81,7 +78,7 @@ flowchart TD
 ```
 
 **Key Functions:**
-- Search for products/medicines
+- Search for products
 - Create customer bills and generate PDF
 - Automatic inventory deduction
 
@@ -92,7 +89,6 @@ flowchart TD
 The Stockist manages local store inventory, receives stock, and updates quantities.
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 flowchart TD
     Stockist[Stockist] -->|Request| P1((View Inventory))
     P1 --> Inv[Inventory Module]
@@ -116,7 +112,6 @@ flowchart TD
 The Company Stockist oversees inventory across all stores and manages inter-store transfers.
 
 ```mermaid
-%%{init: {'theme':'base', 'themeVariables': { 'fontSize':'18px', 'fontFamily':'Arial'}}}%%
 flowchart TD
     CompStockist[Company Stockist] -->|Request| P1((View All Inventory))
     P1 --> Inv[Inventory Module]

@@ -36,14 +36,14 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 
 ---
 
-### Medicine Master Endpoints
+### Product Master Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/medicines` | Create a new medicine in the master catalog. |
-| `GET` | `/medicines` | List all medicines in the master catalog. |
-| `GET` | `/medicines/{medicine_id}` | Get details for a specific master medicine. |
-| `PATCH`| `/medicines/{medicine_id}` | Update a master medicine's details. |
+| `POST` | `/products` | Create a new product in the master catalog. |
+| `GET` | `/products` | List all products in the master catalog. |
+| `GET` | `/products/{product_id}` | Get details for a specific master product. |
+| `PATCH`| `/products/{product_id}` | Update a master product's details. |
 
 ---
 
@@ -77,4 +77,4 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 |---|---|---|
 | `GET` | `/analytics/sales` | Get sales report data. Can be filtered by `store_id`. If no filter, returns company-wide data. |
 | `GET` | `/analytics/inventory` | Get inventory reports (e.g., stock valuation, expiring soon). Can be filtered by `store_id`. |
-| `GET` | `/analytics/performance` | Get performance metrics (e.g., top medicines). Can be filtered by `store_id`. |
+| `GET` | `/analytics/performance` | Get performance metrics (e.g., top products). Can be filtered by `store_id`. |
