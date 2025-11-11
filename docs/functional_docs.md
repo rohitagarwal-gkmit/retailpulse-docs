@@ -6,7 +6,7 @@ To support a growing multi-store wholesale business, we have expanded our user r
 
 | Role | Scope | Key Responsibilities |
 |---|---|---|
-| **Company Admin** | All Stores | Has complete control. Manages stores, oversees all inventory, and manages all user accounts. |
+| **Company Admin** | All Stores | Has complete control. Manages stores, manages overall inventory operations, and manages all user accounts. |
 | **Store Manager** | Assigned Store | Manages a single store. Oversees daily operations, manages staff, and handles local inventory. |
 | **Stockist** | Assigned Store | Manages the inventory for a single store. Responsible for receiving new product shipments, organizing them, and tracking their location. |
 | **Company Stockist** | All Stores | A central role for inventory oversight. Can view inventory across all stores and authorize/initiate stock transfers between them. |
@@ -16,7 +16,7 @@ To support a growing multi-store wholesale business, we have expanded our user r
 
 ## System Modules Overview
 
-RetailPulse is structured into Three main modules, designed to support a multi-store medical wholesale operation.
+RetailPulse is structured into four main modules, designed to support a multi-store medical wholesale operation.
 
 ---
 

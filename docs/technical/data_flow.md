@@ -43,7 +43,6 @@ flowchart TD
 **Key Functions:**
 - Manage store staff (create Sales, Stockist users)
 - View store inventory levels
-- View store-specific sales analytics
 
 ---
 

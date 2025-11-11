@@ -1,6 +1,6 @@
 # RetailPulse
 
-A scalable, web-based system for multi-store billing, inventory, and analytics for medical wholesalers.
+A scalable, web-based system for multi-store billing and inventory for medical wholesalers.
 
 ---
 
@@ -29,11 +29,11 @@ RetailPulse is a centralized, web-based system that empowers medical wholesalers
 
 1.  **Multi-Store Billing**: Fast, digital billing at each location, with all data instantly available at the head office.
 2.  **Granular Product Inventory**: Track your entire inventory in real-time, right down to the specific batch, expiry date, and location (e.g., Shelf A1, Cold Storage) in each store.
-3.  **Centralized Analytics**: Get a bird's-eye view of your entire business or drill down into the performance of a single store.
+3.  **Centralized Reporting**: Get a bird's-eye view of your entire business or drill down into the performance of a single store.
 
 ### The New, Transformed Workflow
 
-A customer calls with an order. A sales user creates a digital bill in seconds. The system automatically deducts the product from the specific batch in that store's inventory. The sale is instantly reflected in both the store's and the company's analytics. The owner sees everything in real-time.
+A customer calls with an order. A sales user creates a digital bill in seconds. The system automatically deducts the product from the specific batch in that store's inventory. The sale is instantly reflected in both the store's and the company's reports. The owner sees everything in real-time.
 
 ---
 
@@ -43,8 +43,8 @@ The system is designed with a clear role-based structure to support a growing wh
 
 | Role | Scope | Primary Task |
 |---|---|---|
-| **Company Admin** | All Stores | Oversees the entire business, manages stores, and views company-wide analytics. |
+| **Company Admin** | All Stores | Oversees the entire business, manages stores, and views company-wide reports. |
 | **Store Manager** | Single Store | Manages day-to-day operations and staff for their assigned store. |
 | **Stockist** | Single Store | Manages all inventory within their assigned store, from receiving to organizing. |
 | **Company Stockist** | All Stores | Manages high-level inventory, including transfers between stores. |
-| **Sales** | Assigned Stores | Creates bills for customers at the point of sale and analyzes sales data to track performance and identify trends. |
+| **Sales** | Assigned Stores | Creates bills for customers at the point of sale and tracks sales data to identify trends. |

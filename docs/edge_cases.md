@@ -54,17 +54,7 @@ This document explains how RetailPulse handles common problems and unexpected si
 
 ---
 
-## 4. Analytics Problems
-
--   **Problem**: There is no sales data for the selected date range in a specific store.
-    -   **Solution**: The system shows a "No data available for this time period" message.
-
--   **Problem**: The start date is after the end date in a custom date range filter.
-    -   **Solution**: The system shows a "Start date must be before end date" message.
-
----
-
-## 5. User Management Problems
+## 4. User Management Problems
 
 -   **Problem**: `Company Admin` tries to create a user with a username that already exists.
     -   **Solution**: The system shows a "Username already exists" message.
@@ -74,7 +64,7 @@ This document explains how RetailPulse handles common problems and unexpected si
 
 ---
 
-## 6. Multi-Store and Advanced Inventory Edge Cases
+## 5. Multi-Store and Advanced Inventory Edge Cases
 
 -   **Problem**: A `Sales` user tries to sell a product from a batch that has expired.
     -   **Solution**: The system should not show expired batches in the search results on the billing page. If an API call is made directly, the backend should reject the request with a "Cannot sell from expired batch" error.
