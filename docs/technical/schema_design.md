@@ -2,9 +2,17 @@
 
 ## Overview
 
-The system uses **PostgreSQL** as the database. The schema is designed to support a multi-store medical retail business, with detailed inventory tracking and a flexible Role-Based Access Control (RBAC) system.
+The system uses **PostgreSQL** for its ACID compliance, strong relational support, and efficient handling of complex joins needed for multi-store inventory and RBAC. 
 
-To ensure data integrity and history, all tables include `created_at`, `updated_at`, and `deleted_at` timestamps for soft deletes.
+Users can have multiple roles and work across multiple stores via junction tables (`user_stores` and `user_roles`). All tables use soft deletes with `created_at`, `updated_at`, and `deleted_at` timestamps.
+
+## Why PostgreSQL
+
+- **ACID compliance**: Financial and inventory transactions require guaranteed consistency
+- **Complex relationships**: Multiple many-to-many relationships (users-roles, users-stores, bills-products)
+- **Structured data**: Product details, batches, pricing, and transactions are inherently structured
+- **SQL querying**: Efficient aggregations and reporting on relational data
+- **RBAC support**: Natural fit for role-permission modeling
 
 ---
 
@@ -172,37 +180,64 @@ erDiagram
 ## Database Tables
 
 ### `stores`
-The `stores` table contains a record for each retail store location. It includes a unique `id`, the store's `name`, `address`, and `contact_phone`. Timestamps for creation, updates, and soft deletes are included.
+Store locations with name, address, and contact info.
 
 ### `users`
-The `users` table is the central record for every person who can log in to the system. It contains a unique `id`, `username`, `password_hash`, `full_name`, and an `is_active` flag. A user's roles and store assignments are managed in separate junction tables, so this table does not contain `role_id` or `store_id`. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Central user records with username, password hash, and full name. Roles and stores assigned via junction tables.
 
 ### `roles`
-The `roles` table defines the user roles available in the system. It has a unique `id` and a `name` for the role (e.g., 'Company Admin', 'Store Manager', 'Sales'), along with a `description`. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Defines available roles (Company Admin, Store Manager, Sales, Stockist, Company Stockist).
 
 ### `user_roles`
-This is a junction table that assigns roles to users, creating a many-to-many relationship. It links `user_id` to `role_id`, allowing a single user to have multiple roles (e.g., a user could be both a 'Store Manager' and 'Sales'). It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Junction table linking users to roles (many-to-many).
 
 ### `permissions`
-The `permissions` table defines granular permissions for actions within the system. It has a unique `id` and a `name` for the permission (e.g., 'bills.create', 'analytics.view.all'), with a `description` of what it allows. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Granular action permissions (e.g., 'bills.create', 'inventory.manage').
 
 ### `role_permissions`
-This is a junction table that assigns permissions to roles, creating a many-to-many relationship. It links `role_id` to `permission_id`, ensuring each permission is assigned to a role only once. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Junction table linking roles to permissions (many-to-many).
 
 ### `user_stores`
-This is a junction table that assigns users to stores, creating a many-to-many relationship. It links `user_id` to `store_id`, allowing a single user to be associated with multiple stores. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Junction table linking users to stores (many-to-many).
 
 ### `products`
-The `products` table is the master catalog of all products the company sells. It contains the product's `id`, `name`, `category`, `manufacturer`, `description`, and an `is_active` flag. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Master product catalog with name, category, manufacturer, and description.
 
 ### `inventory_items`
-This is the core inventory table, tracking specific batches of products in specific stores and locations. It links to `products` and `stores` and includes a `batch_number`, `manufacturing_id`, `expire_date`, `quantity`, `location`, `storage_category`, `cost_price`, and `selling_price`. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Batch-level inventory tracking per store with expiry dates, quantities, location, and pricing.
 
 ### `inventory_movements`
-The `inventory_movements` table logs the movement of inventory items from one location to another, creating an audit trail. It records the `inventory_item_id`, the `moved_by_user_id`, `quantity_moved`, `from_location`, `to_location`, a `reason`, and the `movement_date`. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Audit trail of inventory transfers between locations with user, quantity, and reason.
 
 ### `bills`
-The `bills` table stores header information for each bill (receipt). It is linked to the `stores` where it was created and the `users` who created it. It also contains a unique `bill_number`, customer details, and financial totals (`total_amount`, `discount`, `tax_amount`, `grand_total`). It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Bill headers with store, user, bill number, customer details, and totals.
 
 ### `bill_products`
-The `bill_products` table stores the individual line items for each bill. It links to the `bills` table and the specific `products` sold. It includes the `quantity`, `unit_price`, `total_price`, and the `batch_number` of the item sold for accurate inventory tracking. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
+Bill line items with product, quantity, pricing, and batch number for inventory tracking.
+
+## Indexing Strategy
+
+**Auto-created indexes:**
+- Primary keys (all tables)
+- Unique constraints (`username`, `bill_number`, product/role/permission `name`)
+
+**Explicit B-tree indexes on:**
+
+**Foreign keys** (for JOIN performance):
+- `user_roles`: `user_id`, `role_id`
+- `user_stores`: `user_id`, `store_id`
+- `role_permissions`: `role_id`, `permission_id`
+- `inventory_items`: `product_id`, `store_id`
+- `inventory_movements`: `inventory_item_id`, `moved_by_user_id`
+- `bills`: `store_id`, `created_by_user_id`
+- `bill_products`: `bill_id`, `product_id`
+
+**Query-heavy columns:**
+- `inventory_items.expire_date` - frequent expiry checks and range queries
+- `inventory_items.batch_number` - batch-specific searches
+- `products.category` - filtering by category
+- `products.manufacturer` - filtering by manufacturer
+- `bills.bill_date` - date-based reporting
+
+**Why B-tree:**
+Handles equality, range queries, sorting, and pattern matching efficiently - covers all common query patterns in the system.

@@ -1,6 +1,6 @@
 # System Data Flow
 
-This document shows detailed data flow diagrams for each user role in the RetailPulse system.
+This document shows data flow sequence diagrams for each user role in the RetailPulse system.
 
 ---
 
@@ -9,13 +9,20 @@ This document shows detailed data flow diagrams for each user role in the Retail
 The Company Admin manages the entire system, including stores and users.
 
 ```mermaid
-flowchart TD
-    Admin[Company Admin] -->|Store details| P1((Manage Stores))
-    P1 --> Mgmt[Store & User Management]
-    Mgmt -->|Read/Write| DB[(Database)]
+sequenceDiagram
+    actor Admin as Company Admin
+    participant System
+    participant DB as Database
     
-    Admin -->|User details| P2((Manage Users))
-    P2 --> Mgmt
+    Admin->>System: Manage Stores
+    System->>DB: Create/Update/Delete Store
+    DB-->>System: Confirmation
+    System-->>Admin: Store Updated
+    
+    Admin->>System: Manage Users
+    System->>DB: Create/Update/Delete User
+    DB-->>System: Confirmation
+    System-->>Admin: User Updated
 ```
 
 **Key Functions:**
@@ -29,15 +36,20 @@ flowchart TD
 The Store Manager oversees a specific store, manages store staff, and views store-level inventory.
 
 ```mermaid
-flowchart TD
-    Manager[Store Manager] -->|Staff details| P1((Manage Staff))
-    P1 --> Mgmt[User Management]
-    Mgmt -->|Write| DB[(Database)]
+sequenceDiagram
+    actor Manager as Store Manager
+    participant System
+    participant DB as Database
     
-    Manager -->|Request inventory| P2((View Inventory))
-    P2 --> Inv[Inventory Module]
-    Inv -->|Read| DB
-    Inv -->|Stock data| Manager
+    Manager->>System: Manage Staff
+    System->>DB: Create/Update Staff
+    DB-->>System: Confirmation
+    System-->>Manager: Staff Updated
+    
+    Manager->>System: View Inventory
+    System->>DB: Get Store Inventory
+    DB-->>System: Inventory Data
+    System-->>Manager: Display Stock Levels
 ```
 
 **Key Functions:**
@@ -51,18 +63,21 @@ flowchart TD
 The Sales user creates bills, searches for products, and handles customer transactions.
 
 ```mermaid
-flowchart TD
-    Sales[Sales] -->|Search query| P1((Search Product))
-    P1 --> Inv[Inventory Module]
-    Inv -->|Read| DB[(Database)]
-    Inv -->|Product list| Sales
+sequenceDiagram
+    actor Sales
+    participant System
+    participant DB as Database
     
-    Sales -->|Bill items| P2((Create Bill))
-    P2 --> Bill[Billing Module]
-    Bill -->|Save bill| DB
-    Bill -->|Deduct stock| Inv
-    Inv -->|Update stock| DB
-    Bill -->|Bill & PDF| Sales
+    Sales->>System: Search Product
+    System->>DB: Query Products
+    DB-->>System: Product List
+    System-->>Sales: Display Products
+    
+    Sales->>System: Create Bill
+    System->>DB: Save Bill
+    System->>DB: Deduct Inventory
+    DB-->>System: Confirmation
+    System-->>Sales: Bill & PDF Generated
 ```
 
 **Key Functions:**
@@ -77,16 +92,20 @@ flowchart TD
 The Stockist manages local store inventory, receives stock, and updates quantities.
 
 ```mermaid
-flowchart TD
-    Stockist[Stockist] -->|Request| P1((View Inventory))
-    P1 --> Inv[Inventory Module]
-    Inv -->|Read| DB[(Database)]
-    Inv -->|Stock with batches| Stockist
+sequenceDiagram
+    actor Stockist
+    participant System
+    participant DB as Database
     
-    Stockist -->|Stock & batch details| P2((Receive Stock))
-    P2 --> Inv
-    Inv -->|Add stock| DB
-    Inv -->|Confirmation| Stockist
+    Stockist->>System: View Inventory
+    System->>DB: Get Store Stock
+    DB-->>System: Stock with Batches
+    System-->>Stockist: Display Inventory
+    
+    Stockist->>System: Receive Stock
+    System->>DB: Add Stock & Batch Details
+    DB-->>System: Confirmation
+    System-->>Stockist: Stock Added Successfully
 ```
 
 **Key Functions:**
@@ -100,14 +119,19 @@ flowchart TD
 The Company Stockist oversees inventory across all stores and manages inter-store transfers.
 
 ```mermaid
-flowchart TD
-    CompStockist[Company Stockist] -->|Request| P1((View All Inventory))
-    P1 --> Inv[Inventory Module]
-    Inv -->|Read all stores| DB[(Database)]
-    Inv -->|Consolidated data| CompStockist
+sequenceDiagram
+    actor CompStockist as Company Stockist
+    participant System
+    participant DB as Database
     
-    CompStockist -->|Transfer details| P2((Transfer Stock))
-    P2 --> Inv
-    Inv -->|Update stores| DB
-    Inv -->|Confirmation| CompStockist
+    CompStockist->>System: View All Inventory
+    System->>DB: Get All Stores Inventory
+    DB-->>System: Consolidated Data
+    System-->>CompStockist: Display All Stock
+    
+    CompStockist->>System: Transfer Stock
+    System->>DB: Update Source Store
+    System->>DB: Update Destination Store
+    DB-->>System: Confirmation
+    System-->>CompStockist: Transfer Completed
 ```
