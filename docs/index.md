@@ -1,47 +1,51 @@
 # RetailPulse
 
-A simple, web-based system for billing, inventory, and reports for medical wholesalers.
+A scalable, web-based system for multi-store billing, inventory, and analytics for medical wholesalers.
 
 ---
 
 ## The Problem
 
-Medical wholesalers face three main challenges:
+As a medical wholesale business grows from a single store to multiple locations, it faces significant operational challenges:
 
-### 1. Manual Bill Generation is Slow
-Managers spend too much time writing bills by hand. This leads to wasted hours, mistakes, and lost paper bills.
+### 1. Lack of Centralized Control
+Owners cannot get a clear, real-time view of performance across all stores. Each location operates in a silo, making it impossible to compare sales, manage stock, or enforce pharmaceutical handling standards effectively.
 
-### 2. Inventory is Hard to Manage
-It's difficult to track stock levels in real-time. This causes expired medicines to go unnoticed, stockouts, and errors in records.
+### 2. Complex Inventory Management
+Tracking medicine inventory becomes a nightmare. It's difficult to know the exact stock levels at each location, leading to overstocking in one store and stockouts in another. Tracking critical details like batch numbers, expiry dates, and storage conditions (e.g., cold storage) across a network of stores is Difficult with manual methods.
 
-### 3. No Business Visibility
-Owners lack clear information on sales, profits, and trends. They spend hours reviewing paper bills and cannot make data-driven decisions.
+### 3. Inefficient Operations
+Manual processes like handwriting bills, physically checking stock, and consolidating paper reports are slow, prone to errors, and do not scale as the business expands.
 
-### Current Workflow (The Hard Way)
+### The Old Workflow (The Hard Way)
 
-Customer arrives → Manager checks stock by hand → Writes bill on paper → Calculates total → Updates inventory book → Files paper bill → Owner reviews bills weekly.
-
-This process is slow, error-prone, and lacks real-time information.
+A pharmacy calls with an order. The clerk manually checks for the medicine. A bill is written on paper. At the end of the week, the store manager sends a report to the head office. The owner has no real-time visibility and can't move surplus stock from one store to another that needs it.
 
 ---
 
 ## The Solution – RetailPulse
 
-RetailPulse is a web-based system that automates medical wholesale operations through three parts:
+RetailPulse is a centralized, web-based system that empowers medical wholesalers to manage their entire network of stores from a single platform.
 
-1.  **Bill Generation**: Fast digital billing with automatic PDF creation.
-2.  **Inventory Management**: Real-time stock tracking, including expiry dates and batches.
-3.  **Analytics**: Real-time business insights and performance reports.
+1.  **Multi-Store Billing**: Fast, digital billing at each location, with all data instantly available at the head office.
+2.  **Granular Pharmaceutical Inventory**: Track your entire inventory in real-time, right down to the specific batch, expiry date, and location (e.g., Shelf A1, Cold Storage) in each store.
+3.  **Centralized Analytics**: Get a bird's-eye view of your entire business or drill down into the performance of a single store.
 
-### Transformed Workflow
+### The New, Transformed Workflow
 
-Customer arrives → Manager creates a digital bill → System automatically updates inventory → Bill is saved & PDF generated → Owner sees real-time reports.
+A customer calls with an order. A clerk creates a digital bill in seconds. The system automatically deducts the medicine from the specific batch in that store's inventory. The sale is instantly reflected in both the store's and the company's analytics. The owner sees everything in real-time.
 
 ---
 
 ## Who Uses This System?
 
-| Role | Access Level | What they can do |
+The system is designed with a clear role-based structure to support a growing wholesale business.
+
+| Role | Scope | Primary Task |
 |---|---|---|
-| Store Manager | Limited | Create bills, view stock, download PDF bills, search products. |
-| Admin (Owner) | Full | View all bills, manage inventory, access reports, manage users. |
+| **Company Admin** | All Stores | Oversees the entire business, manages stores, and views company-wide analytics. |
+| **Store Manager** | Single Store | Manages day-to-day operations and staff for their assigned store. |
+| **Clerk** | Single Store | Creates bills for customers at the point of sale. |
+| **Stockist** | Single Store | Manages all inventory within their assigned store, from receiving to organizing. |
+| **Company Stockist** | All Stores | Manages high-level inventory, including transfers between stores. |
+| **Sales** | Assigned Stores | Analyzes sales data to track performance and identify trends. |
