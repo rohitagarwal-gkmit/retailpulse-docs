@@ -508,6 +508,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-multi-store-and-advanced-inventory-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Multi-Store and Advanced Inventory Edge Cases
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -618,6 +627,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-multi-store-and-advanced-inventory-edge-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Multi-Store and Advanced Inventory Edge Cases
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -659,9 +677,9 @@
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: A manager tries to access an admin-only page.</p>
+<p><strong>Problem</strong>: A <code>Store Manager</code> tries to access a <code>Company Admin</code>-only page.</p>
 <ul>
-<li><strong>Solution</strong>: The system shows an "Insufficient permissions" message.</li>
+<li><strong>Solution</strong>: The system shows an "Insufficient permissions" message and denies access.</li>
 </ul>
 </li>
 </ul>
@@ -669,21 +687,21 @@
 <h2 id="2-bill-creation-problems">2. Bill Creation Problems</h2>
 <ul>
 <li>
-<p><strong>Problem</strong>: User tries to create a bill with no products.</p>
+<p><strong>Problem</strong>: User tries to create a bill with no medicines.</p>
 <ul>
-<li><strong>Solution</strong>: The system requires at least one product to be in the bill.</li>
+<li><strong>Solution</strong>: The system requires at least one medicine to be in the bill.</li>
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: A product is not found or is inactive.</p>
+<p><strong>Problem</strong>: A medicine is not found in the store's inventory or is inactive.</p>
 <ul>
-<li><strong>Solution</strong>: The system shows a "Product not found or inactive" message.</li>
+<li><strong>Solution</strong>: The system shows a "Medicine not found or inactive" message.</li>
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: The quantity requested is more than the available stock.</p>
+<p><strong>Problem</strong>: The quantity requested is more than the available stock in the selected batch.</p>
 <ul>
-<li><strong>Solution</strong>: The system shows an error message like "Only 5 units available".</li>
+<li><strong>Solution</strong>: The system shows an error message like "Only 5 units available in this batch".</li>
 </ul>
 </li>
 <li>
@@ -693,15 +711,9 @@
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: The final bill total is zero.</p>
-<ul>
-<li><strong>Solution</strong>: The system requires the bill total to be greater than zero.</li>
-</ul>
-</li>
-<li>
 <p><strong>Problem</strong>: The database connection is lost while creating a bill.</p>
 <ul>
-<li><strong>Solution</strong>: The entire transaction is cancelled to prevent partial data. The user is asked to try again.</li>
+<li><strong>Solution</strong>: The entire transaction is cancelled (rolled back) to prevent partial data. The user is asked to try again.</li>
 </ul>
 </li>
 </ul>
@@ -709,33 +721,21 @@
 <h2 id="3-inventory-management-problems">3. Inventory Management Problems</h2>
 <ul>
 <li>
-<p><strong>Problem</strong>: Admin tries to create a product with a name that already exists.</p>
+<p><strong>Problem</strong>: <code>Company Admin</code> tries to create a medicine with a name that already exists.</p>
 <ul>
-<li><strong>Solution</strong>: The system shows a "Product with this name already exists" message.</li>
+<li><strong>Solution</strong>: The system shows a "Medicine with this name already exists" message.</li>
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: Admin tries to create a product with a negative price.</p>
+<p><strong>Problem</strong>: <code>Stockist</code> tries to adjust stock to a negative quantity.</p>
 <ul>
-<li><strong>Solution</strong>: The system requires the price to be a positive number.</li>
+<li><strong>Solution</strong>: The system shows a "Stock quantity cannot be negative" message. The database has a <code>CHECK</code> constraint to enforce this.</li>
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: Admin tries to delete a product that has been sold in past bills.</p>
+<p><strong>Problem</strong>: A user adjusts stock without giving a reason.</p>
 <ul>
-<li><strong>Solution</strong>: The system prevents deletion to keep historical sales data intact.</li>
-</ul>
-</li>
-<li>
-<p><strong>Problem</strong>: Admin tries to adjust stock to a negative quantity.</p>
-<ul>
-<li><strong>Solution</strong>: The system shows a "Stock cannot be negative" message.</li>
-</ul>
-</li>
-<li>
-<p><strong>Problem</strong>: Admin adjusts stock without giving a reason.</p>
-<ul>
-<li><strong>Solution</strong>: The system requires a reason for all stock adjustments to maintain a clear history.</li>
+<li><strong>Solution</strong>: The system requires a reason for all manual stock adjustments to maintain a clear audit trail.</li>
 </ul>
 </li>
 </ul>
@@ -743,13 +743,13 @@
 <h2 id="4-analytics-problems">4. Analytics Problems</h2>
 <ul>
 <li>
-<p><strong>Problem</strong>: There is no sales data for the selected date range.</p>
+<p><strong>Problem</strong>: There is no sales data for the selected date range in a specific store.</p>
 <ul>
 <li><strong>Solution</strong>: The system shows a "No data available for this time period" message.</li>
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: The start date is after the end date in a custom date range.</p>
+<p><strong>Problem</strong>: The start date is after the end date in a custom date range filter.</p>
 <ul>
 <li><strong>Solution</strong>: The system shows a "Start date must be before end date" message.</li>
 </ul>
@@ -759,21 +759,49 @@
 <h2 id="5-user-management-problems">5. User Management Problems</h2>
 <ul>
 <li>
-<p><strong>Problem</strong>: Admin tries to create a user with a username that already exists.</p>
+<p><strong>Problem</strong>: <code>Company Admin</code> tries to create a user with a username that already exists.</p>
 <ul>
 <li><strong>Solution</strong>: The system shows a "Username already exists" message.</li>
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: Admin tries to deactivate their own account.</p>
+<p><strong>Problem</strong>: <code>Company Admin</code> tries to deactivate their own account.</p>
 <ul>
-<li><strong>Solution</strong>: The system prevents this to ensure there's always an active admin.</li>
+<li><strong>Solution</strong>: The system prevents this to ensure there's always at least one active super admin.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="6-multi-store-and-advanced-inventory-edge-cases">6. Multi-Store and Advanced Inventory Edge Cases</h2>
+<ul>
+<li>
+<p><strong>Problem</strong>: A <code>Sales</code> user tries to sell a medicine from a batch that has expired.</p>
+<ul>
+<li><strong>Solution</strong>: The system should not show expired batches in the search results on the billing page. If an API call is made directly, the backend should reject the request with a "Cannot sell from expired batch" error.</li>
 </ul>
 </li>
 <li>
-<p><strong>Problem</strong>: Admin tries to deactivate the last remaining admin account.</p>
+<p><strong>Problem</strong>: Two <code>Sales</code> users try to sell the last item of a batch at the same time (a race condition).</p>
 <ul>
-<li><strong>Solution</strong>: The system prevents this and asks the admin to promote another user first.</li>
+<li><strong>Solution</strong>: The system uses database-level transaction isolation. The first transaction to commit will succeed. The second transaction will fail when it attempts to update the quantity, as the stock will already be zero. It will receive an error like "Insufficient stock".</li>
+</ul>
+</li>
+<li>
+<p><strong>Problem</strong>: A stock transfer is sent from Store A, but Store B claims it was never received or the quantity is wrong.</p>
+<ul>
+<li><strong>Solution</strong>: The transfer remains in an "In Transit" state until the receiving store confirms it. This creates a clear paper trail. If there's a dispute, a <code>Company Admin</code> can manually intervene to reconcile the inventory, and the discrepancy is logged.</li>
+</ul>
+</li>
+<li>
+<p><strong>Problem</strong>: A branch store loses internet connection to the central server.</p>
+<ul>
+<li><strong>Solution</strong>: In the current design, the system requires a live connection to the central database. If the connection is lost, the store's terminal will not be able to create new bills or look up inventory. (A future enhancement could be a limited "offline mode" that syncs data once the connection is restored).</li>
+</ul>
+</li>
+<li>
+<p><strong>Problem</strong>: A <code>Company Admin</code> reassigns a <code>Store Manager</code> from Store A to Store B.</p>
+<ul>
+<li><strong>Solution</strong>: The user's <code>store_id</code> is updated in the <code>users</code> table. The change should take effect on their next login. When they log in again, their session data will be for Store B, and they will no longer have access to Store A's data or settings.</li>
 </ul>
 </li>
 </ul>

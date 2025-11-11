@@ -434,27 +434,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bill-endpoints" class="md-nav__link">
+  <a href="#store-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
-      Bill Endpoints
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#product-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Product Endpoints
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#analytics-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analytics Endpoints
+      Store Endpoints
     </span>
   </a>
   
@@ -464,6 +446,42 @@
   <a href="#user-management-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
       User Management Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#medicine-master-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Medicine Master Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventory-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inventory Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bill-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bill Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analytics-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analytics Endpoints
     </span>
   </a>
   
@@ -565,27 +583,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#bill-endpoints" class="md-nav__link">
+  <a href="#store-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
-      Bill Endpoints
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#product-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Product Endpoints
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#analytics-endpoints" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analytics Endpoints
+      Store Endpoints
     </span>
   </a>
   
@@ -595,6 +595,42 @@
   <a href="#user-management-endpoints" class="md-nav__link">
     <span class="md-ellipsis">
       User Management Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#medicine-master-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Medicine Master Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inventory-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inventory Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bill-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Bill Endpoints
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#analytics-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      Analytics Endpoints
     </span>
   </a>
   
@@ -617,8 +653,10 @@
 
 
 <h1 id="api-design">API Design</h1>
-<p>The API is designed in a RESTful way. Here are the main endpoints.</p>
+<p>The API is designed following RESTful principles to provide a logical, hierarchical structure for managing a multi-store medical wholesale business. Resources are nested where it makes sense (e.g., a bill belongs to a store).</p>
+<hr />
 <h3 id="authentication-endpoints">Authentication Endpoints</h3>
+<p><em>No change here. Authentication is the entry point.</em></p>
 <table>
 <thead>
 <tr>
@@ -631,11 +669,18 @@
 <tr>
 <td><code>POST</code></td>
 <td><code>/auth/login</code></td>
-<td>User login to get an access token.</td>
+<td>User login to get a JWT access token.</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/auth/logout</code></td>
+<td>User logout (invalidates token).</td>
 </tr>
 </tbody>
 </table>
-<h3 id="bill-endpoints">Bill Endpoints</h3>
+<hr />
+<h3 id="store-endpoints">Store Endpoints</h3>
+<p><em>For Company Admins to manage the store network.</em></p>
 <table>
 <thead>
 <tr>
@@ -647,54 +692,29 @@
 <tbody>
 <tr>
 <td><code>POST</code></td>
-<td><code>/bills</code></td>
-<td>Create a new bill.</td>
+<td><code>/stores</code></td>
+<td>Create a new store.</td>
 </tr>
 <tr>
 <td><code>GET</code></td>
-<td><code>/bills</code></td>
-<td>List bills (Admins see all, Managers see their own).</td>
+<td><code>/stores</code></td>
+<td>List all stores in the company.</td>
 </tr>
 <tr>
 <td><code>GET</code></td>
-<td><code>/bills/:id</code></td>
-<td>Get details for one bill.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="product-endpoints">Product Endpoints</h3>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Endpoint</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>GET</code></td>
-<td><code>/products</code></td>
-<td>List all products.</td>
-</tr>
-<tr>
-<td><code>POST</code></td>
-<td><code>/products</code></td>
-<td>Create a new product (Admin only).</td>
+<td><code>/stores/{store_id}</code></td>
+<td>Get details for a specific store.</td>
 </tr>
 <tr>
 <td><code>PATCH</code></td>
-<td><code>/products/:id</code></td>
-<td>Update a product (Admin only).</td>
-</tr>
-<tr>
-<td><code>DELETE</code></td>
-<td><code>/products/:id</code></td>
-<td>Delete a product (Admin only).</td>
+<td><code>/stores/{store_id}</code></td>
+<td>Update a store's details.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="analytics-endpoints">Analytics Endpoints</h3>
+<hr />
+<h3 id="user-management-endpoints">User Management Endpoints</h3>
+<p><em>For Company Admins to manage users.</em></p>
 <table>
 <thead>
 <tr>
@@ -705,46 +725,170 @@
 </thead>
 <tbody>
 <tr>
-<td><code>GET</code></td>
-<td><code>/analytics/dashboard</code></td>
-<td>Get main dashboard metrics (Admin only).</td>
+<td><code>POST</code></td>
+<td><code>/users</code></td>
+<td>Create a new user (can assign a role and store).</td>
 </tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/users</code></td>
+<td>List all users (can filter by store, role).</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/users/{user_id}</code></td>
+<td>Get details for a specific user.</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><code>/users/{user_id}</code></td>
+<td>Update a user's details (e.g., role, store).</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td><code>/users/{user_id}</code></td>
+<td>Deactivate a user account.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="medicine-master-endpoints">Medicine Master Endpoints</h3>
+<p><em>For managing the company-wide medicine catalog.</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/medicines</code></td>
+<td>Create a new medicine in the master catalog.</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/medicines</code></td>
+<td>List all medicines in the master catalog.</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/medicines/{medicine_id}</code></td>
+<td>Get details for a specific master medicine.</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><code>/medicines/{medicine_id}</code></td>
+<td>Update a master medicine's details.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="inventory-endpoints">Inventory Endpoints</h3>
+<p><em>The core of inventory management. Granular control over stock.</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/stores/{store_id}/inventory-items</code></td>
+<td>Add a new inventory item (a new batch) to a store.</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/stores/{store_id}/inventory-items</code></td>
+<td>Get all inventory items for a specific store.</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/inventory-items/{item_id}</code></td>
+<td>Get details of a specific inventory item (batch).</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><code>/inventory-items/{item_id}</code></td>
+<td>Update an inventory item (e.g., adjust quantity, change price).</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/inventory-items/movements</code></td>
+<td>Log an internal movement of stock within a store.</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/inventory-transfers</code></td>
+<td>Initiate a transfer of stock between two stores.</td>
+</tr>
+<tr>
+<td><code>PATCH</code></td>
+<td><code>/inventory-transfers/{transfer_id}</code></td>
+<td>Update the status of a transfer (e.g., confirm receipt).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="bill-endpoints">Bill Endpoints</h3>
+<p><em>Store-specific endpoints for creating and viewing bills.</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>POST</code></td>
+<td><code>/stores/{store_id}/bills</code></td>
+<td>Create a new bill for a specific store.</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/stores/{store_id}/bills</code></td>
+<td>List all bills for a specific store.</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/bills/{bill_id}</code></td>
+<td>Get details for a specific bill (accessible across stores by Admins).</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="analytics-endpoints">Analytics Endpoints</h3>
+<p><em>Flexible endpoints for company-wide or store-specific insights.</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
 <tr>
 <td><code>GET</code></td>
 <td><code>/analytics/sales</code></td>
-<td>Get sales report data (Admin only).</td>
+<td>Get sales report data. Can be filtered by <code>store_id</code>. If no filter, returns company-wide data.</td>
 </tr>
-</tbody>
-</table>
-<h3 id="user-management-endpoints">User Management Endpoints</h3>
-<table>
-<thead>
-<tr>
-<th>Method</th>
-<th>Endpoint</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
 <tr>
 <td><code>GET</code></td>
-<td><code>/users</code></td>
-<td>List all users (Admin only).</td>
+<td><code>/analytics/inventory</code></td>
+<td>Get inventory reports (e.g., stock valuation, expiring soon). Can be filtered by <code>store_id</code>.</td>
 </tr>
 <tr>
-<td><code>POST</code></td>
-<td><code>/users</code></td>
-<td>Create a new user (Admin only).</td>
-</tr>
-<tr>
-<td><code>PATCH</code></td>
-<td><code>/users/:id</code></td>
-<td>Update a user (Admin only).</td>
-</tr>
-<tr>
-<td><code>DELETE</code></td>
-<td><code>/users/:id</code></td>
-<td>Deactivate a user (Admin only).</td>
+<td><code>GET</code></td>
+<td><code>/analytics/performance</code></td>
+<td>Get performance metrics (e.g., top medicines). Can be filtered by <code>store_id</code>.</td>
 </tr>
 </tbody>
 </table>
