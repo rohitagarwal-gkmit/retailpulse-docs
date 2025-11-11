@@ -6,7 +6,7 @@ This document shows detailed data flow diagrams for each user role in the Retail
 
 ## 1. Company Admin Data Flow
 
-The Company Admin manages the entire system, including stores, users, and viewing all analytics.
+The Company Admin manages the entire system, including stores and users.
 
 ```mermaid
 flowchart TD
@@ -16,23 +16,17 @@ flowchart TD
     
     Admin -->|User details| P2((Manage Users))
     P2 --> Mgmt
-    
-    Admin -->|Request reports| P3((View Analytics))
-    P3 --> Anal[Analytics Module]
-    Anal -->|Read| DB
-    Anal -->|Reports| Admin
 ```
 
 **Key Functions:**
 - Manage all stores (create, edit, delete)
 - Manage all users across stores
-- View company-wide analytics and reports
 
 ---
 
 ## 2. Store Manager Data Flow
 
-The Store Manager oversees a specific store, manages store staff, and views store-level analytics.
+The Store Manager oversees a specific store, manages store staff, and views store-level inventory.
 
 ```mermaid
 flowchart TD
@@ -44,11 +38,6 @@ flowchart TD
     P2 --> Inv[Inventory Module]
     Inv -->|Read| DB
     Inv -->|Stock data| Manager
-    
-    Manager -->|Request reports| P3((View Reports))
-    P3 --> Anal[Analytics Module]
-    Anal -->|Read| DB
-    Anal -->|Store analytics| Manager
 ```
 
 **Key Functions:**
@@ -122,14 +111,4 @@ flowchart TD
     P2 --> Inv
     Inv -->|Update stores| DB
     Inv -->|Confirmation| CompStockist
-    
-    CompStockist -->|Request| P3((Check Expiry))
-    P3 --> Inv
-    Inv -->|Read| DB
-    Inv -->|Expiry alerts| CompStockist
 ```
-
-**Key Functions:**
-- View inventory across all stores
-- Manage inter-store stock transfers
-- Monitor expiry dates company-wide

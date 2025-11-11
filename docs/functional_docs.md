@@ -6,17 +6,17 @@ To support a growing multi-store wholesale business, we have expanded our user r
 
 | Role | Scope | Key Responsibilities |
 |---|---|---|
-| **Company Admin** | All Stores | Has complete control. Manages stores, oversees all inventory, views company-wide analytics, and manages all user accounts. |
-| **Store Manager** | Assigned Store | Manages a single store. Oversees daily operations, manages staff, views store-level analytics, and handles local inventory. |
+| **Company Admin** | All Stores | Has complete control. Manages stores, oversees all inventory, and manages all user accounts. |
+| **Store Manager** | Assigned Store | Manages a single store. Oversees daily operations, manages staff, and handles local inventory. |
 | **Stockist** | Assigned Store | Manages the inventory for a single store. Responsible for receiving new product shipments, organizing them, and tracking their location. |
 | **Company Stockist** | All Stores | A central role for inventory oversight. Can view inventory across all stores and authorize/initiate stock transfers between them. |
-| **Sales** | Assigned Store(s) | Creates bills for customers at the point of sale, handles customer interactions, and analyzes sales data to track performance and identify trends. |
+| **Sales** | Assigned Store(s) | Creates bills for customers at the point of sale and handles customer interactions. |
 
 ---
 
 ## System Modules Overview
 
-RetailPulse is structured into five main modules, designed to support a multi-store medical wholesale operation.
+RetailPulse is structured into Three main modules, designed to support a multi-store medical wholesale operation.
 
 ---
 
@@ -51,7 +51,6 @@ To enable fast and accurate billing for customers at the store level, with all d
 
 #### 1.6 Automatic Inventory Update
 - **Deduct from Batch**: When a bill is finalized, the stock quantity is automatically deducted from the correct batch in the inventory.
-- **Sales Log**: Every sale is logged for analytics.
 
 ---
 
@@ -83,89 +82,20 @@ To provide powerful, granular control over product inventory across all stores, 
 
 ---
 
-## Module 3: Analytics Dashboard
-
-### Purpose
-To provide actionable insights for different roles, from store-level performance to company-wide trends.
-
-### Features
-
-#### 3.1 Multi-Store Sales Analytics
-- **Company View**: Admins can see total revenue, profit, and sales trends across all stores. They can also compare the performance of different stores.
-- **Store View**: Store Managers can see detailed sales analytics for their own store.
-
-#### 3.2 Advanced Product Performance
-- **Best Sellers**: Identify top-selling products by store, region, or across the entire company.
-- **Batch Profitability**: Analyze the profitability of different batches of the same product, which may have been purchased at different prices.
-
-#### 3.3 Inventory Insights
-- **Aging Inventory**: Generate reports to identify stock that is nearing its expiry date.
-- **Stock Valuation**: View the total value of inventory, broken down by store and product category.
-- **Movement History**: See a log of how stock has moved, helping to identify bottlenecks or optimize layout.
-
-#### 3.4 Time Range Filters
-- **Flexible Filtering**: Filter all reports by standard (today, this week) or custom date ranges.
-
----
-
-## Module 4: Authentication and Authorization
+## Module 3: Authentication and Authorization
 
 ### Purpose
 To secure the system and ensure users only access what their role permits.
 
 ### Features
 
-#### 4.1 User Registration and Management
+#### 3.1 User Registration and Management
 - **Admin Control**: Only Company Admins can create or deactivate stores and other users.
 - **Store Assignment**: When creating a user, an Admin assigns them a role and, if applicable, a home store.
 
-#### 4.2 User Login
+#### 3.2 User Login
 - **Secure Login**: Users log in with a username and password.
 - **Session Management**: The system manages user sessions and provides automatic logouts for security.
 
-#### 4.3 Role-Based Access Control (RBAC)
+#### 3.3 Role-Based Access Control (RBAC)
 - **Granular Permissions**: The system enforces the permissions defined in the **User Roles** table. For example, a `Sales` user from Store A cannot create a bill for Store B, nor can they see Store B's inventory. A `Company Admin` can do both.
-
----
-
-## Module 5: Role-Based Dashboards
-
-### Purpose
-To provide each user with an immediate, relevant overview of their tasks and key metrics as soon as they log in. Each dashboard is tailored to the user's specific role.
-
-### Features
-
-#### 5.1 Company Admin Dashboard
-- **View**: Company-wide ("bird's-eye") view.
-- **Key Metrics**: Total revenue, total profit, and total sales across all stores.
-- **Visuals**: A map showing all store locations, charts comparing store performance.
-- **Alerts**: Notifications for system-wide issues, low-performing stores, or large-scale stock shortages.
-- **Quick Links**: Manage Stores, Manage Users, Company-Wide Analytics.
-
-#### 5.2 Store Manager Dashboard
-- **View**: Focused on their single, assigned store.
-- **Key Metrics**: Total revenue, profit, and sales for their store.
-- **Visuals**: Charts showing daily/weekly sales trends, top-selling products, and inventory value for their store.
-- **Alerts**: Notifications for stock expiring soon, low stock levels, and pending inter-store transfers for their store.
-- **Quick Links**: Create Bill, View Store Inventory, Store Analytics, Manage Staff (Sales/Stockists).
-
-#### 5.3 Stockist Dashboard
-- **View**: Focused on inventory management for their assigned store.
-- **Key Metrics**: Total inventory value, number of unique items, and stock-out percentage for their store.
-- **Visuals**: A list of pending tasks.
-- **Alerts**: Notifications for newly received shipments, pending stock counts, and items with low stock.
-- **Quick Links**: View Store Inventory, Receive Stock, Move Stock, View Transfers.
-
-#### 5.4 Company Stockist Dashboard
-- **View**: Company-wide inventory overview.
-- **Key Metrics**: Total inventory value across all stores, number of pending inter-store transfers.
-- **Visuals**: A table showing stock levels of key products across all stores for easy comparison.
-- **Alerts**: Notifications for new transfer requests and completed transfers.
-- **Quick Links**: View All Inventory, Initiate Transfer, View Transfer History.
-
-#### 5.5 Sales Dashboard
-- **View**: A comprehensive interface for sales activities and performance analysis.
-- **Key Metrics**: Sales revenue vs. target, number of bills created, average bill value, and top-selling products.
-- **Visuals**: Leaderboards showing top-performing sales users, sales trends, and customer purchase patterns.
-- **Alerts**: Notifications for significant sales events, customer inquiries, or when a sales target is met.
-- **Quick Links**: Create Bill, View Own Bill History, View Sales Reports, Product Performance Analytics.

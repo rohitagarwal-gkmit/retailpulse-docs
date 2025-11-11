@@ -68,13 +68,3 @@ The API is designed following RESTful principles to provide a logical, hierarchi
 | `POST` | `/stores/{store_id}/bills` | Create a new bill for a specific store. |
 | `GET` | `/stores/{store_id}/bills` | List all bills for a specific store. |
 | `GET` | `/bills/{bill_id}` | Get details for a specific bill (accessible across stores by Admins). |
-
----
-
-### Analytics Endpoints
-
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/analytics/sales` | Get sales report data. Can be filtered by `store_id`. If no filter, returns company-wide data. |
-| `GET` | `/analytics/inventory` | Get inventory reports (e.g., stock valuation, expiring soon). Can be filtered by `store_id`. |
-| `GET` | `/analytics/performance` | Get performance metrics (e.g., top products). Can be filtered by `store_id`. |

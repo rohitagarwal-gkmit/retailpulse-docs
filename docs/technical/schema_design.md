@@ -4,8 +4,6 @@
 
 The system uses **PostgreSQL** as the database. The schema is designed to support a multi-store medical retail business, with detailed inventory tracking and a flexible Role-Based Access Control (RBAC) system.
 
-The RBAC system is composed of `roles`, `permissions`, and a `role_permissions` junction table. This allows for granular control over user actions, making the system scalable and easy to manage.
-
 To ensure data integrity and history, all tables include `created_at`, `updated_at`, and `deleted_at` timestamps for soft deletes.
 
 ---
@@ -14,10 +12,23 @@ To ensure data integrity and history, all tables include `created_at`, `updated_
 
 ```mermaid
 erDiagram
+    users ||--|{ user_roles : "has"
+    roles ||--o{ user_roles : "has many"
+    users ||--|{ user_stores : "is in"
+    stores ||--o{ user_stores : "has many"
+    roles ||--|{ role_permissions : "has many"
+    permissions ||--o{ role_permissions : "has many"
+    stores ||--|{ bills : "generates"
+    stores ||--|{ inventory_items : "has"
+    users ||--o{ bills : "creates"
+    users ||--o{ inventory_movements : "performs"
+    products ||--o{ inventory_items : "is an instance of"
+    bills ||--|{ bill_products : "contains"
+    products ||--o{ bill_products : "appears in"
+    inventory_items ||--o{ inventory_movements : "is moved in"
+
     users {
         int id PK
-        int store_id FK
-        int role_id FK
         varchar username UK
         varchar password_hash
         varchar full_name
@@ -31,17 +42,36 @@ erDiagram
         int id PK
         varchar name UK
         text description
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
+    }
+    
+    user_roles {
+        int id PK
+        int user_id FK
+        int role_id FK
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
     }
 
     permissions {
         int id PK
         varchar name UK
         text description
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
     }
 
     role_permissions {
-        int role_id PK, FK
-        int permission_id PK, FK
+        int id PK
+        int role_id FK
+        int permission_id FK
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
     }
 
     stores {
@@ -49,6 +79,15 @@ erDiagram
         varchar name UK
         text address
         varchar contact_phone
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
+    }
+
+    user_stores {
+        int id PK
+        int user_id FK
+        int store_id FK
         timestamptz created_at
         timestamptz updated_at
         timestamptz deleted_at
@@ -92,6 +131,9 @@ erDiagram
         varchar to_location
         text reason
         timestamptz movement_date
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
     }
 
     bills {
@@ -123,164 +165,44 @@ erDiagram
         timestamptz updated_at
         timestamptz deleted_at
     }
-
-    users ||--|{ roles : "has"
-    roles ||--|{ role_permissions : "has many"
-    permissions ||--o{ role_permissions : "has many"
-    stores ||--|{ users : "employs"
-    stores ||--|{ bills : "generates"
-    stores ||--|{ inventory_items : "has"
-    users ||--o{ bills : "creates"
-    users ||--o{ inventory_movements : "performs"
-    products ||--o{ inventory_items : "is an instance of"
-    bills ||--|{ bill_products : "contains"
-    products ||--o{ bill_products : "appears in"
-    inventory_items ||--o{ inventory_movements : "is moved in"
 ```
 
 ---
 
 ## Database Tables
 
-### 1. `stores`
-Stores information for each retail store.
+### `stores`
+The `stores` table contains a record for each retail store location. It includes a unique `id`, the store's `name`, `address`, and `contact_phone`. Timestamps for creation, updates, and soft deletes are included.
 
-**Fields:**
+### `users`
+The `users` table is the central record for every person who can log in to the system. It contains a unique `id`, `username`, `password_hash`, `full_name`, and an `is_active` flag. A user's roles and store assignments are managed in separate junction tables, so this table does not contain `role_id` or `store_id`. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-- `id` (SERIAL PRIMARY KEY): Unique ID for the store.
-- `name` (VARCHAR(255) UNIQUE NOT NULL): The name of the store (e.g., "Main Street Pharmacy").
-- `address` (TEXT): Physical address of the store.
-- `contact_phone` (VARCHAR(50)): Contact phone number for the store.
-- `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
-- `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
-- `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
+### `roles`
+The `roles` table defines the user roles available in the system. It has a unique `id` and a `name` for the role (e.g., 'Company Admin', 'Store Manager', 'Sales'), along with a `description`. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-### 2. `users`
-Stores user login information and their assigned role.
+### `user_roles`
+This is a junction table that assigns roles to users, creating a many-to-many relationship. It links `user_id` to `role_id`, allowing a single user to have multiple roles (e.g., a user could be both a 'Store Manager' and 'Sales'). It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-**Fields:**
+### `permissions`
+The `permissions` table defines granular permissions for actions within the system. It has a unique `id` and a `name` for the permission (e.g., 'bills.create', 'analytics.view.all'), with a `description` of what it allows. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-- `id` (SERIAL PRIMARY KEY): Unique user ID.
-- `store_id` (INTEGER REFERENCES stores(id)): The store this user belongs to. Can be `NULL` for company-wide users.
-- `role_id` (INTEGER NOT NULL REFERENCES roles(id)): The role assigned to this user.
-- `username` (VARCHAR(100) UNIQUE NOT NULL): Login username.
-- `password_hash` (VARCHAR(255) NOT NULL): Encrypted password.
-- `full_name` (VARCHAR(255)): User's full name.
-- `is_active` (BOOLEAN NOT NULL DEFAULT true): Whether the user can log in.
-- `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
-- `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
-- `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
+### `role_permissions`
+This is a junction table that assigns permissions to roles, creating a many-to-many relationship. It links `role_id` to `permission_id`, ensuring each permission is assigned to a role only once. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-### 3. `roles`
-Defines the user roles available in the system.
+### `user_stores`
+This is a junction table that assigns users to stores, creating a many-to-many relationship. It links `user_id` to `store_id`, allowing a single user to be associated with multiple stores. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-**Fields:**
+### `products`
+The `products` table is the master catalog of all products the company sells. It contains the product's `id`, `name`, `category`, `manufacturer`, `description`, and an `is_active` flag. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-- `id` (SERIAL PRIMARY KEY): Unique ID for the role.
-- `name` (VARCHAR(50) UNIQUE NOT NULL): The name of the role (e.g., 'Company Admin', 'Store Manager', 'Sales').
-- `description` (TEXT): A brief description of the role.
+### `inventory_items`
+This is the core inventory table, tracking specific batches of products in specific stores and locations. It links to `products` and `stores` and includes a `batch_number`, `manufacturing_id`, `expire_date`, `quantity`, `location`, `storage_category`, `cost_price`, and `selling_price`. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-### 4. `permissions`
-Defines granular permissions for actions within the system.
+### `inventory_movements`
+The `inventory_movements` table logs the movement of inventory items from one location to another, creating an audit trail. It records the `inventory_item_id`, the `moved_by_user_id`, `quantity_moved`, `from_location`, `to_location`, a `reason`, and the `movement_date`. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-**Fields:**
+### `bills`
+The `bills` table stores header information for each bill (receipt). It is linked to the `stores` where it was created and the `users` who created it. It also contains a unique `bill_number`, customer details, and financial totals (`total_amount`, `discount`, `tax_amount`, `grand_total`). It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.
 
-- `id` (SERIAL PRIMARY KEY): Unique ID for the permission.
-- `name` (VARCHAR(100) UNIQUE NOT NULL): The name of the permission (e.g., 'bills.create', 'analytics.view.all').
-- `description` (TEXT): A brief description of what the permission allows.
-
-### 5. `role_permissions`
-A junction table that assigns permissions to roles, creating a many-to-many relationship.
-
-**Fields:**
-
-- `role_id` (INTEGER NOT NULL REFERENCES roles(id)): The role being assigned a permission.
-- `permission_id` (INTEGER NOT NULL REFERENCES permissions(id)): The permission being granted.
-- PRIMARY KEY (`role_id`, `permission_id`): Ensures each permission is assigned to a role only once.
-
-### 6. `products`
-Stores general information about each product. This is the master catalog of all products the company sells.
-
-**Fields:**
-
-- `id` (SERIAL PRIMARY KEY): Unique product ID.
-- `name` (VARCHAR(255) UNIQUE NOT NULL): Product name.
-- `category` (VARCHAR(100)): Product category (e.g., "Antibiotic", "Analgesic").
-- `manufacturer` (VARCHAR(255)): Brand or manufacturer name.
-- `description` (TEXT): Product details.
-- `is_active` (BOOLEAN NOT NULL DEFAULT true): Whether the product is available for sale.
-- `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
-- `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
-- `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
-
-### 7. `inventory_items`
-This is the core inventory table. It tracks specific batches of products in specific stores and locations.
-
-**Fields:**
-
-- `id` (SERIAL PRIMARY KEY): Unique ID for this inventory item.
-- `product_id` (INTEGER NOT NULL REFERENCES products(id)): The product this item refers to.
-- `store_id` (INTEGER NOT NULL REFERENCES stores(id)): The store where this item is located.
-- `batch_number` (VARCHAR(100)): The batch number for this group of items.
-- `manufacturing_id` (VARCHAR(100)): The manufacturing ID, if available.
-- `expire_date` (DATE): The expiration date of this batch.
-- `quantity` (INTEGER NOT NULL CHECK (quantity >= 0)): The number of units in this batch at this location.
-- `location` (VARCHAR(100)): The specific location in the store (e.g., "Shelf A1", "Cold Storage Room").
-- `storage_category` (VARCHAR(100)): The type of storage required (e.g., "Cold Storage", "General").
-- `cost_price` (DECIMAL(10, 2) NOT NULL): The purchase price per unit for this batch.
-- `selling_price` (DECIMAL(10, 2) NOT NULL): The selling price per unit for this batch.
-- `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
-- `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
-- `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
-
-### 8. `inventory_movements`
-Logs the movement of inventory items from one location to another, creating an audit trail.
-
-**Fields:**
-
-- `id` (SERIAL PRIMARY KEY): Unique ID for the movement log.
-- `inventory_item_id` (INTEGER NOT NULL REFERENCES inventory_items(id)): The inventory item that was moved.
-- `moved_by_user_id` (INTEGER NOT NULL REFERENCES users(id)): The user who performed the movement.
-- `quantity_moved` (INTEGER NOT NULL): The number of units moved.
-- `from_location` (VARCHAR(100)): The location the items were moved from.
-- `to_location` (VARCHAR(100)): The location the items were moved to.
-- `reason` (TEXT): The reason for the movement (e.g., "Restocking shelf", "Store transfer").
-- `movement_date` (TIMESTAMPTZ NOT NULL DEFAULT now()): When the movement occurred.
-
-### 9. `bills`
-Stores header information for each bill (receipt).
-
-**Fields:**
-
-- `id` (SERIAL PRIMARY KEY): Unique bill ID.
-- `store_id` (INTEGER NOT NULL REFERENCES stores(id)): The store that issued the bill.
-- `created_by_user_id` (INTEGER NOT NULL REFERENCES users(id)): The user who created the bill.
-- `bill_number` (VARCHAR(100) UNIQUE NOT NULL): Unique bill number (e.g., "STORE1-BILL-00001").
-- `customer_name` (VARCHAR(255)): Customer's name (e.g., "City Pharmacy").
-- `customer_contact` (VARCHAR(100)): Customer's phone/email (optional).
-- `total_amount` (DECIMAL(10, 2) NOT NULL): Sum of all items before discounts/taxes.
-- `discount` (DECIMAL(10, 2) DEFAULT 0): Discount amount.
-- `tax_amount` (DECIMAL(10, 2) DEFAULT 0): Tax/GST amount.
-- `grand_total` (DECIMAL(10, 2) NOT NULL): Final amount to be paid.
-- `bill_date` (TIMESTAMPTZ NOT NULL DEFAULT now()): The date and time the bill was created.
-- `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
-- `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
-- `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
-
-### 10. `bill_products`
-Stores the individual line items for each bill.
-
-**Fields:**
-
-- `id` (SERIAL PRIMARY KEY): Unique ID for the bill line item.
-- `bill_id` (INTEGER NOT NULL REFERENCES bills(id)): The bill this item belongs to.
-- `product_id` (INTEGER NOT NULL REFERENCES products(id)): The product that was sold.
-- `batch_number` (VARCHAR(100)): The specific batch number of the item sold, for accurate tracking.
-- `quantity` (INTEGER NOT NULL): Number of units sold.
-- `unit_price` (DECIMAL(10, 2) NOT NULL): Price per unit at the time of sale.
-- `total_price` (DECIMAL(10, 2) NOT NULL): `quantity` × `unit_price`.
-- `created_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was created.
-- `updated_at` (TIMESTAMPTZ NOT NULL DEFAULT now()): Timestamp when the record was last updated.
-- `deleted_at` (TIMESTAMPTZ): Timestamp for soft deletes.
-
-
+### `bill_products`
+The `bill_products` table stores the individual line items for each bill. It links to the `bills` table and the specific `products` sold. It includes the `quantity`, `unit_price`, `total_price`, and the `batch_number` of the item sold for accurate inventory tracking. It also includes `created_at`, `updated_at`, and `deleted_at` timestamps.

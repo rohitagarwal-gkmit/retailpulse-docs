@@ -1,102 +1,55 @@
 # Use Cases
 
-## Primary Use Cases
+## Core System Use Cases
 
-### UC-01: Sales Creates a Bill
+### UC-01: Sales User Processes a Customer Order
 
-- **Actor**: Sales
-- **Goal**: To create a bill for a customer (e.g., a pharmacy) at their assigned store.
-- **Flow**:
-    1.  Sales logs in and is on the "Create Bill" page for their store.
-    2.  Searches for a product. The system shows available batches with expiry dates and quantities.
-    3.  Selects a batch and adds it to the bill.
-    4.  Enters the quantity.
-    5.  Repeats for all products.
-    6.  Enters customer name and contact (optional).
-    7.  Clicks "Generate Bill".
-    8.  The system saves the bill, deducts the quantity from the specific inventory batch, and generates a PDF with the store's details.
-- **Alternative**: If the requested quantity is more than the stock in the selected batch, the system shows an error.
-
----
-
-### UC-02: Stockist Adds New Inventory
-
-- **Actor**: Stockist
-- **Goal**: To add a new shipment of products into the store's inventory.
-- **Flow**:
-    1.  Stockist goes to "Inventory Management" and clicks "Receive Stock".
-    2.  Selects the product from the master list.
-    3.  Enters the new stock details: batch number, manufacturing ID, expiry date, quantity received, cost price, and selling price.
-    4.  Assigns a location (e.g., "Storeroom Rack 5") and storage category (e.g., "Cold Storage").
-    5.  Clicks "Save".
-    6.  The new batch is now part of the store's inventory and is available for sale.
-- **Alternative**: If the product is not on the master list, the Stockist must ask a Company Admin to add it first.
+-   **Actor**: Sales
+-   **Goal**: To efficiently create a bill for a customer, ensuring accurate product selection and inventory deduction.
+-   **Flow**:
+    1.  The Sales user logs into the system and navigates to the "Create Bill" interface for their assigned store.
+    2.  They search for a product by name or code. The system displays available batches of the product, including expiry dates and current quantities in stock.
+    3.  The Sales user selects the desired product batch and specifies the quantity. The system validates that the requested quantity does not exceed the available stock in that batch.
+    4.  They can add multiple products to the same bill, repeating the search and selection process.
+    5.  Optionally, the Sales user enters customer details (e.g., name, contact information).
+    6.  Upon confirming the order, the Sales user clicks "Generate Bill".
+    7.  The system records the bill, automatically deducts the sold quantity from the specific inventory batch, and generates a printable PDF of the bill, customized with the store's details.
+-   **Alternative**: If the requested quantity for a product exceeds the available stock in the selected batch, the system displays an error message, prompting the user to adjust the quantity or select a different batch.
 
 ---
 
-### UC-03: Company Admin Views Company-Wide Analytics
+### UC-02: Stock Management and Inter-Store Transfers
 
-- **Actor**: Company Admin
-- **Goal**: To understand and compare the performance of all stores.
-- **Flow**:
-    1.  Admin goes to the "Analytics Dashboard".
-    2.  The dashboard defaults to a company-wide view, showing total revenue, profit, and top-selling products across all stores.
-    3.  Admin uses a filter to select "Store A" and "Store B" to see a side-by-side comparison of their sales.
-    4.  Admin then navigates to the "Inventory" analytics tab to see the total stock value per store.
-
----
-
-### UC-04: Stockist Moves Stock Internally
-
-- **Actor**: Stockist
-- **Goal**: To move a product from the storeroom to a picking shelf.
-- **Flow**:
-    1.  Stockist finds the inventory item (e.g., Paracetamol, Batch #123) in the system.
-    2.  Clicks "Move Stock".
-    3.  Enters the quantity to move (e.g., 20 units).
-    4.  Sets the "From Location" to "Storeroom Rack 5" and "To Location" to "Picking Shelf C1".
-    5.  Adds a reason: "Restocking picking shelf".
-    6.  Clicks "Confirm Movement".
-    7.  The system updates the location of the 20 units and logs the movement for auditing.
+-   **Actors**: Stockist, Company Stockist
+-   **Goal**: To maintain accurate inventory levels within stores and facilitate efficient product movement between locations.
+-   **Flow (Stockist - Receiving Inventory)**:
+    1.  A Stockist logs in and accesses the "Receive Stock" function within their assigned store's inventory management module.
+    2.  They select a product from the master catalog and enter details for the new shipment, including batch number, manufacturing ID, expiry date, quantity received, cost price, and selling price.
+    3.  The Stockist assigns a specific physical `location` (e.g., "Storeroom Rack 5") and `storage_category` (e.g., "Cold Storage") for the received batch.
+    4.  Upon saving, the new batch is added to the store's inventory and becomes available for sale or internal movement.
+-   **Flow (Company Stockist - Transferring Inventory Between Stores)**:
+    1.  A Company Stockist identifies a need to transfer products between stores (e.g., Store A has surplus, Store B has a shortage).
+    2.  They initiate a "New Store Transfer," selecting the product, the "From Store" (e.g., Store A), and the "To Store" (e.g., Store B), along with the quantity to transfer.
+    3.  The system marks the transferred quantity as "In Transit" in the "From Store's" inventory.
+    4.  Once the products arrive at the "To Store," a Stockist at that store confirms receipt in the system.
+    5.  The system then deducts the stock from the "From Store's" inventory and adds it to the "To Store's" inventory, updating locations as necessary.
 
 ---
 
-### UC-05: Company Stockist Transfers Stock Between Stores
+### UC-03: Company Admin Manages System Resources
 
-- **Actor**: Company Stockist
-- **Goal**: To move surplus stock from one store to another that needs it.
-- **Flow**:
-    1.  Company Stockist identifies that "Store A" has 200 units of a product, while "Store B" has only 5.
-    2.  They initiate a "New Store Transfer".
-    3.  They select the product, the "From Store" (Store A), and the "To Store" (Store B).
-    4.  They enter the quantity to transfer (e.g., 100 units).
-    5.  The system creates a transfer order. The 100 units at Store A are marked as "In Transit".
-    6.  When the stock arrives at Store B, the Stockist there confirms receipt.
-    7.  The system deducts the stock from Store A's inventory and adds it to Store B's inventory.
-
----
-
-### UC-06: Company Admin Manages Users and Stores
-
-- **Actor**: Company Admin
-- **Goal**: To manage the company's structure, including stores and staff.
-- **Flow (Add Store)**:
-    1.  Admin goes to "Store Management" and clicks "Add New Store".
-    2.  Enters the store name, address, and contact info. Clicks "Save".
-- **Flow (Add User)**:
-    1.  Admin goes to "User Management" and clicks "Add New User".
-    2.  Enters the user's name, username, and password.
-    3.  Assigns a role (e.g., "Store Manager") and a home store ("Store B").
-    4.  Clicks "Create User". The user can now log in and will only have access to Store B.
-
----
-
-### UC-07: Store Manager Checks for Expiring Products
-
-- **Actor**: Store Manager
-- **Goal**: To identify products that are nearing their expiry date to prioritize their sale.
-- **Flow**:
-    1.  Manager goes to the "Inventory Reports" section for their store.
-    2.  Runs the "Expiring Soon" report, with a filter for "Next 60 days".
-    3.  The system generates a list of all product batches that will expire in the next 60 days, showing the product name, batch number, quantity, and expiry date.
-    4.  The manager can use this list to create a sales promotion or instruct staff to sell these batches first.
+-   **Actor**: Company Admin
+-   **Goal**: To oversee and configure the entire system, including managing stores, users, and the master product catalog.
+-   **Flow (Managing Stores)**:
+    1.  The Company Admin logs in and navigates to the "Store Management" section.
+    2.  They can add new stores by providing details such as name, address, and contact information.
+    3.  Existing store details can be updated, or stores can be deactivated as needed.
+-   **Flow (Managing Users)**:
+    1.  The Company Admin accesses the "User Management" section.
+    2.  They can create new user accounts, providing a username, password, and full name.
+    3.  Crucially, the Admin assigns one or more `roles` to the new user (e.g., 'Store Manager', 'Sales') and associates them with one or more `stores` via the `user_roles` and `user_stores` junction tables.
+    4.  Existing user accounts can be updated (e.g., changing roles, store assignments) or deactivated.
+-   **Flow (Managing Product Master Catalog)**:
+    1.  The Company Admin goes to the "Product Master List" section.
+    2.  They can add new products to the central catalog, specifying details like name, category, manufacturer, and description.
+    3.  Existing product details can be updated, or products can be marked as inactive if they are no longer sold.
