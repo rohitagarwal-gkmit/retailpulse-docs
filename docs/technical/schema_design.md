@@ -30,6 +30,7 @@ erDiagram
     stores ||--|{ inventory_items : "has"
     users ||--o{ bills : "creates"
     users ||--o{ inventory_movements : "performs"
+    categories ||--o{ products : "has"
     products ||--o{ inventory_items : "is an instance of"
     bills ||--|{ bill_products : "contains"
     products ||--o{ bill_products : "appears in"
@@ -101,10 +102,20 @@ erDiagram
         timestamptz deleted_at
     }
 
-    products {
+    categories {
         int id PK
         varchar name UK
-        varchar category
+        text description
+        boolean is_active
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
+    }
+
+    products {
+        int id PK
+        int category_id FK
+        varchar name UK
         varchar manufacturer
         text description
         boolean is_active
@@ -200,8 +211,11 @@ Junction table linking roles to permissions (many-to-many).
 ### `user_stores`
 Junction table linking users to stores (many-to-many).
 
+### `categories`
+Product categories with name and description for organizing products.
+
 ### `products`
-Master product catalog with name, category, manufacturer, and description.
+Master product catalog with category reference, name, manufacturer, and description.
 
 ### `inventory_items`
 Batch-level inventory tracking per store with expiry dates, quantities, location, and pricing.
@@ -224,18 +238,21 @@ Bill line items with product, quantity, pricing, and batch number for inventory 
 **Explicit B-tree indexes on:**
 
 **Foreign keys** (for JOIN performance):
+
 - `user_roles`: `user_id`, `role_id`
 - `user_stores`: `user_id`, `store_id`
 - `role_permissions`: `role_id`, `permission_id`
+- `products`: `category_id`
 - `inventory_items`: `product_id`, `store_id`
 - `inventory_movements`: `inventory_item_id`, `moved_by_user_id`
 - `bills`: `store_id`, `created_by_user_id`
 - `bill_products`: `bill_id`, `product_id`
 
 **Query-heavy columns:**
+
 - `inventory_items.expire_date` - frequent expiry checks and range queries
 - `inventory_items.batch_number` - batch-specific searches
-- `products.category` - filtering by category
+- `categories.name` - filtering by category
 - `products.manufacturer` - filtering by manufacturer
 - `bills.bill_date` - date-based reporting
 
