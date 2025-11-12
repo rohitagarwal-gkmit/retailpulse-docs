@@ -479,6 +479,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      categories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#products" class="md-nav__link">
     <span class="md-ellipsis">
       products
@@ -770,6 +779,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      categories
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#products" class="md-nav__link">
     <span class="md-ellipsis">
       products
@@ -869,6 +887,7 @@
     stores ||--|{ inventory_items : "has"
     users ||--o{ bills : "creates"
     users ||--o{ inventory_movements : "performs"
+    categories ||--o{ products : "has"
     products ||--o{ inventory_items : "is an instance of"
     bills ||--|{ bill_products : "contains"
     products ||--o{ bill_products : "appears in"
@@ -940,10 +959,20 @@
         timestamptz deleted_at
     }
 
-    products {
+    categories {
         int id PK
         varchar name UK
-        varchar category
+        text description
+        boolean is_active
+        timestamptz created_at
+        timestamptz updated_at
+        timestamptz deleted_at
+    }
+
+    products {
+        int id PK
+        int category_id FK
+        varchar name UK
         varchar manufacturer
         text description
         boolean is_active
@@ -1028,8 +1057,10 @@
 <p>Junction table linking roles to permissions (many-to-many).</p>
 <h3 id="user_stores"><code>user_stores</code></h3>
 <p>Junction table linking users to stores (many-to-many).</p>
+<h3 id="categories"><code>categories</code></h3>
+<p>Product categories with name and description for organizing products.</p>
 <h3 id="products"><code>products</code></h3>
-<p>Master product catalog with name, category, manufacturer, and description.</p>
+<p>Master product catalog with category reference, name, manufacturer, and description.</p>
 <h3 id="inventory_items"><code>inventory_items</code></h3>
 <p>Batch-level inventory tracking per store with expiry dates, quantities, location, and pricing.</p>
 <h3 id="inventory_movements"><code>inventory_movements</code></h3>
@@ -1043,20 +1074,25 @@
 - Primary keys (all tables)
 - Unique constraints (<code>username</code>, <code>bill_number</code>, product/role/permission <code>name</code>)</p>
 <p><strong>Explicit B-tree indexes on:</strong></p>
-<p><strong>Foreign keys</strong> (for JOIN performance):
-- <code>user_roles</code>: <code>user_id</code>, <code>role_id</code>
-- <code>user_stores</code>: <code>user_id</code>, <code>store_id</code>
-- <code>role_permissions</code>: <code>role_id</code>, <code>permission_id</code>
-- <code>inventory_items</code>: <code>product_id</code>, <code>store_id</code>
-- <code>inventory_movements</code>: <code>inventory_item_id</code>, <code>moved_by_user_id</code>
-- <code>bills</code>: <code>store_id</code>, <code>created_by_user_id</code>
-- <code>bill_products</code>: <code>bill_id</code>, <code>product_id</code></p>
-<p><strong>Query-heavy columns:</strong>
-- <code>inventory_items.expire_date</code> - frequent expiry checks and range queries
-- <code>inventory_items.batch_number</code> - batch-specific searches
-- <code>products.category</code> - filtering by category
-- <code>products.manufacturer</code> - filtering by manufacturer
-- <code>bills.bill_date</code> - date-based reporting</p>
+<p><strong>Foreign keys</strong> (for JOIN performance):</p>
+<ul>
+<li><code>user_roles</code>: <code>user_id</code>, <code>role_id</code></li>
+<li><code>user_stores</code>: <code>user_id</code>, <code>store_id</code></li>
+<li><code>role_permissions</code>: <code>role_id</code>, <code>permission_id</code></li>
+<li><code>products</code>: <code>category_id</code></li>
+<li><code>inventory_items</code>: <code>product_id</code>, <code>store_id</code></li>
+<li><code>inventory_movements</code>: <code>inventory_item_id</code>, <code>moved_by_user_id</code></li>
+<li><code>bills</code>: <code>store_id</code>, <code>created_by_user_id</code></li>
+<li><code>bill_products</code>: <code>bill_id</code>, <code>product_id</code></li>
+</ul>
+<p><strong>Query-heavy columns:</strong></p>
+<ul>
+<li><code>inventory_items.expire_date</code> - frequent expiry checks and range queries</li>
+<li><code>inventory_items.batch_number</code> - batch-specific searches</li>
+<li><code>categories.name</code> - filtering by category</li>
+<li><code>products.manufacturer</code> - filtering by manufacturer</li>
+<li><code>bills.bill_date</code> - date-based reporting</li>
+</ul>
 <p><strong>Why B-tree:</strong>
 Handles equality, range queries, sorting, and pattern matching efficiently - covers all common query patterns in the system.</p>
 
