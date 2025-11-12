@@ -10,6 +10,7 @@
 | Material UI (MUI) | v6.1.7 | React component library for design system |
 | Axios | v1.7.7 | HTTP client for API communication |
 | Emotion | v11.14.0 | CSS-in-JS styling library |
+| Jest | v30.2.0 | JavaScript testing framework |
 
 ## Backend
 
@@ -21,6 +22,8 @@
 | PostgreSQL | v16.6 | Relational database |
 | ReportLab | v4.4.4 | PDF generation library |
 | Pytest | v9.0.0 | Testing framework |
+| pytest-asyncio | v1.3.0 | Async test support for pytest |
+| pytest-cov | v7.0.0 | Code coverage plugin for pytest |
 | Uvicorn | v0.38.0 | ASGI server for FastAPI |
 
 ## DevOps & Deployment

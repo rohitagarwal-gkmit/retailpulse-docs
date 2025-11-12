@@ -14,6 +14,7 @@ nav:
       - Schema Design: technical/schema_design.md
       - Architecture: technical/architecture.md
       - API Design: technical/api_design.md
+      - Testing: technical/testing.md
   - Edge Cases & Error Handling: edge_cases.md
   - Future Enhancements: future_enhancements.md
 markdown_extensions:
