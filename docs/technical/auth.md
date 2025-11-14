@@ -24,7 +24,7 @@ Below is a summary of the permissions for each role.
 | **Store Management** | | | | | |
 | Create/Edit Stores | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
 | **User Management** | | | | | |
-| Create/Edit Users | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
+| Create/Edit Users | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
 | **Product Master List** | | | | | |
 | Create/Edit Products | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
 | **Inventory** | | | | | |
