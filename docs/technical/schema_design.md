@@ -2,7 +2,7 @@
 
 ## Overview
 
-The system uses **PostgreSQL** for its ACID compliance, strong relational support, and efficient handling of complex joins needed for multi-store inventory and RBAC. 
+The system uses **PostgreSQL** for its ACID compliance, strong relational support, and efficient handling of complex joins needed for multi-store inventory and RBAC.
 
 Users can have multiple roles and work across multiple stores via junction tables (`user_stores` and `user_roles`). All tables use soft deletes with `created_at`, `updated_at`, and `deleted_at` timestamps.
 
@@ -37,7 +37,7 @@ erDiagram
     inventory_items ||--o{ inventory_movements : "is moved in"
 
     users {
-        int id PK
+        uuid id PK
         varchar username UK
         varchar password_hash
         varchar full_name
@@ -48,25 +48,25 @@ erDiagram
     }
 
     roles {
-        int id PK
+        uuid id PK
         varchar name UK
         text description
         timestamptz created_at
         timestamptz updated_at
         timestamptz deleted_at
     }
-    
+
     user_roles {
-        int id PK
-        int user_id FK
-        int role_id FK
+        uuid id PK
+        uuid user_id FK
+        uuid role_id FK
         timestamptz created_at
         timestamptz updated_at
         timestamptz deleted_at
     }
 
     permissions {
-        int id PK
+        uuid id PK
         varchar name UK
         text description
         timestamptz created_at
@@ -75,16 +75,16 @@ erDiagram
     }
 
     role_permissions {
-        int id PK
-        int role_id FK
-        int permission_id FK
+        uuid id PK
+        uuid role_id FK
+        uuid permission_id FK
         timestamptz created_at
         timestamptz updated_at
         timestamptz deleted_at
     }
 
     stores {
-        int id PK
+        uuid id PK
         varchar name UK
         text address
         varchar contact_phone
@@ -94,16 +94,16 @@ erDiagram
     }
 
     user_stores {
-        int id PK
-        int user_id FK
-        int store_id FK
+        uuid id PK
+        uuid user_id FK
+        uuid store_id FK
         timestamptz created_at
         timestamptz updated_at
         timestamptz deleted_at
     }
 
     categories {
-        int id PK
+        uuid id PK
         varchar name UK
         text description
         boolean is_active
@@ -113,11 +113,12 @@ erDiagram
     }
 
     products {
-        int id PK
-        int category_id FK
+        uuid id PK
+        uuid category_id FK
         varchar name UK
         varchar manufacturer
         text description
+        decimal price
         boolean is_active
         timestamptz created_at
         timestamptz updated_at
@@ -125,9 +126,9 @@ erDiagram
     }
 
     inventory_items {
-        int id PK
-        int product_id FK
-        int store_id FK
+        uuid id PK
+        uuid product_id FK
+        uuid store_id FK
         varchar batch_number
         varchar manufacturing_id
         date expire_date
@@ -142,9 +143,9 @@ erDiagram
     }
 
     inventory_movements {
-        int id PK
-        int inventory_item_id FK
-        int moved_by_user_id FK
+        uuid id PK
+        uuid inventory_item_id FK
+        uuid moved_by_user_id FK
         int quantity_moved
         varchar from_location
         varchar to_location
@@ -156,9 +157,9 @@ erDiagram
     }
 
     bills {
-        int id PK
-        int store_id FK
-        int created_by_user_id FK
+        uuid id PK
+        uuid store_id FK
+        uuid created_by_user_id FK
         varchar bill_number UK
         varchar customer_name
         varchar customer_contact
@@ -173,9 +174,9 @@ erDiagram
     }
 
     bill_products {
-        int id PK
-        int bill_id FK
-        int product_id FK
+        uuid id PK
+        uuid bill_id FK
+        uuid product_id FK
         varchar batch_number
         int quantity
         decimal unit_price
@@ -191,47 +192,61 @@ erDiagram
 ## Database Tables
 
 ### `stores`
+
 Store locations with name, address, and contact info.
 
 ### `users`
+
 Central user records with username, password hash, and full name. Roles and stores assigned via junction tables.
 
 ### `roles`
+
 Defines available roles (Company Admin, Store Manager, Sales, Stockist, Company Stockist).
 
 ### `user_roles`
+
 Junction table linking users to roles (many-to-many).
 
 ### `permissions`
+
 Granular action permissions (e.g., 'bills.create', 'inventory.manage').
 
 ### `role_permissions`
+
 Junction table linking roles to permissions (many-to-many).
 
 ### `user_stores`
+
 Junction table linking users to stores (many-to-many).
 
 ### `categories`
+
 Product categories with name and description for organizing products.
 
 ### `products`
+
 Master product catalog with category reference, name, manufacturer, and description.
 
 ### `inventory_items`
+
 Batch-level inventory tracking per store with expiry dates, quantities, location, and pricing.
 
 ### `inventory_movements`
+
 Audit trail of inventory transfers between locations with user, quantity, and reason.
 
 ### `bills`
+
 Bill headers with store, user, bill number, customer details, and totals.
 
 ### `bill_products`
+
 Bill line items with product, quantity, pricing, and batch number for inventory tracking.
 
 ## Indexing Strategy
 
 **Auto-created indexes:**
+
 - Primary keys (all tables)
 - Unique constraints (`username`, `bill_number`, product/role/permission `name`)
 
