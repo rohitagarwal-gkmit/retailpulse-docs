@@ -113,11 +113,9 @@ erDiagram
         uuid product_id FK
         uuid store_id FK
         varchar batch_number
-        varchar manufacturing_id
         date expire_date
         int quantity
         varchar location
-        varchar storage_category
         decimal cost_price
         decimal selling_price
         timestamptz created_at
