@@ -492,28 +492,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        permissions
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#role_permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        role_permissions
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#user_stores" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -551,17 +529,6 @@
     <span class="md-ellipsis">
       
         inventory_items
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#inventory_movements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        inventory_movements
       
     </span>
   </a>
@@ -903,28 +870,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        permissions
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#role_permissions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        role_permissions
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#user_stores" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -962,17 +907,6 @@
     <span class="md-ellipsis">
       
         inventory_items
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#inventory_movements" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        inventory_movements
       
     </span>
   </a>
@@ -1053,17 +987,16 @@
     roles ||--o{ user_roles : "has many"
     users ||--|{ user_stores : "is in"
     stores ||--o{ user_stores : "has many"
-    roles ||--|{ role_permissions : "has many"
-    permissions ||--o{ role_permissions : "has many"
+
     stores ||--|{ bills : "generates"
     stores ||--|{ inventory_items : "has"
     users ||--o{ bills : "creates"
-    users ||--o{ inventory_movements : "performs"
+
     categories ||--o{ products : "has"
     products ||--o{ inventory_items : "is an instance of"
     bills ||--|{ bill_products : "contains"
     products ||--o{ bill_products : "appears in"
-    inventory_items ||--o{ inventory_movements : "is moved in"
+
 
     users {
         uuid id PK
@@ -1094,23 +1027,7 @@
         timestamptz deleted_at
     }
 
-    permissions {
-        uuid id PK
-        varchar name UK
-        text description
-        timestamptz created_at
-        timestamptz updated_at
-        timestamptz deleted_at
-    }
 
-    role_permissions {
-        uuid id PK
-        uuid role_id FK
-        uuid permission_id FK
-        timestamptz created_at
-        timestamptz updated_at
-        timestamptz deleted_at
-    }
 
     stores {
         uuid id PK
@@ -1171,19 +1088,7 @@
         timestamptz deleted_at
     }
 
-    inventory_movements {
-        uuid id PK
-        uuid inventory_item_id FK
-        uuid moved_by_user_id FK
-        int quantity_moved
-        varchar from_location
-        varchar to_location
-        text reason
-        timestamptz movement_date
-        timestamptz created_at
-        timestamptz updated_at
-        timestamptz deleted_at
-    }
+
 
     bills {
         uuid id PK
@@ -1224,10 +1129,6 @@
 <p>Defines available roles (Company Admin, Store Manager, Sales, Stockist, Company Stockist).</p>
 <h3 id="user_roles"><code>user_roles</code></h3>
 <p>Junction table linking users to roles (many-to-many).</p>
-<h3 id="permissions"><code>permissions</code></h3>
-<p>Granular action permissions (e.g., 'bills.create', 'inventory.manage').</p>
-<h3 id="role_permissions"><code>role_permissions</code></h3>
-<p>Junction table linking roles to permissions (many-to-many).</p>
 <h3 id="user_stores"><code>user_stores</code></h3>
 <p>Junction table linking users to stores (many-to-many).</p>
 <h3 id="categories"><code>categories</code></h3>
@@ -1236,8 +1137,6 @@
 <p>Master product catalog with category reference, name, manufacturer, and description.</p>
 <h3 id="inventory_items"><code>inventory_items</code></h3>
 <p>Batch-level inventory tracking per store with expiry dates, quantities, location, and pricing.</p>
-<h3 id="inventory_movements"><code>inventory_movements</code></h3>
-<p>Audit trail of inventory transfers between locations with user, quantity, and reason.</p>
 <h3 id="bills"><code>bills</code></h3>
 <p>Bill headers with store, user, bill number, customer details, and totals.</p>
 <h3 id="bill_products"><code>bill_products</code></h3>
@@ -1253,7 +1152,6 @@
 <ul>
 <li><code>user_roles</code>: <code>user_id</code>, <code>role_id</code></li>
 <li><code>user_stores</code>: <code>user_id</code>, <code>store_id</code></li>
-<li><code>role_permissions</code>: <code>role_id</code>, <code>permission_id</code></li>
 <li><code>products</code>: <code>category_id</code></li>
 <li><code>inventory_items</code>: <code>product_id</code>, <code>store_id</code></li>
 <li><code>bills</code>: <code>store_id</code>, <code>created_by_user_id</code></li>
