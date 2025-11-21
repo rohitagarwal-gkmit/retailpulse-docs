@@ -24,17 +24,16 @@ erDiagram
     roles ||--o{ user_roles : "has many"
     users ||--|{ user_stores : "is in"
     stores ||--o{ user_stores : "has many"
-    roles ||--|{ role_permissions : "has many"
-    permissions ||--o{ role_permissions : "has many"
+
     stores ||--|{ bills : "generates"
     stores ||--|{ inventory_items : "has"
     users ||--o{ bills : "creates"
-    users ||--o{ inventory_movements : "performs"
+
     categories ||--o{ products : "has"
     products ||--o{ inventory_items : "is an instance of"
     bills ||--|{ bill_products : "contains"
     products ||--o{ bill_products : "appears in"
-    inventory_items ||--o{ inventory_movements : "is moved in"
+
 
     users {
         uuid id PK
@@ -65,23 +64,7 @@ erDiagram
         timestamptz deleted_at
     }
 
-    permissions {
-        uuid id PK
-        varchar name UK
-        text description
-        timestamptz created_at
-        timestamptz updated_at
-        timestamptz deleted_at
-    }
 
-    role_permissions {
-        uuid id PK
-        uuid role_id FK
-        uuid permission_id FK
-        timestamptz created_at
-        timestamptz updated_at
-        timestamptz deleted_at
-    }
 
     stores {
         uuid id PK
@@ -142,19 +125,7 @@ erDiagram
         timestamptz deleted_at
     }
 
-    inventory_movements {
-        uuid id PK
-        uuid inventory_item_id FK
-        uuid moved_by_user_id FK
-        int quantity_moved
-        varchar from_location
-        varchar to_location
-        text reason
-        timestamptz movement_date
-        timestamptz created_at
-        timestamptz updated_at
-        timestamptz deleted_at
-    }
+
 
     bills {
         uuid id PK
@@ -207,14 +178,6 @@ Defines available roles (Company Admin, Store Manager, Sales, Stockist, Company 
 
 Junction table linking users to roles (many-to-many).
 
-### `permissions`
-
-Granular action permissions (e.g., 'bills.create', 'inventory.manage').
-
-### `role_permissions`
-
-Junction table linking roles to permissions (many-to-many).
-
 ### `user_stores`
 
 Junction table linking users to stores (many-to-many).
@@ -230,10 +193,6 @@ Master product catalog with category reference, name, manufacturer, and descript
 ### `inventory_items`
 
 Batch-level inventory tracking per store with expiry dates, quantities, location, and pricing.
-
-### `inventory_movements`
-
-Audit trail of inventory transfers between locations with user, quantity, and reason.
 
 ### `bills`
 
@@ -256,7 +215,6 @@ Bill line items with product, quantity, pricing, and batch number for inventory 
 
 - `user_roles`: `user_id`, `role_id`
 - `user_stores`: `user_id`, `store_id`
-- `role_permissions`: `role_id`, `permission_id`
 - `products`: `category_id`
 - `inventory_items`: `product_id`, `store_id`
 - `bills`: `store_id`, `created_by_user_id`
