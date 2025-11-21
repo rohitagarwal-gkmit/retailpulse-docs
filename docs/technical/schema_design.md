@@ -259,7 +259,6 @@ Bill line items with product, quantity, pricing, and batch number for inventory 
 - `role_permissions`: `role_id`, `permission_id`
 - `products`: `category_id`
 - `inventory_items`: `product_id`, `store_id`
-- `inventory_movements`: `inventory_item_id`, `moved_by_user_id`
 - `bills`: `store_id`, `created_by_user_id`
 - `bill_products`: `bill_id`, `product_id`
 

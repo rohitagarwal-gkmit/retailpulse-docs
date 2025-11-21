@@ -6,7 +6,6 @@ theme:
 nav:
   - Home: index.md
   - Functional Docs: functional_docs.md
-  - Use Cases: use_cases.md
   - Technical Docs:
       - Tech Stack: technical/tech_stack.md
       - Data Flow: technical/data_flow.md
@@ -15,6 +14,7 @@ nav:
       - Architecture: technical/architecture.md
       - API Design: technical/api_design.md
       - Testing: technical/testing.md
+  - Use Cases: use_cases.md
   - Edge Cases & Error Handling: edge_cases.md
   - Future Enhancements: future_enhancements.md
 markdown_extensions:

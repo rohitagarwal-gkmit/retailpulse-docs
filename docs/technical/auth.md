@@ -19,21 +19,19 @@ The system uses a granular Role-Based Access Control (RBAC) model to enforce per
 
 Below is a summary of the permissions for each role.
 
-| Action | Company Admin | Store Manager | Stockist | Company Stockist | Sales |
-|---|:---:|:---:|:---:|:---:|:---:|
-| **Store Management** | | | | | |
-| Create/Edit Stores | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
-| **User Management** | | | | | |
-| Create/Edit Users | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
-| **Product Master List** | | | | | |
-| Create/Edit Products | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
-| **Inventory** | | | | | |
-| View Own Store Inventory | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> |
-| View All Stores' Inventory | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> |
-| Add/Edit Own Store Inventory | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
-| Move Stock (within store) | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
-| Transfer Stock (between stores) | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> |
-| **Billing** | | | | | |
-| Create/Edit Bills (own store) | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: green;">Yes</span> |
-| View Bills (own store) | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: green;">Yes</span> |
-| View Bills (all stores) | <span style="color: green;">Yes</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> | <span style="color: red;">No</span> |
+| Action                        |             Company Admin              |             Store Manager              |                Stockist                |            Company Stockist            |                 Sales                  |
+| ----------------------------- | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: | :------------------------------------: |
+| **Store Management**          |                                        |                                        |                                        |                                        |                                        |
+| Create/Edit Stores            | <span style="color: green;">Yes</span> |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |
+| **User Management**           |                                        |                                        |                                        |                                        |                                        |
+| Create/Edit Users             | <span style="color: green;">Yes</span> |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |
+| **Product Master List**       |                                        |                                        |                                        |                                        |                                        |
+| Create/Edit Products          | <span style="color: green;">Yes</span> |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |
+| **Inventory**                 |                                        |                                        |                                        |                                        |                                        |
+| View Own Store Inventory      | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> |
+| View All Stores' Inventory    | <span style="color: green;">Yes</span> |  <span style="color: red;">No</span>   | <span style="color: green;">Yes</span> |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |
+| Add/Edit Own Store Inventory  |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> |  <span style="color: red;">No</span>   |
+| **Billing**                   |                                        |                                        |                                        |                                        |                                        |
+| Create/Edit Bills (own store) |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   | <span style="color: green;">Yes</span> |
+| View Bills (own store)        | <span style="color: green;">Yes</span> | <span style="color: green;">Yes</span> |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   | <span style="color: green;">Yes</span> |
+| View Bills (all stores)       | <span style="color: green;">Yes</span> |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |  <span style="color: red;">No</span>   |

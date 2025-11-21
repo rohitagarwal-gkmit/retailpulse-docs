@@ -10,6 +10,7 @@ This document outlines 5 simple future enhancements for the RetailPulse system w
 Enable quick product search and billing using barcode scanners for faster checkout.
 
 **Implementation:**
+
 - Add barcode field to Product schema
 - Integrate barcode scanner library (e.g., QuaggaJS for web)
 - Create barcode input API endpoint that searches products by barcode
@@ -36,6 +37,7 @@ flowchart LR
 Send bill PDFs directly to customers via WhatsApp after purchase.
 
 **Implementation:**
+
 - Integrate WhatsApp Business API or third-party service (e.g., Twilio)
 - Add customer phone number field in billing form (optional)
 - Generate bill PDF using existing system
@@ -62,6 +64,7 @@ flowchart LR
 Store customer contact details and view their complete purchase history.
 
 **Implementation:**
+
 - Create Customer schema (name, phone, email, address)
 - Add customer selection/creation in billing flow
 - Link bills to customer records via foreign key
@@ -91,6 +94,7 @@ flowchart TD
 Automatic notifications when products fall below minimum stock level.
 
 **Implementation:**
+
 - Add minimum_stock_level field to Product schema
 - Create background job/cron to check stock levels daily
 - Integrate email service (e.g., SendGrid) or SMS service
@@ -119,6 +123,7 @@ flowchart LR
 Visual dashboard showing sales trends, top products, and revenue insights.
 
 **Implementation:**
+
 - Create analytics API endpoints aggregating sales data
 - Use charting library (e.g., Chart.js or Recharts)
 - Build dashboard page with key metrics:
@@ -143,4 +148,43 @@ flowchart TD
     F --> I[Interactive Dashboard]
     G --> I
     H --> I
+```
+
+---
+
+## 6. Inter-Store Transfers
+
+**Description:**
+Design and validate a formal process for moving inventory between stores, including transfer requests, approvals, and receipt confirmation.
+
+**Implementation (high level):**
+
+- Add transfer model and endpoints: create transfer request, approve/dispatch, confirm receipt.
+- Add transfer states (requested, approved, dispatched, received, cancelled) and audit trail for each state change.
+- Handle stock reservations on dispatch to prevent double-selling while a transfer is in progress.
+- Add role-based permissions for initiating and approving transfers.
+- Build UI flows for initiating a transfer, tracking status, and confirming receipt.
+- Add automated tests for concurrency and edge cases (e.g., partial receipts, transfer cancellations).
+
+**Workflow:**
+
+```mermaid
+flowchart LR
+    A[Initiate Transfer] --> B[Create Transfer Request]
+    B --> C{Approved?}
+    C -->|No| D[Cancel or Request Changes]
+    C -->|Yes| E[Reserve Stock at Source]
+    E --> F[Dispatch from Source]
+    F --> G[In Transit]
+    G --> H[Receive at Destination]
+    H --> I{Receipt OK?}
+    I -->|Partial| J[Partial Receipt: Adjust Inventory & Notify]
+    I -->|Complete| K[Confirm Receipt & Finalize Transfer]
+    K --> L[Update Inventory & Release Reservations]
+    J --> L
+    D --> M[Mark Transfer Cancelled]
+```
+
+```
+
 ```
