@@ -91,8 +91,6 @@ To provide powerful, granular control over product inventory across all stores, 
 - **Manual Adjustments**: Manually change stock quantity with a mandatory reason (e.g., "Damaged stock," "Cycle count correction").
 - **Internal Movement**: Log the movement of stock from one location to another within the same store (e.g., from the storeroom to a shelf).
 
-> Note: Inter-store transfers (moving inventory between different store locations) are not implemented yet. See the Future Enhancements document for planned validation and implementation details.
-
 ---
 
 ## Module 3: Authentication and Authorization
