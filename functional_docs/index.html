@@ -12,7 +12,7 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../use_cases/">
+        <link rel="next" href="../technical/tech_stack/">
       
       
         
@@ -556,33 +556,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../use_cases/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Use Cases
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
     
     
     
@@ -594,10 +567,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -615,8 +588,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -825,6 +798,33 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use_cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use Cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -1256,7 +1256,7 @@
 <tr>
 <td><strong>Company Stockist</strong></td>
 <td>All Stores</td>
-<td>A central role for inventory oversight. Can view inventory across all stores and authorize/initiate stock transfers between them.</td>
+<td>A central role for inventory oversight. Can view inventory across all stores.</td>
 </tr>
 <tr>
 <td><strong>Sales</strong></td>
@@ -1267,7 +1267,7 @@
 </table>
 <hr />
 <h2 id="system-modules-overview">System Modules Overview</h2>
-<p>RetailPulse is structured into four main modules, designed to support a multi-store medical wholesale operation.</p>
+<p>RetailPulse is structured into four main modules, designed to support a multi-store wholesale operation.</p>
 <hr />
 <h2 id="module-1-bill-generation">Module 1: Bill Generation</h2>
 <h3 id="purpose">Purpose</h3>
@@ -1286,7 +1286,7 @@
 </ul>
 <h4 id="13-bill-creation-form">1.3 Bill Creation Form</h4>
 <ul>
-<li><strong>Customer Info</strong>: Add customer name (e.g., pharmacy name) and contact details.</li>
+<li><strong>Customer Info</strong>: Add customer name (e.g., customer or business name) and contact details.</li>
 <li><strong>Product List</strong>: Shows product name, batch number, expiry date, unit price, quantity, and total price.</li>
 <li><strong>Calculations</strong>: Automatically calculates subtotal, discount, tax, and the grand total.</li>
 </ul>
@@ -1330,8 +1330,10 @@
 <ul>
 <li><strong>Manual Adjustments</strong>: Manually change stock quantity with a mandatory reason (e.g., "Damaged stock," "Cycle count correction").</li>
 <li><strong>Internal Movement</strong>: Log the movement of stock from one location to another within the same store (e.g., from the storeroom to a shelf).</li>
-<li><strong>Inter-Store Transfers</strong>: A formal process for Company Stockists to initiate and track the transfer of stock from one store to another.</li>
 </ul>
+<blockquote>
+<p>Note: Inter-store transfers (moving inventory between different store locations) are not implemented yet. See the Future Enhancements document for planned validation and implementation details.</p>
+</blockquote>
 <hr />
 <h2 id="module-3-authentication-and-authorization">Module 3: Authentication and Authorization</h2>
 <h3 id="purpose_2">Purpose</h3>

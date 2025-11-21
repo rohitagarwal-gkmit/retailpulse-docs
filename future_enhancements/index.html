@@ -207,33 +207,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../use_cases/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Use Cases
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
     
     
     
@@ -245,10 +218,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -266,8 +239,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -487,6 +460,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../use_cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use Cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../edge_cases/" class="md-nav__link">
         
   
@@ -628,6 +628,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-inter-store-transfers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Inter-Store Transfers
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -717,6 +728,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#6-inter-store-transfers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Inter-Store Transfers
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -740,12 +762,14 @@
 <h2 id="1-barcode-scanner-integration">1. Barcode Scanner Integration</h2>
 <p><strong>Description:</strong><br />
 Enable quick product search and billing using barcode scanners for faster checkout.</p>
-<p><strong>Implementation:</strong>
-- Add barcode field to Product schema
-- Integrate barcode scanner library (e.g., QuaggaJS for web)
-- Create barcode input API endpoint that searches products by barcode
-- Update Sales UI with barcode scan button
-- Auto-add scanned products to cart</p>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Add barcode field to Product schema</li>
+<li>Integrate barcode scanner library (e.g., QuaggaJS for web)</li>
+<li>Create barcode input API endpoint that searches products by barcode</li>
+<li>Update Sales UI with barcode scan button</li>
+<li>Auto-add scanned products to cart</li>
+</ul>
 <p><strong>Workflow:</strong></p>
 <pre class="mermaid"><code>flowchart LR
     A[Scan Barcode] --&gt; B[Barcode Scanner Library]
@@ -758,12 +782,14 @@ Enable quick product search and billing using barcode scanners for faster checko
 <h2 id="2-whatsapp-bill-sharing">2. WhatsApp Bill Sharing</h2>
 <p><strong>Description:</strong><br />
 Send bill PDFs directly to customers via WhatsApp after purchase.</p>
-<p><strong>Implementation:</strong>
-- Integrate WhatsApp Business API or third-party service (e.g., Twilio)
-- Add customer phone number field in billing form (optional)
-- Generate bill PDF using existing system
-- Create API endpoint to send PDF via WhatsApp
-- Add "Send via WhatsApp" button on bill confirmation screen</p>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Integrate WhatsApp Business API or third-party service (e.g., Twilio)</li>
+<li>Add customer phone number field in billing form (optional)</li>
+<li>Generate bill PDF using existing system</li>
+<li>Create API endpoint to send PDF via WhatsApp</li>
+<li>Add "Send via WhatsApp" button on bill confirmation screen</li>
+</ul>
 <p><strong>Workflow:</strong></p>
 <pre class="mermaid"><code>flowchart LR
     A[Bill Generated] --&gt; B[Enter Customer Phone]
@@ -776,13 +802,15 @@ Send bill PDFs directly to customers via WhatsApp after purchase.</p>
 <h2 id="3-customer-management">3. Customer Management</h2>
 <p><strong>Description:</strong><br />
 Store customer contact details and view their complete purchase history.</p>
-<p><strong>Implementation:</strong>
-- Create Customer schema (name, phone, email, address)
-- Add customer selection/creation in billing flow
-- Link bills to customer records via foreign key
-- Create Customer Management page for CRUD operations
-- Build customer profile page showing all past bills
-- Add search and filter functionality</p>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Create Customer schema (name, phone, email, address)</li>
+<li>Add customer selection/creation in billing flow</li>
+<li>Link bills to customer records via foreign key</li>
+<li>Create Customer Management page for CRUD operations</li>
+<li>Build customer profile page showing all past bills</li>
+<li>Add search and filter functionality</li>
+</ul>
 <p><strong>Workflow:</strong></p>
 <pre class="mermaid"><code>flowchart TD
     A[Create Bill] --&gt; B{Customer Exists?}
@@ -797,13 +825,15 @@ Store customer contact details and view their complete purchase history.</p>
 <h2 id="4-low-stock-alerts">4. Low Stock Alerts</h2>
 <p><strong>Description:</strong><br />
 Automatic notifications when products fall below minimum stock level.</p>
-<p><strong>Implementation:</strong>
-- Add minimum_stock_level field to Product schema
-- Create background job/cron to check stock levels daily
-- Integrate email service (e.g., SendGrid) or SMS service
-- Build notification template for low stock alerts
-- Send alerts to Store Manager and Company Stockist
-- Add notification preferences in user settings</p>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Add minimum_stock_level field to Product schema</li>
+<li>Create background job/cron to check stock levels daily</li>
+<li>Integrate email service (e.g., SendGrid) or SMS service</li>
+<li>Build notification template for low stock alerts</li>
+<li>Send alerts to Store Manager and Company Stockist</li>
+<li>Add notification preferences in user settings</li>
+</ul>
 <p><strong>Workflow:</strong></p>
 <pre class="mermaid"><code>flowchart LR
     A[Daily Cron Job] --&gt; B[Check Inventory Levels]
@@ -817,16 +847,18 @@ Automatic notifications when products fall below minimum stock level.</p>
 <h2 id="5-sales-analytics-dashboard">5. Sales Analytics Dashboard</h2>
 <p><strong>Description:</strong><br />
 Visual dashboard showing sales trends, top products, and revenue insights.</p>
-<p><strong>Implementation:</strong>
-- Create analytics API endpoints aggregating sales data
-- Use charting library (e.g., Chart.js or Recharts)
-- Build dashboard page with key metrics:
-  - Total sales and revenue (daily/weekly/monthly)
-  - Top selling products
-  - Sales by product category
-  - Store-wise performance comparison
-- Add date range filters
-- Role-based access (Company Admin sees all stores, Manager sees own store)</p>
+<p><strong>Implementation:</strong></p>
+<ul>
+<li>Create analytics API endpoints aggregating sales data</li>
+<li>Use charting library (e.g., Chart.js or Recharts)</li>
+<li>Build dashboard page with key metrics:</li>
+<li>Total sales and revenue (daily/weekly/monthly)</li>
+<li>Top selling products</li>
+<li>Sales by product category</li>
+<li>Store-wise performance comparison</li>
+<li>Add date range filters</li>
+<li>Role-based access (Company Admin sees all stores, Manager sees own store)</li>
+</ul>
 <p><strong>Workflow:</strong></p>
 <pre class="mermaid"><code>flowchart TD
     A[User Opens Dashboard] --&gt; B[Select Date Range]
@@ -839,6 +871,36 @@ Visual dashboard showing sales trends, top products, and revenue insights.</p>
     F --&gt; I[Interactive Dashboard]
     G --&gt; I
     H --&gt; I</code></pre>
+<hr />
+<h2 id="6-inter-store-transfers">6. Inter-Store Transfers</h2>
+<p><strong>Description:</strong>
+Design and validate a formal process for moving inventory between stores, including transfer requests, approvals, and receipt confirmation.</p>
+<p><strong>Implementation (high level):</strong></p>
+<ul>
+<li>Add transfer model and endpoints: create transfer request, approve/dispatch, confirm receipt.</li>
+<li>Add transfer states (requested, approved, dispatched, received, cancelled) and audit trail for each state change.</li>
+<li>Handle stock reservations on dispatch to prevent double-selling while a transfer is in progress.</li>
+<li>Add role-based permissions for initiating and approving transfers.</li>
+<li>Build UI flows for initiating a transfer, tracking status, and confirming receipt.</li>
+<li>Add automated tests for concurrency and edge cases (e.g., partial receipts, transfer cancellations).</li>
+</ul>
+<p><strong>Workflow:</strong></p>
+<pre class="mermaid"><code>flowchart LR
+    A[Initiate Transfer] --&gt; B[Create Transfer Request]
+    B --&gt; C{Approved?}
+    C --&gt;|No| D[Cancel or Request Changes]
+    C --&gt;|Yes| E[Reserve Stock at Source]
+    E --&gt; F[Dispatch from Source]
+    F --&gt; G[In Transit]
+    G --&gt; H[Receive at Destination]
+    H --&gt; I{Receipt OK?}
+    I --&gt;|Partial| J[Partial Receipt: Adjust Inventory &amp; Notify]
+    I --&gt;|Complete| K[Confirm Receipt &amp; Finalize Transfer]
+    K --&gt; L[Update Inventory &amp; Release Reservations]
+    J --&gt; L
+    D --&gt; M[Mark Transfer Cancelled]</code></pre>
+<div class="highlight"><pre><span></span><code>
+</code></pre></div>
 
 
 

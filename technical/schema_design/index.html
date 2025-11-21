@@ -207,33 +207,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../../use_cases/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Use Cases
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -247,10 +220,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -268,8 +241,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -740,6 +713,33 @@
   
   
     <li class="md-nav__item">
+      <a href="../../use_cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use Cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../edge_cases/" class="md-nav__link">
         
   
@@ -1036,7 +1036,7 @@
 
 <h1 id="database-schema">Database Schema</h1>
 <h2 id="overview">Overview</h2>
-<p>The system uses <strong>PostgreSQL</strong> for its ACID compliance, strong relational support, and efficient handling of complex joins needed for multi-store inventory and RBAC. </p>
+<p>The system uses <strong>PostgreSQL</strong> for its ACID compliance, strong relational support, and efficient handling of complex joins needed for multi-store inventory and RBAC.</p>
 <p>Users can have multiple roles and work across multiple stores via junction tables (<code>user_stores</code> and <code>user_roles</code>). All tables use soft deletes with <code>created_at</code>, <code>updated_at</code>, and <code>deleted_at</code> timestamps.</p>
 <h2 id="why-postgresql">Why PostgreSQL</h2>
 <ul>
@@ -1066,7 +1066,7 @@
     inventory_items ||--o{ inventory_movements : "is moved in"
 
     users {
-        int id PK
+        uuid id PK
         varchar username UK
         varchar password_hash
         varchar full_name
@@ -1077,7 +1077,7 @@
     }
 
     roles {
-        int id PK
+        uuid id PK
         varchar name UK
         text description
         timestamptz created_at
@@ -1086,16 +1086,16 @@
     }
 
     user_roles {
-        int id PK
-        int user_id FK
-        int role_id FK
+        uuid id PK
+        uuid user_id FK
+        uuid role_id FK
         timestamptz created_at
         timestamptz updated_at
         timestamptz deleted_at
     }
 
     permissions {
-        int id PK
+        uuid id PK
         varchar name UK
         text description
         timestamptz created_at
@@ -1104,16 +1104,16 @@
     }
 
     role_permissions {
-        int id PK
-        int role_id FK
-        int permission_id FK
+        uuid id PK
+        uuid role_id FK
+        uuid permission_id FK
         timestamptz created_at
         timestamptz updated_at
         timestamptz deleted_at
     }
 
     stores {
-        int id PK
+        uuid id PK
         varchar name UK
         text address
         varchar contact_phone
@@ -1123,16 +1123,16 @@
     }
 
     user_stores {
-        int id PK
-        int user_id FK
-        int store_id FK
+        uuid id PK
+        uuid user_id FK
+        uuid store_id FK
         timestamptz created_at
         timestamptz updated_at
         timestamptz deleted_at
     }
 
     categories {
-        int id PK
+        uuid id PK
         varchar name UK
         text description
         boolean is_active
@@ -1142,11 +1142,12 @@
     }
 
     products {
-        int id PK
-        int category_id FK
+        uuid id PK
+        uuid category_id FK
         varchar name UK
         varchar manufacturer
         text description
+        decimal price
         boolean is_active
         timestamptz created_at
         timestamptz updated_at
@@ -1154,9 +1155,9 @@
     }
 
     inventory_items {
-        int id PK
-        int product_id FK
-        int store_id FK
+        uuid id PK
+        uuid product_id FK
+        uuid store_id FK
         varchar batch_number
         varchar manufacturing_id
         date expire_date
@@ -1171,9 +1172,9 @@
     }
 
     inventory_movements {
-        int id PK
-        int inventory_item_id FK
-        int moved_by_user_id FK
+        uuid id PK
+        uuid inventory_item_id FK
+        uuid moved_by_user_id FK
         int quantity_moved
         varchar from_location
         varchar to_location
@@ -1185,9 +1186,9 @@
     }
 
     bills {
-        int id PK
-        int store_id FK
-        int created_by_user_id FK
+        uuid id PK
+        uuid store_id FK
+        uuid created_by_user_id FK
         varchar bill_number UK
         varchar customer_name
         varchar customer_contact
@@ -1202,9 +1203,9 @@
     }
 
     bill_products {
-        int id PK
-        int bill_id FK
-        int product_id FK
+        uuid id PK
+        uuid bill_id FK
+        uuid product_id FK
         varchar batch_number
         int quantity
         decimal unit_price
@@ -1242,9 +1243,11 @@
 <h3 id="bill_products"><code>bill_products</code></h3>
 <p>Bill line items with product, quantity, pricing, and batch number for inventory tracking.</p>
 <h2 id="indexing-strategy">Indexing Strategy</h2>
-<p><strong>Auto-created indexes:</strong>
-- Primary keys (all tables)
-- Unique constraints (<code>username</code>, <code>bill_number</code>, product/role/permission <code>name</code>)</p>
+<p><strong>Auto-created indexes:</strong></p>
+<ul>
+<li>Primary keys (all tables)</li>
+<li>Unique constraints (<code>username</code>, <code>bill_number</code>, product/role/permission <code>name</code>)</li>
+</ul>
 <p><strong>Explicit B-tree indexes on:</strong></p>
 <p><strong>Foreign keys</strong> (for JOIN performance):</p>
 <ul>
@@ -1253,7 +1256,6 @@
 <li><code>role_permissions</code>: <code>role_id</code>, <code>permission_id</code></li>
 <li><code>products</code>: <code>category_id</code></li>
 <li><code>inventory_items</code>: <code>product_id</code>, <code>store_id</code></li>
-<li><code>inventory_movements</code>: <code>inventory_item_id</code>, <code>moved_by_user_id</code></li>
 <li><code>bills</code>: <code>store_id</code>, <code>created_by_user_id</code></li>
 <li><code>bill_products</code>: <code>bill_id</code>, <code>product_id</code></li>
 </ul>

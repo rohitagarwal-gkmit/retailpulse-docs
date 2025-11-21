@@ -12,7 +12,7 @@
         <link rel="prev" href="../api_design/">
       
       
-        <link rel="next" href="../../edge_cases/">
+        <link rel="next" href="../../use_cases/">
       
       
         
@@ -207,33 +207,6 @@
       
   
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../../use_cases/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Use Cases
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
     
   
   
@@ -247,10 +220,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
             
   
   
@@ -268,8 +241,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -652,17 +625,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Steps
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -675,6 +637,33 @@
           </ul>
         </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../use_cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use Cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
     </li>
   
 
@@ -898,17 +887,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#next-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Next Steps
-      
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -936,61 +914,74 @@
 <p>I've outlined the key test cases for the RetailPulse application covering critical user flows from authentication to bill generation. These tests include both positive (happy path) and negative (error handling) scenarios.</p>
 <h3 id="backend-test-cases">Backend Test Cases</h3>
 <h4 id="1-health-check-api">1. Health Check API</h4>
-<p><strong>Endpoint:</strong> <code>GET /health</code>
-- <strong>Positive Test</strong>: Verify endpoint returns 200 status with <code>{"status": "ok"}</code>
-- <strong>Negative Test</strong>: Verify no database changes occur during health check</p>
+<p><strong>Endpoint:</strong> <code>GET /health</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Verify endpoint returns 200 status with <code>{"status": "ok"}</code></li>
+<li><strong>Negative Test</strong>: Verify no database changes occur during health check</li>
+</ul>
 <hr />
 <h4 id="2-user-authentication">2. User Authentication</h4>
-<p><strong>Endpoint:</strong> <code>POST /auth/login</code>
-- <strong>Positive Test</strong>: Valid credentials return 200 with access_token
-- <strong>Negative Test</strong>: Invalid credentials return 401 with error message
-- <strong>Negative Test</strong>: Missing credentials return 400 validation error</p>
-<p><strong>Endpoint:</strong> <code>POST /auth/register</code>
-- <strong>Positive Test</strong>: Valid user registration returns 201 without password in response
-- <strong>Negative Test</strong>: Duplicate email returns 409 conflict error
-- <strong>Negative Test</strong>: Weak password returns 400 with validation message</p>
+<p><strong>Endpoint:</strong> <code>POST /auth/login</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Valid credentials return 200 with access_token</li>
+<li><strong>Negative Test</strong>: Invalid credentials return 401 with error message</li>
+<li><strong>Negative Test</strong>: Missing credentials return 400 validation error</li>
+</ul>
+<p><strong>Endpoint:</strong> <code>POST /auth/register</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Valid user registration returns 201 without password in response</li>
+<li><strong>Negative Test</strong>: Duplicate email returns 409 conflict error</li>
+<li><strong>Negative Test</strong>: Weak password returns 400 with validation message</li>
+</ul>
 <hr />
 <h4 id="3-inventory-management">3. Inventory Management</h4>
-<p><strong>Endpoint:</strong> <code>POST /api/items</code>
-- <strong>Positive Test</strong>: Valid item payload creates item and returns 201 with item ID
-- <strong>Negative Test</strong>: Duplicate SKU returns 400 error
-- <strong>Negative Test</strong>: Negative stock quantity returns 400 validation error</p>
-<p><strong>Endpoint:</strong> <code>GET /api/items</code>
-- <strong>Positive Test</strong>: Returns paginated list of items with 200
-- <strong>Negative Test</strong>: Invalid page number returns 400 or returns empty list</p>
+<p><strong>Endpoint:</strong> <code>POST /api/items</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Valid item payload creates item and returns 201 with item ID</li>
+<li><strong>Negative Test</strong>: Duplicate SKU returns 400 error</li>
+<li><strong>Negative Test</strong>: Negative stock quantity returns 400 validation error</li>
+</ul>
+<p><strong>Endpoint:</strong> <code>GET /api/items</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Returns paginated list of items with 200</li>
+<li><strong>Negative Test</strong>: Invalid page number returns 400 or returns empty list</li>
+</ul>
 <hr />
 <h4 id="4-bill-generation">4. Bill Generation</h4>
-<p><strong>Function:</strong> <code>calculate_line_total(quantity, unit_price, discount)</code>
-- <strong>Positive Test</strong>: Correct calculation: (quantity × unit_price) - discount
-- <strong>Negative Test</strong>: Zero or negative quantity returns zero or validation error</p>
-<p><strong>Endpoint:</strong> <code>POST /api/bills</code>
-- <strong>Positive Test</strong>: Valid bill payload creates bill and returns 201 with bill ID
-- <strong>Negative Test</strong>: Bill with insufficient stock returns 400 with error message</p>
+<p><strong>Function:</strong> <code>calculate_line_total(quantity, unit_price, discount)</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Correct calculation: (quantity × unit_price) - discount</li>
+<li><strong>Negative Test</strong>: Zero or negative quantity returns zero or validation error</li>
+</ul>
+<p><strong>Endpoint:</strong> <code>POST /api/bills</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Valid bill payload creates bill and returns 201 with bill ID</li>
+<li><strong>Negative Test</strong>: Bill with insufficient stock returns 400 with error message</li>
+</ul>
 <hr />
 <h3 id="frontend-test-cases">Frontend Test Cases</h3>
 <h4 id="5-login-flow">5. Login Flow</h4>
-<p><strong>Component:</strong> <code>LoginPage</code>
-- <strong>Positive Test</strong>: Valid credentials redirect to dashboard and store token
-- <strong>Negative Test</strong>: Invalid credentials show error message and do not redirect
-- <strong>Negative Test</strong>: Empty form submission shows validation errors</p>
+<p><strong>Component:</strong> <code>LoginPage</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Valid credentials redirect to dashboard and store token</li>
+<li><strong>Negative Test</strong>: Invalid credentials show error message and do not redirect</li>
+<li><strong>Negative Test</strong>: Empty form submission shows validation errors</li>
+</ul>
 <hr />
 <h4 id="6-dashboard">6. Dashboard</h4>
-<p><strong>Component:</strong> <code>Dashboard</code>
-- <strong>Positive Test</strong>: Dashboard loads and displays stats widgets with data
-- <strong>Negative Test</strong>: API failure shows error message with retry option</p>
+<p><strong>Component:</strong> <code>Dashboard</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Dashboard loads and displays stats widgets with data</li>
+<li><strong>Negative Test</strong>: API failure shows error message with retry option</li>
+</ul>
 <hr />
 <h4 id="7-create-bill-page">7. Create Bill Page</h4>
-<p><strong>Component:</strong> <code>CreateBillPage</code>
-- <strong>Positive Test</strong>: Adding line items updates subtotal and grand total correctly
-- <strong>Negative Test</strong>: Submitting bill with empty items shows validation error</p>
+<p><strong>Component:</strong> <code>CreateBillPage</code></p>
+<ul>
+<li><strong>Positive Test</strong>: Adding line items updates subtotal and grand total correctly</li>
+<li><strong>Negative Test</strong>: Submitting bill with empty items shows validation error</li>
+</ul>
 <hr />
-<h2 id="next-steps">Next Steps</h2>
-<ol>
-<li>Implement these initial test cases</li>
-<li>Run tests and fix any failures</li>
-<li>Gradually expand coverage to other modules (stock transfers, user management)</li>
-<li>Add integration tests for complete workflows</li>
-</ol>
 
 
 
