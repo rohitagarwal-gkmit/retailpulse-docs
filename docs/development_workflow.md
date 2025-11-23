@@ -6,7 +6,7 @@ This document describes the development workflow, branching strategy, code merge
 
 The project maintains the following branch hierarchy:
 
-```
+```output
 main (production)
   └── staging (pre-production)
        └── dev (development)
@@ -69,10 +69,10 @@ npm run lint
 
 2. **Create Pull Request**:
 
-   - Target branch: `dev`
-   - Provide clear title and description
-   - Reference related issues
-   - Add reviewers
+    - Target branch: `dev`
+    - Provide clear title and description
+    - Reference related issues
+    - Add reviewers
 
 3. **Code Review**:
 
@@ -81,18 +81,17 @@ npm run lint
    - Update PR with new commits
 
 4. **CI/CD Checks**:
-
-   - Automated tests must pass
-   - Code coverage requirements must be met
-   - Security scans (Semgrep) must pass
+    - Automated tests must pass
+    - Code coverage requirements must be met
+    - Security scans (Semgrep) must pass
 
 5. **Merge**:
-   - Squash and merge for clean history
-   - Delete feature branch after merge
+    - Squash and merge for clean history
+    - Delete feature branch after merge
 
 ### 5. Merge Flow Diagram
 
-```
+```output
 feature/project-setup ──┐
                         ├──> dev ──┐
 feature/database-schema ┘           │
@@ -108,38 +107,38 @@ feat/ci-cd-setup ───────┘
 
 1. **feat/ci-cd-setup → dev** (PR #9)
 
-   - Added PostgreSQL service to CI/CD pipeline
-   - Implemented database migration steps
-   - Added automatic deployment to EC2
+    - Added PostgreSQL service to CI/CD pipeline
+    - Implemented database migration steps
+    - Added automatic deployment to EC2
 
 2. **feature/apis-fixes-and-updates → feat/ui-ux-enhancements-forms** (PR #8)
 
-   - Implemented user management endpoints
-   - Enhanced authentication and billing features
-   - Refactored role management
+    - Implemented user management endpoints
+    - Enhanced authentication and billing features
+    - Refactored role management
 
 3. **feature/tests → dev** (PR #7)
 
-   - Added comprehensive test suite
-   - Configured test database
-   - Implemented test fixtures
+    - Added comprehensive test suite
+    - Configured test database
+    - Implemented test fixtures
 
 4. **feature/company-admin-dashboard → dev** (Multiple PRs: #2, #3, #4, #5, #6)
 
-   - Added patch endpoints for bills and categories
-   - Implemented password change functionality
-   - Added comprehensive CRUD operations
+    - Added patch endpoints for bills and categories
+    - Implemented password change functionality
+    - Added comprehensive CRUD operations
 
 5. **feature/database-schema → dev** (PR #2)
 
-   - Migrated to UUID primary keys
-   - Added database seeding script
-   - Fixed schema relationships
+    - Migrated to UUID primary keys
+    - Added database seeding script
+    - Fixed schema relationships
 
 6. **feature/project-setup → dev** (PR #1)
-   - Initial project structure
-   - Added pytest configuration
-   - Created requirements.txt
+    - Initial project structure
+    - Added pytest configuration
+    - Created requirements.txt
 
 ## Automated Testing
 
@@ -151,7 +150,7 @@ feat/ci-cd-setup ───────┘
 
 #### Test Execution Results
 
-```
+```output
 ============================================ test session starts ============================================
 platform darwin -- Python 3.13.7, pytest-9.0.0, pluggy-1.6.0 -- /Users/rohitagarwal/retailpulse/.venv/bin/python
 cachedir: .pytest_cache
@@ -283,41 +282,41 @@ Coverage HTML written to dir htmlcov
 
 1. **test_auth.py** (5 tests)
 
-   - Login success/failure scenarios
-   - Invalid credentials handling
-   - Missing fields validation
+    - Login success/failure scenarios
+    - Invalid credentials handling
+    - Missing fields validation
 
 2. **test_bills.py** (1 test)
 
-   - Bill retrieval functionality
+    - Bill retrieval functionality
 
 3. **test_categories.py** (10 tests)
 
-   - CRUD operations for categories
-   - Validation and error handling
+    - CRUD operations for categories
+    - Validation and error handling
 
 4. **test_inventories.py** (11 tests)
 
-   - Inventory management operations
-   - Foreign key validation
+    - Inventory management operations
+    - Foreign key validation
 
 5. **test_products.py** (11 tests)
 
-   - Product CRUD operations
-   - Category relationship validation
+    - Product CRUD operations
+    - Category relationship validation
 
 6. **test_stores.py** (11 tests)
 
-   - Store management operations
-   - Data validation
+    - Store management operations
+    - Data validation
 
 7. **test_users.py** (11 tests)
 
-   - User management operations
-   - Duplicate username prevention
+    - User management operations
+    - Duplicate username prevention
 
 8. **test_health.py** (1 test)
-   - API health check endpoint
+    - API health check endpoint
 
 #### Coverage by Module
 
@@ -344,8 +343,6 @@ Coverage HTML written to dir htmlcov
 | app/db/seed.py              | 0%       | ❌ Not Tested        |
 
 ### Frontend Testing (React/Jest)
-
-#### Test Configuration
 
 **Framework**: Jest 30.2.0 with Testing Library
 
@@ -386,9 +383,9 @@ export default {
 };
 ```
 
-#### Test Execution Results
+#### Test Execution Results - Frontend
 
-```
+```out
  PASS  src/tests/init.test.jsx
  PASS  src/tests/ProtectedRoute.test.jsx
  PASS  src/tests/Login.test.jsx
@@ -399,7 +396,7 @@ Snapshots:   0 total
 Time:        4.17 s
 ```
 
-#### Test Summary
+#### Test Summary - Frontend
 
 - **Total Test Suites**: 3
 - **Total Tests**: 12
@@ -408,24 +405,24 @@ Time:        4.17 s
 - **Overall Coverage**: 3.64%
 - **Execution Time**: 4.17s
 
-#### Test Modules
+#### Test Modules - Frontend
 
 1. **init.test.jsx** (1 test)
 
-   - App component health check
+    - App component health check
 
 2. **ProtectedRoute.test.jsx** (6 tests)
 
-   - Loading state handling
-   - Authentication redirects
-   - Role-based access control
-   - Authorization checks
+    - Loading state handling
+    - Authentication redirects
+    - Role-based access control
+    - Authorization checks
 
 3. **Login.test.jsx** (5 tests)
-   - Form rendering
-   - User input handling
-   - Login success with role-based redirects
-   - Error message display
+    - Form rendering
+    - User input handling
+    - Login success with role-based redirects
+    - Error message display
 
 #### Coverage Analysis
 
@@ -450,16 +447,16 @@ Time:        4.17 s
 
 1. **High Priority** (0% coverage):
 
-   - Billing components and services
-   - Dashboard components
-   - Form components
-   - API services
-   - Utility functions
+    - Billing components and services
+    - Dashboard components
+    - Form components
+    - API services
+    - Utility functions
 
 2. **Medium Priority** (Low coverage):
-   - Layout component
-   - Authentication context (expand coverage)
-   - Page components
+    - Layout component
+    - Authentication context (expand coverage)
+    - Page components
 
 ## Continuous Integration/Continuous Deployment (CI/CD)
 
@@ -475,22 +472,22 @@ The project uses GitHub Actions for automated testing and deployment:
 
 1. **Code Checkout**: Clone repository
 2. **Environment Setup**:
-   - Install Python 3.13
-   - Install Node.js 18+
-   - Install dependencies
+    - Install Python 3.13
+    - Install Node.js 18+
+    - Install dependencies
 3. **Database Setup**:
-   - Start PostgreSQL service
-   - Run migrations
+    - Start PostgreSQL service
+    - Run migrations
 4. **Testing**:
-   - Run backend tests with coverage
-   - Run frontend tests with coverage
-   - Generate coverage reports
+    - Run backend tests with coverage
+    - Run frontend tests with coverage
+    - Generate coverage reports
 5. **Security Scanning**:
-   - Run Semgrep security analysis
-   - Check for vulnerabilities
+    - Run Semgrep security analysis
+    - Check for vulnerabilities
 6. **Deployment** (on push to dev):
-   - Deploy to EC2 instance
-   - Restart services
+    - Deploy to EC2 instance
+    - Restart services
 
 ## Best Practices
 
@@ -506,7 +503,7 @@ The project uses GitHub Actions for automated testing and deployment:
 
 1. **Commit Messages**: Use conventional commit format
 
-   ```
+   ```out
    feat: add user authentication endpoint
    fix: resolve inventory update bug
    refactor: improve database query performance
@@ -516,7 +513,7 @@ The project uses GitHub Actions for automated testing and deployment:
 
 2. **Branch Naming**: Use descriptive branch names
 
-   ```
+   ```out
    feature/add-user-roles
    fix/inventory-calculation-bug
    refactor/database-schema
