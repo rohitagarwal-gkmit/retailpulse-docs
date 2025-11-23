@@ -827,10 +827,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#test-configuration_1" class="md-nav__link">
+  <a href="#test-execution-results-frontend" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Test Configuration
+        Test Execution Results - Frontend
       
     </span>
   </a>
@@ -838,10 +838,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#test-execution-results_1" class="md-nav__link">
+  <a href="#test-summary-frontend" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Test Execution Results
+        Test Summary - Frontend
       
     </span>
   </a>
@@ -849,21 +849,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#test-summary_1" class="md-nav__link">
+  <a href="#test-modules-frontend" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Test Summary
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#test-modules_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test Modules
+        Test Modules - Frontend
       
     </span>
   </a>
@@ -1283,10 +1272,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#test-configuration_1" class="md-nav__link">
+  <a href="#test-execution-results-frontend" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Test Configuration
+        Test Execution Results - Frontend
       
     </span>
   </a>
@@ -1294,10 +1283,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#test-execution-results_1" class="md-nav__link">
+  <a href="#test-summary-frontend" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Test Execution Results
+        Test Summary - Frontend
       
     </span>
   </a>
@@ -1305,21 +1294,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#test-summary_1" class="md-nav__link">
+  <a href="#test-modules-frontend" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Test Summary
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#test-modules_1" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Test Modules
+        Test Modules - Frontend
       
     </span>
   </a>
@@ -1474,12 +1452,12 @@
 <p>This document describes the development workflow, branching strategy, code merge process, and automated testing procedures for the RetailPulse project.</p>
 <h2 id="branch-structure">Branch Structure</h2>
 <p>The project maintains the following branch hierarchy:</p>
-<div class="highlight"><pre><span></span><code>main (production)
-  └── staging (pre-production)
-       └── dev (development)
-            ├── feature/* (feature branches)
-            ├── feat/* (feature branches)
-            └── fix/* (bugfix branches)
+<div class="highlight"><pre><span></span><code><span class="go">main (production)</span>
+<span class="go">  └── staging (pre-production)</span>
+<span class="go">       └── dev (development)</span>
+<span class="go">            ├── feature/* (feature branches)</span>
+<span class="go">            ├── feat/* (feature branches)</span>
+<span class="go">            └── fix/* (bugfix branches)</span>
 </code></pre></div>
 <h3 id="current-active-branches">Current Active Branches</h3>
 <ul>
@@ -1526,14 +1504,12 @@ npm<span class="w"> </span>run<span class="w"> </span>lint
 <ol>
 <li>
 <p><strong>Create Pull Request</strong>:</p>
-</li>
-<li>
-<p>Target branch: <code>dev</code></p>
-</li>
+<ul>
+<li>Target branch: <code>dev</code></li>
 <li>Provide clear title and description</li>
 <li>Reference related issues</li>
-<li>
-<p>Add reviewers</p>
+<li>Add reviewers</li>
+</ul>
 </li>
 <li>
 <p><strong>Code Review</strong>:</p>
@@ -1547,211 +1523,203 @@ npm<span class="w"> </span>run<span class="w"> </span>lint
 </li>
 <li>
 <p><strong>CI/CD Checks</strong>:</p>
-</li>
-<li>
-<p>Automated tests must pass</p>
-</li>
+<ul>
+<li>Automated tests must pass</li>
 <li>Code coverage requirements must be met</li>
-<li>
-<p>Security scans (Semgrep) must pass</p>
+<li>Security scans (Semgrep) must pass</li>
+</ul>
 </li>
 <li>
 <p><strong>Merge</strong>:</p>
-</li>
+<ul>
 <li>Squash and merge for clean history</li>
 <li>Delete feature branch after merge</li>
+</ul>
+</li>
 </ol>
 <h3 id="5-merge-flow-diagram">5. Merge Flow Diagram</h3>
-<div class="highlight"><pre><span></span><code>feature/project-setup ──┐
-                        ├──&gt; dev ──┐
-feature/database-schema ┘           │
-                                    ├──&gt; staging ──&gt; main
-feature/tests ──────────┐           │
-                        ├──&gt; dev ──┘
-feat/ci-cd-setup ───────┘
+<div class="highlight"><pre><span></span><code><span class="go">feature/project-setup ──┐</span>
+<span class="go">                        ├──&gt; dev ──┐</span>
+<span class="go">feature/database-schema ┘           │</span>
+<span class="go">                                    ├──&gt; staging ──&gt; main</span>
+<span class="go">feature/tests ──────────┐           │</span>
+<span class="go">                        ├──&gt; dev ──┘</span>
+<span class="go">feat/ci-cd-setup ───────┘</span>
 </code></pre></div>
 <h2 id="recent-merge-history">Recent Merge History</h2>
 <h3 id="development-branch-merges">Development Branch Merges</h3>
 <ol>
 <li>
 <p><strong>feat/ci-cd-setup → dev</strong> (PR #9)</p>
-</li>
-<li>
-<p>Added PostgreSQL service to CI/CD pipeline</p>
-</li>
+<ul>
+<li>Added PostgreSQL service to CI/CD pipeline</li>
 <li>Implemented database migration steps</li>
-<li>
-<p>Added automatic deployment to EC2</p>
+<li>Added automatic deployment to EC2</li>
+</ul>
 </li>
 <li>
 <p><strong>feature/apis-fixes-and-updates → feat/ui-ux-enhancements-forms</strong> (PR #8)</p>
-</li>
-<li>
-<p>Implemented user management endpoints</p>
-</li>
+<ul>
+<li>Implemented user management endpoints</li>
 <li>Enhanced authentication and billing features</li>
-<li>
-<p>Refactored role management</p>
+<li>Refactored role management</li>
+</ul>
 </li>
 <li>
 <p><strong>feature/tests → dev</strong> (PR #7)</p>
-</li>
-<li>
-<p>Added comprehensive test suite</p>
-</li>
+<ul>
+<li>Added comprehensive test suite</li>
 <li>Configured test database</li>
-<li>
-<p>Implemented test fixtures</p>
+<li>Implemented test fixtures</li>
+</ul>
 </li>
 <li>
 <p><strong>feature/company-admin-dashboard → dev</strong> (Multiple PRs: #2, #3, #4, #5, #6)</p>
-</li>
-<li>
-<p>Added patch endpoints for bills and categories</p>
-</li>
+<ul>
+<li>Added patch endpoints for bills and categories</li>
 <li>Implemented password change functionality</li>
-<li>
-<p>Added comprehensive CRUD operations</p>
+<li>Added comprehensive CRUD operations</li>
+</ul>
 </li>
 <li>
 <p><strong>feature/database-schema → dev</strong> (PR #2)</p>
-</li>
-<li>
-<p>Migrated to UUID primary keys</p>
-</li>
+<ul>
+<li>Migrated to UUID primary keys</li>
 <li>Added database seeding script</li>
-<li>
-<p>Fixed schema relationships</p>
+<li>Fixed schema relationships</li>
+</ul>
 </li>
 <li>
 <p><strong>feature/project-setup → dev</strong> (PR #1)</p>
-</li>
+<ul>
 <li>Initial project structure</li>
 <li>Added pytest configuration</li>
 <li>Created requirements.txt</li>
+</ul>
+</li>
 </ol>
 <h2 id="automated-testing">Automated Testing</h2>
 <h3 id="backend-testing-pythonfastapi">Backend Testing (Python/FastAPI)</h3>
 <h4 id="test-configuration">Test Configuration</h4>
 <p><strong>Framework</strong>: pytest 9.0.0 with pytest-cov 7.0.0 and pytest-asyncio 1.3.0</p>
 <h4 id="test-execution-results">Test Execution Results</h4>
-<div class="highlight"><pre><span></span><code>============================================ test session starts ============================================
-platform darwin -- Python 3.13.7, pytest-9.0.0, pluggy-1.6.0 -- /Users/rohitagarwal/retailpulse/.venv/bin/python
-cachedir: .pytest_cache
-rootdir: /Users/rohitagarwal/retailpulse/retailpulse-backend
-configfile: pyproject.toml
-testpaths: tests
-plugins: anyio-4.11.0, asyncio-1.3.0, cov-7.0.0
-asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function
-collected 61 items
+<div class="highlight"><pre><span></span><code><span class="go">============================================ test session starts ============================================</span>
+<span class="go">platform darwin -- Python 3.13.7, pytest-9.0.0, pluggy-1.6.0 -- /Users/rohitagarwal/retailpulse/.venv/bin/python</span>
+<span class="go">cachedir: .pytest_cache</span>
+<span class="go">rootdir: /Users/rohitagarwal/retailpulse/retailpulse-backend</span>
+<span class="go">configfile: pyproject.toml</span>
+<span class="go">testpaths: tests</span>
+<span class="go">plugins: anyio-4.11.0, asyncio-1.3.0, cov-7.0.0</span>
+<span class="go">asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=function, asyncio_default_test_loop_scope=function</span>
+<span class="go">collected 61 items</span>
 
-tests/test_auth.py::test_login_success PASSED                                                         [  1%]
-tests/test_auth.py::test_login_invalid_username PASSED                                                [  3%]
-tests/test_auth.py::test_login_invalid_password PASSED                                                [  4%]
-tests/test_auth.py::test_login_missing_fields PASSED                                                  [  6%]
-tests/test_auth.py::test_login_empty_credentials PASSED                                               [  8%]
-tests/test_bills.py::test_get_bills PASSED                                                            [  9%]
-tests/test_categories.py::test_create_category PASSED                                                 [ 11%]
-tests/test_categories.py::test_create_category_invalid_data PASSED                                    [ 13%]
-tests/test_categories.py::test_get_categories_empty PASSED                                            [ 14%]
-tests/test_categories.py::test_get_categories_with_data PASSED                                        [ 16%]
-tests/test_categories.py::test_get_category_by_id PASSED                                              [ 18%]
-tests/test_categories.py::test_get_category_not_found PASSED                                          [ 19%]
-tests/test_categories.py::test_update_category PASSED                                                 [ 21%]
-tests/test_categories.py::test_update_category_not_found PASSED                                       [ 22%]
-tests/test_categories.py::test_delete_category PASSED                                                 [ 24%]
-tests/test_categories.py::test_delete_category_not_found PASSED                                       [ 26%]
-tests/test_health.py::test_health_check PASSED                                                        [ 27%]
-tests/test_inventories.py::test_create_inventory PASSED                                               [ 29%]
-tests/test_inventories.py::test_create_inventory_invalid_product PASSED                               [ 31%]
-tests/test_inventories.py::test_create_inventory_invalid_store PASSED                                 [ 32%]
-tests/test_inventories.py::test_get_inventories_empty PASSED                                          [ 34%]
-tests/test_inventories.py::test_get_inventories_with_data PASSED                                      [ 36%]
-tests/test_inventories.py::test_get_inventory_by_id PASSED                                            [ 37%]
-tests/test_inventories.py::test_get_inventory_not_found PASSED                                        [ 39%]
-tests/test_inventories.py::test_update_inventory PASSED                                               [ 40%]
-tests/test_inventories.py::test_update_inventory_not_found PASSED                                     [ 42%]
-tests/test_inventories.py::test_delete_inventory PASSED                                               [ 44%]
-tests/test_inventories.py::test_delete_inventory_not_found PASSED                                     [ 45%]
-tests/test_products.py::test_create_product PASSED                                                    [ 47%]
-tests/test_products.py::test_create_product_invalid_category PASSED                                   [ 49%]
-tests/test_products.py::test_create_product_invalid_data PASSED                                       [ 50%]
-tests/test_products.py::test_get_products_empty PASSED                                                [ 52%]
-tests/test_products.py::test_get_products_with_data PASSED                                            [ 54%]
-tests/test_products.py::test_get_product_by_id PASSED                                                 [ 55%]
-tests/test_products.py::test_get_product_not_found PASSED                                             [ 57%]
-tests/test_products.py::test_update_product PASSED                                                    [ 59%]
-tests/test_products.py::test_update_product_not_found PASSED                                          [ 60%]
-tests/test_products.py::test_delete_product PASSED                                                    [ 62%]
-tests/test_products.py::test_delete_product_not_found PASSED                                          [ 63%]
-tests/test_stores.py::test_create_store PASSED                                                        [ 65%]
-tests/test_stores.py::test_create_store_invalid_data PASSED                                           [ 67%]
-tests/test_stores.py::test_get_stores_empty PASSED                                                    [ 68%]
-tests/test_stores.py::test_get_stores_with_data PASSED                                                [ 70%]
-tests/test_stores.py::test_get_store_by_id PASSED                                                     [ 72%]
-tests/test_stores.py::test_get_store_not_found PASSED                                                 [ 73%]
-tests/test_stores.py::test_update_store PASSED                                                        [ 75%]
-tests/test_stores.py::test_update_store_not_found PASSED                                              [ 77%]
-tests/test_stores.py::test_update_store_invalid_data PASSED                                           [ 78%]
-tests/test_stores.py::test_delete_store PASSED                                                        [ 80%]
-tests/test_stores.py::test_delete_store_not_found PASSED                                              [ 81%]
-tests/test_users.py::test_create_user PASSED                                                          [ 83%]
-tests/test_users.py::test_create_user_duplicate_username PASSED                                       [ 85%]
-tests/test_users.py::test_create_user_invalid_data PASSED                                             [ 86%]
-tests/test_users.py::test_get_users_empty PASSED                                                      [ 88%]
-tests/test_users.py::test_get_users_with_data PASSED                                                  [ 90%]
-tests/test_users.py::test_get_user_by_id PASSED                                                       [ 91%]
-tests/test_users.py::test_get_user_not_found PASSED                                                   [ 93%]
-tests/test_users.py::test_update_user PASSED                                                          [ 95%]
-tests/test_users.py::test_update_user_not_found PASSED                                                [ 96%]
-tests/test_users.py::test_delete_user PASSED                                                          [ 98%]
-tests/test_users.py::test_delete_user_not_found PASSED                                                [100%]
+<span class="go">tests/test_auth.py::test_login_success PASSED                                                         [  1%]</span>
+<span class="go">tests/test_auth.py::test_login_invalid_username PASSED                                                [  3%]</span>
+<span class="go">tests/test_auth.py::test_login_invalid_password PASSED                                                [  4%]</span>
+<span class="go">tests/test_auth.py::test_login_missing_fields PASSED                                                  [  6%]</span>
+<span class="go">tests/test_auth.py::test_login_empty_credentials PASSED                                               [  8%]</span>
+<span class="go">tests/test_bills.py::test_get_bills PASSED                                                            [  9%]</span>
+<span class="go">tests/test_categories.py::test_create_category PASSED                                                 [ 11%]</span>
+<span class="go">tests/test_categories.py::test_create_category_invalid_data PASSED                                    [ 13%]</span>
+<span class="go">tests/test_categories.py::test_get_categories_empty PASSED                                            [ 14%]</span>
+<span class="go">tests/test_categories.py::test_get_categories_with_data PASSED                                        [ 16%]</span>
+<span class="go">tests/test_categories.py::test_get_category_by_id PASSED                                              [ 18%]</span>
+<span class="go">tests/test_categories.py::test_get_category_not_found PASSED                                          [ 19%]</span>
+<span class="go">tests/test_categories.py::test_update_category PASSED                                                 [ 21%]</span>
+<span class="go">tests/test_categories.py::test_update_category_not_found PASSED                                       [ 22%]</span>
+<span class="go">tests/test_categories.py::test_delete_category PASSED                                                 [ 24%]</span>
+<span class="go">tests/test_categories.py::test_delete_category_not_found PASSED                                       [ 26%]</span>
+<span class="go">tests/test_health.py::test_health_check PASSED                                                        [ 27%]</span>
+<span class="go">tests/test_inventories.py::test_create_inventory PASSED                                               [ 29%]</span>
+<span class="go">tests/test_inventories.py::test_create_inventory_invalid_product PASSED                               [ 31%]</span>
+<span class="go">tests/test_inventories.py::test_create_inventory_invalid_store PASSED                                 [ 32%]</span>
+<span class="go">tests/test_inventories.py::test_get_inventories_empty PASSED                                          [ 34%]</span>
+<span class="go">tests/test_inventories.py::test_get_inventories_with_data PASSED                                      [ 36%]</span>
+<span class="go">tests/test_inventories.py::test_get_inventory_by_id PASSED                                            [ 37%]</span>
+<span class="go">tests/test_inventories.py::test_get_inventory_not_found PASSED                                        [ 39%]</span>
+<span class="go">tests/test_inventories.py::test_update_inventory PASSED                                               [ 40%]</span>
+<span class="go">tests/test_inventories.py::test_update_inventory_not_found PASSED                                     [ 42%]</span>
+<span class="go">tests/test_inventories.py::test_delete_inventory PASSED                                               [ 44%]</span>
+<span class="go">tests/test_inventories.py::test_delete_inventory_not_found PASSED                                     [ 45%]</span>
+<span class="go">tests/test_products.py::test_create_product PASSED                                                    [ 47%]</span>
+<span class="go">tests/test_products.py::test_create_product_invalid_category PASSED                                   [ 49%]</span>
+<span class="go">tests/test_products.py::test_create_product_invalid_data PASSED                                       [ 50%]</span>
+<span class="go">tests/test_products.py::test_get_products_empty PASSED                                                [ 52%]</span>
+<span class="go">tests/test_products.py::test_get_products_with_data PASSED                                            [ 54%]</span>
+<span class="go">tests/test_products.py::test_get_product_by_id PASSED                                                 [ 55%]</span>
+<span class="go">tests/test_products.py::test_get_product_not_found PASSED                                             [ 57%]</span>
+<span class="go">tests/test_products.py::test_update_product PASSED                                                    [ 59%]</span>
+<span class="go">tests/test_products.py::test_update_product_not_found PASSED                                          [ 60%]</span>
+<span class="go">tests/test_products.py::test_delete_product PASSED                                                    [ 62%]</span>
+<span class="go">tests/test_products.py::test_delete_product_not_found PASSED                                          [ 63%]</span>
+<span class="go">tests/test_stores.py::test_create_store PASSED                                                        [ 65%]</span>
+<span class="go">tests/test_stores.py::test_create_store_invalid_data PASSED                                           [ 67%]</span>
+<span class="go">tests/test_stores.py::test_get_stores_empty PASSED                                                    [ 68%]</span>
+<span class="go">tests/test_stores.py::test_get_stores_with_data PASSED                                                [ 70%]</span>
+<span class="go">tests/test_stores.py::test_get_store_by_id PASSED                                                     [ 72%]</span>
+<span class="go">tests/test_stores.py::test_get_store_not_found PASSED                                                 [ 73%]</span>
+<span class="go">tests/test_stores.py::test_update_store PASSED                                                        [ 75%]</span>
+<span class="go">tests/test_stores.py::test_update_store_not_found PASSED                                              [ 77%]</span>
+<span class="go">tests/test_stores.py::test_update_store_invalid_data PASSED                                           [ 78%]</span>
+<span class="go">tests/test_stores.py::test_delete_store PASSED                                                        [ 80%]</span>
+<span class="go">tests/test_stores.py::test_delete_store_not_found PASSED                                              [ 81%]</span>
+<span class="go">tests/test_users.py::test_create_user PASSED                                                          [ 83%]</span>
+<span class="go">tests/test_users.py::test_create_user_duplicate_username PASSED                                       [ 85%]</span>
+<span class="go">tests/test_users.py::test_create_user_invalid_data PASSED                                             [ 86%]</span>
+<span class="go">tests/test_users.py::test_get_users_empty PASSED                                                      [ 88%]</span>
+<span class="go">tests/test_users.py::test_get_users_with_data PASSED                                                  [ 90%]</span>
+<span class="go">tests/test_users.py::test_get_user_by_id PASSED                                                       [ 91%]</span>
+<span class="go">tests/test_users.py::test_get_user_not_found PASSED                                                   [ 93%]</span>
+<span class="go">tests/test_users.py::test_update_user PASSED                                                          [ 95%]</span>
+<span class="go">tests/test_users.py::test_update_user_not_found PASSED                                                [ 96%]</span>
+<span class="go">tests/test_users.py::test_delete_user PASSED                                                          [ 98%]</span>
+<span class="go">tests/test_users.py::test_delete_user_not_found PASSED                                                [100%]</span>
 
-============================================== tests coverage ===============================================
-_____________________________ coverage: platform darwin, python 3.13.7-final-0 ______________________________
+<span class="go">============================================== tests coverage ===============================================</span>
+<span class="go">_____________________________ coverage: platform darwin, python 3.13.7-final-0 ______________________________</span>
 
-Name                               Stmts   Miss  Cover   Missing
-----------------------------------------------------------------
-app/core/config.py                    10      0   100%
-app/core/security.py                   9      0   100%
-app/db/seed.py                        33     33     0%   1-70
-app/db/session.py                     13      5    62%   13-18
-app/main.py                           26      1    96%   40
-app/models/bill.py                    24      0   100%
-app/models/bill_product.py            19      0   100%
-app/models/category.py                15      0   100%
-app/models/inventory.py               25      0   100%
-app/models/inventory_movement.py      20      0   100%
-app/models/permission.py              14      0   100%
-app/models/product.py                 20      0   100%
-app/models/role.py                    15      0   100%
-app/models/role_permission.py         16      0   100%
-app/models/store.py                   17      0   100%
-app/models/user.py                    19      0   100%
-app/models/user_role.py               16      0   100%
-app/models/user_store.py              16      0   100%
-app/routers/auth.py                   38      7    82%   38, 86-95
-app/routers/bills.py                 187    152    19%   21-43, 61-72, 77-111, 116-146, 151-157, 167-192, 204-239, 250-285, 295-311
-app/routers/categories.py             53      8    85%   60-69
-app/routers/inventories.py            76     16    79%   34, 36, 44-46, 78-82, 85-89, 93, 100, 102
-app/routers/products.py               59      2    97%   96, 110
-app/routers/roles.py                  11      2    82%   13-14
-app/routers/stores.py                 69     14    80%   19, 30-38, 90-97, 116-118
-app/routers/users.py                 239    157    34%   32, 73-81, 89-133, 205-207, 219-226, 234-288, 295-331, 360-378, 386-406, 414-464, 489, 500-508
-app/schemas/auth.py                   10      0   100%
-app/schemas/bill.py                   62     12    81%   25-27, 32-34, 56-58, 63-65
-app/schemas/bill_product.py           52     12    77%   20-22, 27-29, 47-49, 54-56
-app/schemas/category.py               16      0   100%
-app/schemas/inventory.py              41      2    95%   22, 45
-app/schemas/product.py                22      0   100%
-app/schemas/roles.py                   8      0   100%
-app/schemas/store.py                  14      0   100%
-app/schemas/user.py                   32      0   100%
-app/util/current_user.py              24     14    42%   16-37
-----------------------------------------------------------------
-TOTAL                               1340    437    67%
-Coverage HTML written to dir htmlcov
-============================================ 61 passed in 2.45s =============================================
+<span class="go">Name                               Stmts   Miss  Cover   Missing</span>
+<span class="go">----------------------------------------------------------------</span>
+<span class="go">app/core/config.py                    10      0   100%</span>
+<span class="go">app/core/security.py                   9      0   100%</span>
+<span class="go">app/db/seed.py                        33     33     0%   1-70</span>
+<span class="go">app/db/session.py                     13      5    62%   13-18</span>
+<span class="go">app/main.py                           26      1    96%   40</span>
+<span class="go">app/models/bill.py                    24      0   100%</span>
+<span class="go">app/models/bill_product.py            19      0   100%</span>
+<span class="go">app/models/category.py                15      0   100%</span>
+<span class="go">app/models/inventory.py               25      0   100%</span>
+<span class="go">app/models/inventory_movement.py      20      0   100%</span>
+<span class="go">app/models/permission.py              14      0   100%</span>
+<span class="go">app/models/product.py                 20      0   100%</span>
+<span class="go">app/models/role.py                    15      0   100%</span>
+<span class="go">app/models/role_permission.py         16      0   100%</span>
+<span class="go">app/models/store.py                   17      0   100%</span>
+<span class="go">app/models/user.py                    19      0   100%</span>
+<span class="go">app/models/user_role.py               16      0   100%</span>
+<span class="go">app/models/user_store.py              16      0   100%</span>
+<span class="go">app/routers/auth.py                   38      7    82%   38, 86-95</span>
+<span class="go">app/routers/bills.py                 187    152    19%   21-43, 61-72, 77-111, 116-146, 151-157, 167-192, 204-239, 250-285, 295-311</span>
+<span class="go">app/routers/categories.py             53      8    85%   60-69</span>
+<span class="go">app/routers/inventories.py            76     16    79%   34, 36, 44-46, 78-82, 85-89, 93, 100, 102</span>
+<span class="go">app/routers/products.py               59      2    97%   96, 110</span>
+<span class="go">app/routers/roles.py                  11      2    82%   13-14</span>
+<span class="go">app/routers/stores.py                 69     14    80%   19, 30-38, 90-97, 116-118</span>
+<span class="go">app/routers/users.py                 239    157    34%   32, 73-81, 89-133, 205-207, 219-226, 234-288, 295-331, 360-378, 386-406, 414-464, 489, 500-508</span>
+<span class="go">app/schemas/auth.py                   10      0   100%</span>
+<span class="go">app/schemas/bill.py                   62     12    81%   25-27, 32-34, 56-58, 63-65</span>
+<span class="go">app/schemas/bill_product.py           52     12    77%   20-22, 27-29, 47-49, 54-56</span>
+<span class="go">app/schemas/category.py               16      0   100%</span>
+<span class="go">app/schemas/inventory.py              41      2    95%   22, 45</span>
+<span class="go">app/schemas/product.py                22      0   100%</span>
+<span class="go">app/schemas/roles.py                   8      0   100%</span>
+<span class="go">app/schemas/store.py                  14      0   100%</span>
+<span class="go">app/schemas/user.py                   32      0   100%</span>
+<span class="go">app/util/current_user.py              24     14    42%   16-37</span>
+<span class="go">----------------------------------------------------------------</span>
+<span class="go">TOTAL                               1340    437    67%</span>
+<span class="go">Coverage HTML written to dir htmlcov</span>
+<span class="go">============================================ 61 passed in 2.45s =============================================</span>
 </code></pre></div>
 <h4 id="test-summary">Test Summary</h4>
 <ul>
@@ -1765,69 +1733,59 @@ Coverage HTML written to dir htmlcov
 <ol>
 <li>
 <p><strong>test_auth.py</strong> (5 tests)</p>
-</li>
-<li>
-<p>Login success/failure scenarios</p>
-</li>
+<ul>
+<li>Login success/failure scenarios</li>
 <li>Invalid credentials handling</li>
-<li>
-<p>Missing fields validation</p>
+<li>Missing fields validation</li>
+</ul>
 </li>
 <li>
 <p><strong>test_bills.py</strong> (1 test)</p>
-</li>
-<li>
-<p>Bill retrieval functionality</p>
+<ul>
+<li>Bill retrieval functionality</li>
+</ul>
 </li>
 <li>
 <p><strong>test_categories.py</strong> (10 tests)</p>
-</li>
-<li>
-<p>CRUD operations for categories</p>
-</li>
-<li>
-<p>Validation and error handling</p>
+<ul>
+<li>CRUD operations for categories</li>
+<li>Validation and error handling</li>
+</ul>
 </li>
 <li>
 <p><strong>test_inventories.py</strong> (11 tests)</p>
-</li>
-<li>
-<p>Inventory management operations</p>
-</li>
-<li>
-<p>Foreign key validation</p>
+<ul>
+<li>Inventory management operations</li>
+<li>Foreign key validation</li>
+</ul>
 </li>
 <li>
 <p><strong>test_products.py</strong> (11 tests)</p>
-</li>
-<li>
-<p>Product CRUD operations</p>
-</li>
-<li>
-<p>Category relationship validation</p>
+<ul>
+<li>Product CRUD operations</li>
+<li>Category relationship validation</li>
+</ul>
 </li>
 <li>
 <p><strong>test_stores.py</strong> (11 tests)</p>
-</li>
-<li>
-<p>Store management operations</p>
-</li>
-<li>
-<p>Data validation</p>
+<ul>
+<li>Store management operations</li>
+<li>Data validation</li>
+</ul>
 </li>
 <li>
 <p><strong>test_users.py</strong> (11 tests)</p>
-</li>
-<li>
-<p>User management operations</p>
-</li>
-<li>
-<p>Duplicate username prevention</p>
+<ul>
+<li>User management operations</li>
+<li>Duplicate username prevention</li>
+</ul>
 </li>
 <li>
 <p><strong>test_health.py</strong> (1 test)</p>
-</li>
+<ul>
 <li>API health check endpoint</li>
+</ul>
+</li>
 </ol>
 <h4 id="coverage-by-module">Coverage by Module</h4>
 <table>
@@ -1937,7 +1895,6 @@ Coverage HTML written to dir htmlcov
 </tbody>
 </table>
 <h3 id="frontend-testing-reactjest">Frontend Testing (React/Jest)</h3>
-<h4 id="test-configuration_1">Test Configuration</h4>
 <p><strong>Framework</strong>: Jest 30.2.0 with Testing Library</p>
 <p><strong>Configuration</strong> (<code>jest.config.js</code>):</p>
 <div class="highlight"><pre><span></span><code><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="p">{</span>
@@ -1973,7 +1930,7 @@ Coverage HTML written to dir htmlcov
 <span class="w">  </span><span class="p">},</span>
 <span class="p">};</span>
 </code></pre></div>
-<h4 id="test-execution-results_1">Test Execution Results</h4>
+<h4 id="test-execution-results-frontend">Test Execution Results - Frontend</h4>
 <div class="highlight"><pre><span></span><code> PASS  src/tests/init.test.jsx
  PASS  src/tests/ProtectedRoute.test.jsx
  PASS  src/tests/Login.test.jsx
@@ -1983,7 +1940,7 @@ Tests:       12 passed, 12 total
 Snapshots:   0 total
 Time:        4.17 s
 </code></pre></div>
-<h4 id="test-summary_1">Test Summary</h4>
+<h4 id="test-summary-frontend">Test Summary - Frontend</h4>
 <ul>
 <li><strong>Total Test Suites</strong>: 3</li>
 <li><strong>Total Tests</strong>: 12</li>
@@ -1992,32 +1949,32 @@ Time:        4.17 s
 <li><strong>Overall Coverage</strong>: 3.64%</li>
 <li><strong>Execution Time</strong>: 4.17s</li>
 </ul>
-<h4 id="test-modules_1">Test Modules</h4>
+<h4 id="test-modules-frontend">Test Modules - Frontend</h4>
 <ol>
 <li>
 <p><strong>init.test.jsx</strong> (1 test)</p>
-</li>
-<li>
-<p>App component health check</p>
+<ul>
+<li>App component health check</li>
+</ul>
 </li>
 <li>
 <p><strong>ProtectedRoute.test.jsx</strong> (6 tests)</p>
-</li>
-<li>
-<p>Loading state handling</p>
-</li>
+<ul>
+<li>Loading state handling</li>
 <li>Authentication redirects</li>
 <li>Role-based access control</li>
-<li>
-<p>Authorization checks</p>
+<li>Authorization checks</li>
+</ul>
 </li>
 <li>
 <p><strong>Login.test.jsx</strong> (5 tests)</p>
-</li>
+<ul>
 <li>Form rendering</li>
 <li>User input handling</li>
 <li>Login success with role-based redirects</li>
 <li>Error message display</li>
+</ul>
+</li>
 </ol>
 <h4 id="coverage-analysis">Coverage Analysis</h4>
 <p><strong>Current Coverage</strong>: 3.64% (statements), 2.24% (branches), 2.77% (functions), 3.74% (lines)</p>
@@ -2087,22 +2044,22 @@ Time:        4.17 s
 <ol>
 <li>
 <p><strong>High Priority</strong> (0% coverage):</p>
-</li>
-<li>
-<p>Billing components and services</p>
-</li>
+<ul>
+<li>Billing components and services</li>
 <li>Dashboard components</li>
 <li>Form components</li>
 <li>API services</li>
-<li>
-<p>Utility functions</p>
+<li>Utility functions</li>
+</ul>
 </li>
 <li>
 <p><strong>Medium Priority</strong> (Low coverage):</p>
-</li>
+<ul>
 <li>Layout component</li>
 <li>Authentication context (expand coverage)</li>
 <li>Page components</li>
+</ul>
+</li>
 </ol>
 <h2 id="continuous-integrationcontinuous-deployment-cicd">Continuous Integration/Continuous Deployment (CI/CD)</h2>
 <h3 id="cicd-pipeline-github-actions">CI/CD Pipeline (GitHub Actions)</h3>
@@ -2114,23 +2071,33 @@ Time:        4.17 s
 <h4 id="pipeline-steps">Pipeline Steps</h4>
 <ol>
 <li><strong>Code Checkout</strong>: Clone repository</li>
-<li><strong>Environment Setup</strong>:</li>
+<li><strong>Environment Setup</strong>:<ul>
 <li>Install Python 3.13</li>
 <li>Install Node.js 18+</li>
 <li>Install dependencies</li>
-<li><strong>Database Setup</strong>:</li>
+</ul>
+</li>
+<li><strong>Database Setup</strong>:<ul>
 <li>Start PostgreSQL service</li>
 <li>Run migrations</li>
-<li><strong>Testing</strong>:</li>
+</ul>
+</li>
+<li><strong>Testing</strong>:<ul>
 <li>Run backend tests with coverage</li>
 <li>Run frontend tests with coverage</li>
 <li>Generate coverage reports</li>
-<li><strong>Security Scanning</strong>:</li>
+</ul>
+</li>
+<li><strong>Security Scanning</strong>:<ul>
 <li>Run Semgrep security analysis</li>
 <li>Check for vulnerabilities</li>
-<li><strong>Deployment</strong> (on push to dev):</li>
+</ul>
+</li>
+<li><strong>Deployment</strong> (on push to dev):<ul>
 <li>Deploy to EC2 instance</li>
 <li>Restart services</li>
+</ul>
+</li>
 </ol>
 <h2 id="best-practices">Best Practices</h2>
 <h3 id="code-quality">Code Quality</h3>
