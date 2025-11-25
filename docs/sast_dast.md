@@ -8,7 +8,7 @@ The backend codebase was scanned using Semgrep to identify security vulnerabilit
 
 ### Semgrep Security Scan Results
 
-```
+```out
 ┌─────────────┐
 │ Scan Status │
 └─────────────┘
@@ -51,7 +51,7 @@ The frontend codebase was scanned using Semgrep to identify security vulnerabili
 
 ### Scan Report
 
-```
+```out
 ┌─────────────┐
 │ Scan Status │
 └─────────────┘
@@ -90,7 +90,6 @@ See https://semgrep.dev/docs/reporting-false-negatives/
 - **Backend**: 1 security finding (CORS wildcard policy - blocking)
 - **Frontend**: 0 security findings
 - **Total Findings**: 1 blocking issue
-
 
 ## Running SAST Scans Locally
 

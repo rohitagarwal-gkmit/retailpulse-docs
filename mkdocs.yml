@@ -12,6 +12,7 @@ nav:
       - Authentication: technical/auth.md
       - Schema Design: technical/schema_design.md
       - Architecture: technical/architecture.md
+      - CI/CD: technical/ci_cd.md
       - API Design: technical/api_design.md
       - Testing: technical/testing.md
   - Use Cases: use_cases.md

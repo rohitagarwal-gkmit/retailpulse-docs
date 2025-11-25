@@ -4,9 +4,9 @@
 
 RetailPulse is a standard web application with three layers:
 
-1.  **Frontend**: A React application that users see in their web browser.
-2.  **Backend**: A FastAPI application that contains all the business logic.
-3.  **Database**: A PostgreSQL database that stores all the data.
+1. **Frontend**: A React application that users see in their web browser.
+2. **Backend**: A FastAPI application that contains all the business logic.
+3. **Database**: A PostgreSQL database that stores all the data.
 
 ---
 
