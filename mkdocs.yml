@@ -18,7 +18,7 @@ nav:
   - Edge Cases & Error Handling: edge_cases.md
   - Future Enhancements: future_enhancements.md
   - Development Workflow & Testing: development_workflow.md
-  - Test Files: test_files.md
+  - SAST/DAST: sast_dast.md
 markdown_extensions:
   - pymdownx.superfences:
       custom_fences:

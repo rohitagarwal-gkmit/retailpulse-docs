@@ -1,10 +1,10 @@
-# Test Files
+# SAST and DAST Scans
 
-This document describes the test files added to the project for development and testing purposes.
+This document describes the Static Application Security Testing (SAST) and Dynamic Application Security Testing (DAST) scan results for the RetailPulse project.
 
-## Backend Test File
+## Backend SAST Scan Results
 
-A `test.txt` file has been added to the backend directory (`retailpulse-backend/`) for testing backend-related functionality.
+The backend codebase was scanned using Semgrep to identify security vulnerabilities and code quality issues.
 
 ### Semgrep Security Scan Results
 
@@ -45,11 +45,11 @@ A `test.txt` file has been added to the backend directory (`retailpulse-backend/
 Ran 291 rules on 54 files: 1 finding.
 ```
 
-## Frontend Test File
+## Frontend SAST Scan Results
 
-A `test.txt` file has been added to the frontend directory (`retailpulse-frontend/`) for testing frontend-related functionality.
+The frontend codebase was scanned using Semgrep to identify security vulnerabilities and code quality issues.
 
-### Semgrep Security Scan Results
+### Scan Report
 
 ```
 ┌─────────────┐
@@ -83,14 +83,27 @@ If Semgrep missed a finding, please send us feedback to let us know!
 See https://semgrep.dev/docs/reporting-false-negatives/
 ```
 
-## Purpose
-
-These files contain Semgrep security scan results for the RetailPulse project. Semgrep is a static analysis tool that scans code for security vulnerabilities, bugs, and anti-patterns.
+## Security Scan Summary
 
 ### Key Findings
 
-- **Backend**: 1 security finding (CORS policy configuration)
+- **Backend**: 1 security finding (CORS wildcard policy - blocking)
 - **Frontend**: 0 security findings
-- **Overall**: The codebase maintains good security practices with minimal issues
+- **Total Findings**: 1 blocking issue
 
-For detailed information about the development workflow, code merge process, and comprehensive automated testing procedures, please refer to the [Development Workflow & Testing](development_workflow.md) documentation.
+
+## Running SAST Scans Locally
+
+### Backend (Python)
+
+```bash
+docker run --rm -v "$(pwd)":/src returntocorp/semgrep \
+  semgrep scan --config=auto /src > semgrep_results.txt
+```
+
+### Frontend (JavaScript/React)
+
+```bash
+docker run --rm -v "$(pwd)":/src returntocorp/semgrep \
+  semgrep scan --config=auto /src > semgrep_results.txt
+```
