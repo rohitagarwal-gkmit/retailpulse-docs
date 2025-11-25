@@ -1,0 +1,1618 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../architecture/">
+      
+      
+        <link rel="next" href="../api_design/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>CI/CD - RetailPulse Docs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#continuous-integrationcontinuous-deployment-cicd" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="RetailPulse Docs" class="md-header__button md-logo" aria-label="RetailPulse Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            RetailPulse Docs
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              CI/CD
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="RetailPulse Docs" class="md-nav__button md-logo" aria-label="RetailPulse Docs" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    RetailPulse Docs
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../functional_docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Functional Docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Docs
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Technical Docs
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tech_stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tech Stack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_flow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Data Flow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Authentication
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../schema_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Schema Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-cicd-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend CI/CD Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend CI/CD Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-configuration-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Configuration for Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggers-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggers for Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#services-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services for Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-steps-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Steps for Backend
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline Steps for Backend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-checkout-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Checkout Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-setup-python-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Setup Python Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-install-backend-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Install Backend Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-database-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Run Database Migrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-run-tests-with-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Run Tests with Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-deploy-to-ec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Deploy to EC2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-secrets-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Secrets for Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-cicd-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend CI/CD Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend CI/CD Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-configuration-for-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Configuration for Frontend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-checkout-code_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Checkout Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-setup-nodejs-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Setup Node.js Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-install-frontend-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Install Frontend Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-tests-with-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Run Tests with Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-upload-coverage-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Upload Coverage Report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-deploy-to-ec2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Deploy to EC2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-secrets-for-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Secrets for Frontend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ec2-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EC2 Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api_design/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Design
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../use_cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use Cases
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../edge_cases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Edge Cases & Error Handling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../future_enhancements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Future Enhancements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../development_workflow/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development Workflow & Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sast_dast/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SAST/DAST
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backend-cicd-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Backend CI/CD Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backend CI/CD Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-configuration-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Configuration for Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggers-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggers for Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#services-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Services for Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-steps-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Steps for Backend
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline Steps for Backend">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-checkout-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Checkout Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-setup-python-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Setup Python Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-install-backend-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Install Backend Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-database-migrations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Run Database Migrations
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-run-tests-with-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Run Tests with Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-deploy-to-ec2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Deploy to EC2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-secrets-for-backend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Secrets for Backend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#frontend-cicd-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Frontend CI/CD Pipeline
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Frontend CI/CD Pipeline">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-configuration-for-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Configuration for Frontend
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#triggers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Triggers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pipeline-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline Steps
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-checkout-code_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Checkout Code
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-setup-nodejs-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Setup Node.js Environment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-install-frontend-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Install Frontend Dependencies
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-tests-with-coverage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Run Tests with Coverage
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-upload-coverage-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Upload Coverage Report
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-deploy-to-ec2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Deploy to EC2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#required-secrets-for-frontend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Required Secrets for Frontend
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deployment Architecture
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ec2-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        EC2 Infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="continuous-integrationcontinuous-deployment-cicd">Continuous Integration/Continuous Deployment (CI/CD)</h1>
+<p>This document describes the CI/CD pipelines for the RetailPulse project, which uses GitHub Actions for automated testing and deployment.</p>
+<h2 id="overview">Overview</h2>
+<p>The RetailPulse project uses separate CI/CD pipelines for the backend (Python/FastAPI) and frontend (React) applications. Both pipelines are triggered automatically on push to the <code>dev</code> branch or can be triggered manually using workflow dispatch.</p>
+<h2 id="backend-cicd-pipeline">Backend CI/CD Pipeline</h2>
+<h3 id="pipeline-configuration-for-backend">Pipeline Configuration for Backend</h3>
+<ul>
+<li><strong>Workflow File</strong>: <code>.github/workflows/deploy.yml</code></li>
+</ul>
+<h3 id="triggers-for-backend">Triggers for Backend</h3>
+<ol>
+<li><strong>Automatic Trigger</strong>: Push to <code>dev</code> branch</li>
+<li><strong>Manual Trigger</strong>: <code>workflow_dispatch</code> (allows manual deployment from any branch)</li>
+</ol>
+<h3 id="services-for-backend">Services for Backend</h3>
+<p>The pipeline includes a PostgreSQL service container for testing:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">services</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">postgres</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">postgres:15</span>
+<span class="w">    </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">POSTGRES_USER</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class="w">      </span><span class="nt">POSTGRES_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test</span>
+<span class="w">      </span><span class="nt">POSTGRES_DB</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">testdb</span>
+<span class="w">    </span><span class="nt">ports</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5432:5432</span>
+</code></pre></div>
+<h3 id="pipeline-steps-for-backend">Pipeline Steps for Backend</h3>
+<h4 id="1-checkout-code">1. Checkout Code</h4>
+<p>This step clones the repository code to the GitHub Actions runner so the pipeline can access all the source files. It uses the latest stable version of the checkout action.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+</code></pre></div>
+<h4 id="2-setup-python-environment">2. Setup Python Environment</h4>
+<p>This step installs Python version 3.13 on the runner and enables pip caching to speed up dependency installation in future runs.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup Python</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-python@v5</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;3.13&quot;</span>
+<span class="w">    </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;pip&quot;</span>
+</code></pre></div>
+<h4 id="3-install-backend-dependencies">3. Install Backend Dependencies</h4>
+<p>This step upgrades pip to the latest version and installs all project dependencies from the requirements.txt file, including testing libraries like pytest, pytest-cov, and pytest-asyncio.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">python -m pip install --upgrade pip</span>
+<span class="w">    </span><span class="no">pip install -r requirements.txt</span>
+</code></pre></div>
+<h4 id="4-run-database-migrations">4. Run Database Migrations</h4>
+<p>This step sets up the test database connection and runs Alembic migrations to create the database schema. It uses the test database URL from GitHub secrets or defaults to the PostgreSQL service container.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run database migrations for tests</span>
+<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">TEST_DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.TEST_DATABASE_URL }}</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">export TEST_DATABASE_URL=${TEST_DATABASE_URL:-postgresql://test:test@localhost:5432/testdb}</span>
+<span class="w">    </span><span class="no">export DATABASE_URL=$TEST_DATABASE_URL</span>
+<span class="w">    </span><span class="no">alembic upgrade head</span>
+</code></pre></div>
+<h4 id="5-run-tests-with-coverage">5. Run Tests with Coverage</h4>
+<p>This step executes all pytest tests with verbose output and generates code coverage reports. The coverage reports include terminal output showing missing lines and an XML report for CI/CD integration. Tests cover authentication, bills, categories, inventories, products, stores, and users.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span>
+<span class="w">  </span><span class="nt">env</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">TEST_DATABASE_URL</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.TEST_DATABASE_URL }}</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no">export TEST_DATABASE_URL=${TEST_DATABASE_URL:-postgresql://test:test@localhost:5432/testdb}</span>
+<span class="w">    </span><span class="no">pytest --cov=app --cov-report=term-missing --cov-report=xml -v</span>
+</code></pre></div>
+<h4 id="6-deploy-to-ec2">6. Deploy to EC2</h4>
+<p>This step connects to the EC2 instance via SSH and deploys the application. It pulls the latest code from the repository, installs dependencies, runs database migrations, and restarts the backend service using PM2.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to EC2</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">appleboy/ssh-action@v1.0.3</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.EC2_BACKEND_HOST }}</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.EC2_BACKEND_USER }}</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.EC2_BACKEND_SSH_KEY }}</span>
+<span class="w">    </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">export NVM_DIR=&quot;$HOME/.nvm&quot;</span>
+<span class="w">      </span><span class="no">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;</span>
+<span class="w">      </span><span class="no">cd ${{ secrets.EC2_BACKEND_APP_PATH }}</span>
+<span class="w">      </span><span class="no">source venv/bin/activate</span>
+<span class="w">      </span><span class="no">git fetch origin</span>
+<span class="w">      </span><span class="no">BRANCH=&quot;${{ github.ref_name }}&quot;</span>
+<span class="w">      </span><span class="no">git checkout $BRANCH</span>
+<span class="w">      </span><span class="no">git pull origin $BRANCH</span>
+<span class="w">      </span><span class="no">pip install -r requirements.txt</span>
+<span class="w">      </span><span class="no">alembic upgrade head</span>
+<span class="w">      </span><span class="no">pm2 restart backend</span>
+<span class="w">      </span><span class="no">pm2 save</span>
+</code></pre></div>
+<h3 id="required-secrets-for-backend">Required Secrets for Backend</h3>
+<p>The backend pipeline requires the following GitHub secrets:</p>
+<table>
+<thead>
+<tr>
+<th>Secret Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EC2_BACKEND_HOST</code></td>
+<td>EC2 instance public IP or hostname</td>
+</tr>
+<tr>
+<td><code>EC2_BACKEND_USER</code></td>
+<td>SSH username (typically <code>ubuntu</code> or <code>ec2-user</code>)</td>
+</tr>
+<tr>
+<td><code>EC2_BACKEND_SSH_KEY</code></td>
+<td>Private SSH key for EC2 access</td>
+</tr>
+<tr>
+<td><code>EC2_BACKEND_APP_PATH</code></td>
+<td>Absolute path to backend application directory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="frontend-cicd-pipeline">Frontend CI/CD Pipeline</h2>
+<h3 id="pipeline-configuration-for-frontend">Pipeline Configuration for Frontend</h3>
+<ul>
+<li><strong>Workflow File</strong>: <code>.github/workflows/deploy.yml</code></li>
+<li><strong>Runner</strong>: <code>ubuntu-latest</code></li>
+<li><strong>Pipeline Name</strong>: Frontend CI/CD Pipeline</li>
+</ul>
+<h3 id="triggers">Triggers</h3>
+<ol>
+<li><strong>Automatic Trigger</strong>: Push to <code>dev</code> branch</li>
+<li><strong>Manual Trigger</strong>: <code>workflow_dispatch</code> (allows manual deployment from any branch)</li>
+</ol>
+<h3 id="pipeline-steps">Pipeline Steps</h3>
+<h4 id="1-checkout-code_1">1. Checkout Code</h4>
+<p>This step clones the repository code to the GitHub Actions runner so the pipeline can access all the source files. It uses the latest stable version of the checkout action.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Checkout code</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/checkout@v4</span>
+</code></pre></div>
+<h4 id="2-setup-nodejs-environment">2. Setup Node.js Environment</h4>
+<p>This step installs Node.js version 18 on the runner and enables npm caching to speed up dependency installation in future runs.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Setup Node.js</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/setup-node@v4</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">node-version</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;18&quot;</span>
+<span class="w">    </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;npm&quot;</span>
+</code></pre></div>
+<h4 id="3-install-frontend-dependencies">3. Install Frontend Dependencies</h4>
+<p>This step uses npm clean install to install exact versions of dependencies from package-lock.json. This approach is faster and more reliable than regular npm install in CI environments.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Install dependencies</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm ci</span>
+</code></pre></div>
+<h4 id="4-run-tests-with-coverage">4. Run Tests with Coverage</h4>
+<p>This step runs Jest tests in CI mode with coverage reporting. The CI flag optimizes the test run for continuous integration, coverage generates detailed reports, and watchAll is disabled to prevent the tests from running indefinitely. Tests cover Login, ProtectedRoute, and App initialization.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Run tests</span>
+<span class="w">  </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">npm test -- --ci --coverage --watchAll=false</span>
+</code></pre></div>
+<h4 id="5-upload-coverage-report">5. Upload Coverage Report</h4>
+<p>This step uploads the test coverage reports as artifacts to GitHub Actions. The reports are always uploaded even if tests fail, and they are retained for 30 days so they can be downloaded and reviewed from the GitHub Actions UI.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Upload test coverage report</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions/upload-artifact@v4</span>
+<span class="w">  </span><span class="nt">if</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">always()</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">test-coverage-report</span>
+<span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coverage/</span>
+<span class="w">    </span><span class="nt">retention-days</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30</span>
+</code></pre></div>
+<h4 id="6-deploy-to-ec2_1">6. Deploy to EC2</h4>
+<p>This step connects to the EC2 instance via SSH and deploys the application. It pulls the latest code from the repository, installs dependencies, builds the production bundle, and restarts the frontend service using PM2.</p>
+<div class="highlight"><pre><span></span><code><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deploy to EC2</span>
+<span class="w">  </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">appleboy/ssh-action@v1.0.3</span>
+<span class="w">  </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.EC2_FRONTEND_HOST }}</span>
+<span class="w">    </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.EC2_FRONTEND_USER }}</span>
+<span class="w">    </span><span class="nt">key</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.EC2_FRONTEND_SSH_KEY }}</span>
+<span class="w">    </span><span class="nt">script</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">      </span><span class="no">export NVM_DIR=&quot;$HOME/.nvm&quot;</span>
+<span class="w">      </span><span class="no">[ -s &quot;$NVM_DIR/nvm.sh&quot; ] &amp;&amp; \. &quot;$NVM_DIR/nvm.sh&quot;</span>
+<span class="w">      </span><span class="no">cd ${{ secrets.EC2_FRONTEND_APP_PATH }}</span>
+<span class="w">      </span><span class="no">git fetch origin</span>
+<span class="w">      </span><span class="no">BRANCH=&quot;${{ github.ref_name }}&quot;</span>
+<span class="w">      </span><span class="no">git checkout $BRANCH</span>
+<span class="w">      </span><span class="no">git pull origin $BRANCH</span>
+<span class="w">      </span><span class="no">npm ci</span>
+<span class="w">      </span><span class="no">npm run build</span>
+<span class="w">      </span><span class="no">pm2 restart frontend</span>
+<span class="w">      </span><span class="no">pm2 save</span>
+</code></pre></div>
+<h3 id="required-secrets-for-frontend">Required Secrets for Frontend</h3>
+<p>The frontend pipeline requires the following GitHub secrets:</p>
+<table>
+<thead>
+<tr>
+<th>Secret Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EC2_FRONTEND_HOST</code></td>
+<td>EC2 instance public IP or hostname</td>
+</tr>
+<tr>
+<td><code>EC2_FRONTEND_USER</code></td>
+<td>SSH username (typically <code>ubuntu</code> or <code>ec2-user</code>)</td>
+</tr>
+<tr>
+<td><code>EC2_FRONTEND_SSH_KEY</code></td>
+<td>Private SSH key for EC2 access</td>
+</tr>
+<tr>
+<td><code>EC2_FRONTEND_APP_PATH</code></td>
+<td>Absolute path to frontend application directory</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deployment-architecture">Deployment Architecture</h2>
+<h3 id="ec2-infrastructure">EC2 Infrastructure</h3>
+<p>Both backend and frontend applications are deployed to AWS EC2 instances:</p>
+<ul>
+<li><strong>Process Manager</strong>: PM2</li>
+<li><strong>Backend Server</strong>: Uvicorn</li>
+<li><strong>Frontend Server</strong>: Vite preview</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.expand"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>

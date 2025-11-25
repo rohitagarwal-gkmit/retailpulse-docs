@@ -399,6 +399,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../technical/ci_cd/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CI/CD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../technical/api_design/" class="md-nav__link">
         
   
@@ -891,101 +919,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#continuous-integrationcontinuous-deployment-cicd" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Continuous Integration/Continuous Deployment (CI/CD)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Continuous Integration/Continuous Deployment (CI/CD)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#cicd-pipeline-github-actions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CI/CD Pipeline (GitHub Actions)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="CI/CD Pipeline (GitHub Actions)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pipeline-triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline Triggers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pipeline-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline Steps
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Best Practices
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Best Practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#code-quality" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Code Quality
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#git-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Git Workflow
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -1328,101 +1261,6 @@
         
       </ul>
     </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#continuous-integrationcontinuous-deployment-cicd" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Continuous Integration/Continuous Deployment (CI/CD)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Continuous Integration/Continuous Deployment (CI/CD)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#cicd-pipeline-github-actions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        CI/CD Pipeline (GitHub Actions)
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="CI/CD Pipeline (GitHub Actions)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#pipeline-triggers" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline Triggers
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pipeline-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Pipeline Steps
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#best-practices" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Best Practices
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Best Practices">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#code-quality" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Code Quality
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#git-workflow" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Git Workflow
-      
-    </span>
-  </a>
   
 </li>
         
@@ -2060,77 +1898,6 @@ Time:        4.17 s
 <li>Page components</li>
 </ul>
 </li>
-</ol>
-<h2 id="continuous-integrationcontinuous-deployment-cicd">Continuous Integration/Continuous Deployment (CI/CD)</h2>
-<h3 id="cicd-pipeline-github-actions">CI/CD Pipeline (GitHub Actions)</h3>
-<p>The project uses GitHub Actions for automated testing and deployment:</p>
-<h4 id="pipeline-triggers">Pipeline Triggers</h4>
-<ul>
-<li>Push to <code>dev</code> branch</li>
-</ul>
-<h4 id="pipeline-steps">Pipeline Steps</h4>
-<ol>
-<li><strong>Code Checkout</strong>: Clone repository</li>
-<li><strong>Environment Setup</strong>:<ul>
-<li>Install Python 3.13</li>
-<li>Install Node.js 18+</li>
-<li>Install dependencies</li>
-</ul>
-</li>
-<li><strong>Database Setup</strong>:<ul>
-<li>Start PostgreSQL service</li>
-<li>Run migrations</li>
-</ul>
-</li>
-<li><strong>Testing</strong>:<ul>
-<li>Run backend tests with coverage</li>
-<li>Run frontend tests with coverage</li>
-<li>Generate coverage reports</li>
-</ul>
-</li>
-<li><strong>Security Scanning</strong>:<ul>
-<li>Run Semgrep security analysis</li>
-<li>Check for vulnerabilities</li>
-</ul>
-</li>
-<li><strong>Deployment</strong> (on push to dev):<ul>
-<li>Deploy to EC2 instance</li>
-<li>Restart services</li>
-</ul>
-</li>
-</ol>
-<h2 id="best-practices">Best Practices</h2>
-<h3 id="code-quality">Code Quality</h3>
-<ol>
-<li><strong>Write Tests First</strong>: Follow TDD principles when possible</li>
-<li><strong>Maintain Coverage</strong>: Aim for 80%+ code coverage</li>
-<li><strong>Test Edge Cases</strong>: Include error handling and boundary conditions</li>
-<li><strong>Use Fixtures</strong>: Reuse test data with pytest fixtures</li>
-<li><strong>Mock External Dependencies</strong>: Isolate unit tests from external services</li>
-</ol>
-<h3 id="git-workflow">Git Workflow</h3>
-<ol>
-<li><strong>Commit Messages</strong>: Use conventional commit format</li>
-</ol>
-<div class="highlight"><pre><span></span><code>feat: add user authentication endpoint
-fix: resolve inventory update bug
-refactor: improve database query performance
-docs: update API documentation
-test: add tests for billing module
-</code></pre></div>
-<ol>
-<li><strong>Branch Naming</strong>: Use descriptive branch names</li>
-</ol>
-<div class="highlight"><pre><span></span><code>feature/add-user-roles
-fix/inventory-calculation-bug
-refactor/database-schema
-</code></pre></div>
-<ol>
-<li><strong>Pull Request</strong>: Include:</li>
-<li>Clear description of changes</li>
-<li>Related issue numbers</li>
-<li>Test results</li>
-<li>Screenshots (for UI changes)</li>
 </ol>
 
 
